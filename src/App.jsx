@@ -1,5 +1,7 @@
 import reactLogo from './assets/react.svg'
-
+import {getProfesores} from './api/profesores'
+import {useEffect,useState} from 'react';
+/*
 import {Button, TextField, IconButton, List, Typography} from '@material-ui/core'
 import DeleteIcon from  '@material-ui/icons/Delete'
 import { Delete } from '@material-ui/icons'
@@ -15,7 +17,7 @@ import Teacher from './info/Teacher'
 import Listas from './components/Listas'
 
 import { useState } from "react"
-
+*/
 
 
 
@@ -33,18 +35,30 @@ const useStyle = makeStyles({
   }
 })
 */
+
+
 function App() {
 
+  const[Profesores,setProfesores]=useState([])
 
+  useEffect(() => {
+    const fetchProfesores= async () => {
+      const profesoresRes = await getProfesores();
+      setData(profesoresRes[0]);
+      
+      setProfesores(profesoresRes);
+    };
+   
+    fetchProfesores();
+    console.log(Profesores);
+   
+  }, []);
 
   return (
     <div>
       
-      {/*
+      <div>Hola</div>
       
-      <Link to="/users">
-             <p>go to users page</p>
-       </Link>  */}
       
 
     </div>
@@ -52,6 +66,24 @@ function App() {
 }
 
 export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 
