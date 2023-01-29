@@ -3,7 +3,7 @@ import axios from "axios"
 import { useEffect,useState } from "react"
 import { useNavigate} from 'react-router-dom'
 import {getProfesores} from '../api/profesores'
-
+import {TablaMaterias} from '../components/TablaMaterias'
 
 
 function Login() {
@@ -84,10 +84,8 @@ function Login() {
             </p>
         </form>
 
-            
-
-{console.log(ok)}
-
+           <TablaMaterias />
+       
     </div>
   )
 }

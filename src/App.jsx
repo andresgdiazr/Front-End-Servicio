@@ -1,6 +1,7 @@
 import reactLogo from './assets/react.svg'
 import {getProfesores} from './api/profesores'
 import {useEffect,useState} from 'react';
+import {TablaMaterias} from './components/TablaMaterias';
 /*
 import {Button, TextField, IconButton, List, Typography} from '@material-ui/core'
 import DeleteIcon from  '@material-ui/icons/Delete'
@@ -44,21 +45,19 @@ function App() {
   useEffect(() => {
     const fetchProfesores= async () => {
       const profesoresRes = await getProfesores();
-      setData(profesoresRes[0]);
+      
       
       setProfesores(profesoresRes);
     };
    
     fetchProfesores();
-    console.log(Profesores);
    
   }, []);
 
   return (
     <div>
       
-      <div>Hola</div>
-      
+      <TablaMaterias datos={Profesores}/>
       
 
     </div>
