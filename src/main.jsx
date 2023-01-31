@@ -7,16 +7,12 @@ import {
 
 import './index.css'
 
-import App from './App'
 import ControlDashboard from './routes/ControlDashboard';
 import Login from './routes/Login';
 import ProfesorDashboard from './routes/ProfesorDashboard';
 import Admin_Profesores from './routes/Admin_Profesores';
-
-
-import PRUEBAS_30_01 from './PRUEBAS_30_01_2023';
-
-
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './temaCoding'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +20,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/dashboard-profesor",
+    path: "/dashboard-profesor", 
     element: <ProfesorDashboard />,
   },
   {
@@ -40,16 +36,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-
-    
-  <RouterProvider router={router}/>
- {
-
- /*
- <PRUEBAS_30_01 />
-<App/>*/
- }
- 
-
+    <ThemeProvider theme={theme} >
+      <RouterProvider router={router}/>
+    </ThemeProvider>
   </React.StrictMode>,
 )

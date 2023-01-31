@@ -1,4 +1,3 @@
-import { CancelScheduleSendSharp } from "@material-ui/icons"
 
 const ESTUDIANTES = [
     {
