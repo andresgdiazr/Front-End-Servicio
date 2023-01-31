@@ -84,8 +84,7 @@ function Login() {
             </p>
         </form>
 
-           <TablaMaterias />
-       
+           
     </div>
   )
 }

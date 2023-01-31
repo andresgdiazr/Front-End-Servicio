@@ -38,10 +38,12 @@ const Navbar = ({names}) =>{
                 
 
                 {
-                    names.map(name => (
-                        <Typography variant="h6" className={classes.menuButton} >{name}</Typography>
-                    ))
+                    names.map(name => {
+                   
+                       return <Typography variant="h6" onClick={name[1]} className={classes.menuButton} >{name[0]}</Typography>
+})
                 }
+
 
                 </Box>
                

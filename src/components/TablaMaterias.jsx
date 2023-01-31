@@ -7,13 +7,12 @@ import {MATERIA} from './columnas'
 
 import '../css/tablas.css'
 
-export function TablaMaterias(datos) {
+export function TablaMaterias({datos}) {
  //   const [data, setData] = useState([]);
-{console.log(datos.datos)}
-{console.log(DATA)}
+{console.log(datos)}
     const columns = useMemo(() => MATERIA);
 
-    const data = useMemo(()=> datos.datos);
+    const data = useMemo(()=> datos);
     
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =    useTable({ columns, data });
 
