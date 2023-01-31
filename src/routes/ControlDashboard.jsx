@@ -6,23 +6,28 @@ function ControlDashboard() {
   
   const navigate = useNavigate();
 
-    const Profesor = () => {
-      navigate('/');
+    const Profesor = (ruta,datos) => {
+      navigate(ruta, {state: datos});
     }
   
+    
+  const navbar = [
+    ["Profesor","/admin/profesores"],
+    ["Seccion","/admin/profesores"],
+    ["Materia","/admin/profesores"]];
 
 
   return (
     <div>
 
-      <Navbar names={[["Profesor",Profesor],["Seccion",Profesor],["Materia",Profesor]]}
-      />
+      <Navbar names={navbar}   />
 
       <h2>Bienvenido administrador Carlos</h2>
       <p> ¿Qué desea hacer?</p>
 
       <div>
-      <button onClick={Profesor}>Administrar Profesores</button>
+      <button onClick={() =>{Profesor("/admin/profesores",navbar)}}
+      >Administrar Profesores</button>
    
       <a>Adminsitrar secciones</a>
       <a>Administrar materias</a>

@@ -1,14 +1,16 @@
 import React from 'react'
 import Navbar from '../components/Navbar';
 import {useEffect, useState} from 'react';
+import {useLocation} from 'react-router-dom'
 
 
-
-function ADMIN_PROFESORES() {
+function ADMIN_PROFESORES({datos}) {
 
     const[data,setData]=useState([]);
 
-    useEffect(() => {
+    const {state} = useLocation();
+
+ /*  useEffect(() => {
         
         const fetchProfesores= async () => {
         
@@ -22,20 +24,17 @@ function ADMIN_PROFESORES() {
       
       }, []);
 
-
+*/
 
   return (
     <div>
-
-   {   // <Navbar names={names} />    
-   }
+      
+      <Navbar names={state}   />
 
    <h2>Administrador de Profesores</h2>
    <h3>Listado de profesores</h3>
-   <div>Recuadro de buscar</div>
    <button>buscar</button>
 
-   {console.log(data)}
    <br></br>
 
     </div>
