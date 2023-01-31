@@ -1,23 +1,43 @@
 import React from 'react'
 import axios from "axios"
-import { useState } from "react"
-import { useNavigate } from 'react-router-dom'
-
+import { useEffect,useState } from "react"
+import { useNavigate} from 'react-router-dom'
+import {getProfesores} from '../api/profesores'
+import {TablaMaterias} from '../components/TablaMaterias'
 
 
 function Login() {
 
-    const [email, setEmail] = useState('')
-    const [invalidCredentials,setInvalidCredentials] = useState(false)
-    const [password, setPassword] = useState('')
-    const navigate = useNavigate()
+
+
+    const [email, setEmail] = useState('');
+    const [invalidCredentials,setInvalidCredentials] = useState(false);
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const[ok,setok]=useState({});
+
+    useEffect(() => {
+      const fetchProfesores= async () => {
+        const profesoresRes = await getProfesores();
+        
+        
+        setok(profesoresRes);
+     
+      };
+     
+      fetchProfesores();
+    
+    }, []);
 
       const handleSubmit = e => {
         e.preventDefault()
         console.log({email,password});
+       
         axios
             .post("http://localhost:3333/login", { email, password })
             .then(response => {
+                console.log(response);
                 if(response.data.userType == 'Administrador') {
                     console.log('hello')
                     navigate('/dashboard-control')
@@ -65,6 +85,8 @@ function Login() {
             <input type="submit" value="Login" />
             </p>
         </form>
+
+           
     </div>
   )
 }

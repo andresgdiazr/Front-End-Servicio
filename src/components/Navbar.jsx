@@ -1,6 +1,8 @@
 import React from 'react'
-import { Box, AppBar, Icon, Toolbar, Typography, makeStyles, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu'
+import { Box, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import {Menu} from '@mui/icons-material'
+
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme =>({
     offset: theme.mixins.toolbar,
@@ -12,51 +14,39 @@ const useStyles = makeStyles(theme =>({
         flexGrow:3,
         display: 'flex',
         alignItems:'center',
-    },
+    },    
 }))
 
 const Navbar = ({names}) =>{
     const classes = useStyles()
-
     return(
         <div>
+            <h1>wow</h1>
           <AppBar position='fixed' color="primary">
-          
             <Toolbar>
-               
                <Box className={classes.endText}>
-
-               
                 <IconButton
                     color="inherit"
                     aria-label="menu"
                     className={classes.menuButton}
                 >
-                    <MenuIcon />
+                    <Menu />
                 </IconButton>
-             
-                
-
                 {
-                    names.map(name => (
-                        <Typography variant="h6" className={classes.menuButton} >{name}</Typography>
-                    ))
+                    names.map( (name,idx ) => {
+                       return <Typography key={idx} variant="h6" className={classes.menuButton} >{name[0]}</Typography>
+                    })
                 }
-
                 </Box>
-               
-
                 <Typography variant="h6" className={classes.menuButton}> 
-                Mi cuenta
+                    Mi cuenta
                 </Typography>
-
                 <Typography variant="h6" >
                     Cerrar Sesión
                 </Typography>
-
             </Toolbar>
           </AppBar>
-          <div ClassName={classes.offset}></div>
+          <div className={classes.offset}></div>
         </div>
     )
 }
