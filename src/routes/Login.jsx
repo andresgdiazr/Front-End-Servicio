@@ -17,17 +17,17 @@ function Login() {
 
     const[ok,setok]=useState({});
 
-  
-
     const handleSubmit = e => {
       e.preventDefault()
       console.log({email,password});
       axios
         .post("http://localhost:3333/login", { email, password })
         .then(response => {
-            console.log(response);
-            if(response.data.userType == 'Administrador') {
-                console.log('hello')
+
+          const token = response.data.token
+
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+          if(response.data.userType == 'Administrador') {
                 navigate('/dashboard-control')
             } else if (response.data.userType == 'Profesor') {
                 navigate('/dashboard-profesor')
