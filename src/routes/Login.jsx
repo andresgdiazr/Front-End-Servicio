@@ -25,7 +25,6 @@ function Login() {
         .then(response => {
 
           const token = response.data.token
-
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
           if(response.data.userType == 'Administrador') {
                 navigate('/dashboard-control')
