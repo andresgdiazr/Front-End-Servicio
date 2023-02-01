@@ -1,16 +1,18 @@
 import React from 'react'
 import { useTable } from 'react-table'
 import { useState, useEffect, useMemo } from 'react';
-import DATA from './DATA.json';
-import {COLUMNS} from './columns';
+
+import {INFO_PROFESOR} from './columnas';
 
 
-import '../css/tablas.css'
 
-export function TablaMaterias({datos}) {
+import '../../css/tablas.css';
+
+
+export function INFO_PROFESORES({datos}) {
  //   const [data, setData] = useState([]);
 {console.log(datos)}
-    const columns = useMemo(() => COLUMNS);
+    const columns = useMemo(() => INFO_PROFESOR);
 
     const data = useMemo(()=> datos);
     
