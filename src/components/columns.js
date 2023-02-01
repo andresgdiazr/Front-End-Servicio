@@ -4,8 +4,8 @@ export const COLUMNS = [
         accessor: 'nombre',
     },
     {
-        Header: 'Año',
-        accessor: 'año',
+        Header: 'Apellido',
+        accessor: 'apellido',
     },
     {
         Header: 'Last Name',
