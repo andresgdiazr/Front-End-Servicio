@@ -9,7 +9,7 @@ function ProfesorDashboard() {
 
   useEffect( () =>{
     axios
-      .get('http://localhost:3333/profesor/materias')
+      .get('/profesor/materias')
       .then( (response) => console.log(response) )
   },[])
 
