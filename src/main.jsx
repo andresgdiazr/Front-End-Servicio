@@ -13,6 +13,11 @@ import ProfesorDashboard from './routes/ProfesorDashboard';
 import Admin_Profesores from './routes/Admin_Profesores';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './temaCoding'
+import axios from 'axios';
+
+
+axios.defaults.baseURL = 'http://localhost:3333'
+
 
 const router = createBrowserRouter([
   {
