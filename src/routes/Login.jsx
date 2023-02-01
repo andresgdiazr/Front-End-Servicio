@@ -17,35 +17,23 @@ function Login() {
 
     const[ok,setok]=useState({});
 
-    useEffect(() => {
-      const fetchProfesores= async () => {
-        const profesoresRes = await getProfesores();
-        
-        
-        setok(profesoresRes);
-     
-      };
-     
-      fetchProfesores();
-    
-    }, []);
+  
 
-      const handleSubmit = e => {
-        e.preventDefault()
-        console.log({email,password});
-       
-        axios
-            .post("http://localhost:3333/login", { email, password })
-            .then(response => {
-                console.log(response);
-                if(response.data.userType == 'Administrador') {
-                    console.log('hello')
-                    navigate('/dashboard-control')
-                } else if (response.data.userType == 'Profesor') {
-                    navigate('/dashboard-profesor')
-                }
-
-            }).catch( (err) => setInvalidCredentials(true))
+    const handleSubmit = e => {
+      e.preventDefault()
+      console.log({email,password});
+      axios
+        .post("http://localhost:3333/login", { email, password })
+        .then(response => {
+            console.log(response);
+            if(response.data.userType == 'Administrador') {
+                console.log('hello')
+                navigate('/dashboard-control')
+            } else if (response.data.userType == 'Profesor') {
+                navigate('/dashboard-profesor')
+            }
+        })
+        .catch( (err) => setInvalidCredentials(true))
     }
 
   return (
