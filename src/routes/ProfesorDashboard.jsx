@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 import Navbar from '../components/Navbar';
+import { Container, Typography } from '@mui/material';
 
 function ProfesorDashboard() {
 
@@ -15,14 +16,18 @@ function ProfesorDashboard() {
 
 
   return (
-    <div>
-      <Navbar names={["Datos","Casos"]} />
 
+      
+      <Container>
+        <Navbar names={["Datos","Casos"]} />
+        <h1>qweqwe</h1>
+        <h1>qweqwe</h1>
+        <h1>qweqwe</h1>
+        <h1>qweqwe</h1>
 
-
-
-
-    </div>    
+        <Typography> Bienvenido Mr pepe </Typography>
+      </Container>
+ 
   )
 }
 
