@@ -6,7 +6,7 @@ import { getProfesores } from '../api/profesores';
 import { INFO_PROFESORES } from '../components/tables/INFO_PROFESORES';
 import axios from 'axios';
 
-function ADMIN_PROFESORES({datos}) {
+function Admin_Profesores({datos}) {
 
     const[data,setData]=useState([]);
     const {state} = useLocation();
@@ -38,12 +38,12 @@ function ADMIN_PROFESORES({datos}) {
       <button>buscar</button>
 
       <br></br>
-
       {console.log(data)}
+      <INFO_PROFESORES datos={data} navbar={state}/> 
       
     </div>
 
   )
 }
 
-export default ADMIN_PROFESORES
+export default Admin_Profesores
