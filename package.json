@@ -7,13 +7,16 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
-  },
+  }, "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.6",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.6",
-    "@mui/styles": "^5.11.7",
     "axios": "^1.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

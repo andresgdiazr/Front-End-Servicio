@@ -1,63 +1,55 @@
 import React from 'react'
 import { Box, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import {Menu} from '@mui/icons-material'
-import { makeStyles } from '@mui/styles';
+import { styled, useTheme } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
 
-const useStyles = makeStyles(theme =>({
-    offset: theme.mixins.toolbar,
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    endText:{
+const MenuButton = styled(Typography)(({ theme }) => ({
+	marginRight: theme.spacing(2),
+}));
 
-        flexGrow:3,
-        display: 'flex',
-        alignItems:'center',
-    },    
-}))
-
-
-
+const Container = styled(Typography)(({ theme }) => ({
+	offset: theme.mixins.toolbar
+}));
 
 const Navbar = ({names}) =>{
-    const classes = useStyles()
     const navigate = useNavigate();
 
     const navegador = (data) => {
         navigate(data, {state: names});
     };
 
-    return(
-        <div>
-        
-          <AppBar position='fixed' color="primary">
-            <Toolbar>
-               <Box className={classes.endText}>
-                <IconButton
-                    color="inherit"
-                    aria-label="menu"
-                    className={classes.menuButton}
-                >
-                    <Menu />
-                </IconButton>
-                {
-                    names.map( (name,idx ) => {
-                       return <Typography key={idx} onClick={() => {navegador(name[1])}} variant="h6" className={classes.menuButton} >{name[0]}</Typography>
-                    })
-                }
-                </Box>
-                <Typography variant="h6" className={classes.menuButton}> 
-                    Mi cuenta
-                </Typography>
-                <Typography variant="h6" >
-                    Cerrar Sesión
-                </Typography>
-            </Toolbar>
-          </AppBar>
-          <div className={classes.offset}></div>
-        </div>
-    )
+    return (
+			<div>
+				<AppBar position="fixed" color="primary">
+					<Toolbar>
+						<Box
+							sx={{ flexGrow: 3, display: "flex", alignItems: "center" }}
+						>
+							<IconButton color="inherit" aria-label="menu" sx={{ spacing: 2 }}>
+								<Menu />
+							</IconButton>
+							{names.map((name, idx) => {
+								return (
+									<MenuButton
+										key={idx}
+										onClick={() => {
+											navegador(name[1]);
+										}}
+										variant="h6"
+									>
+										{name[0]}
+									</MenuButton>
+								);
+							})}
+						</Box>
+						<MenuButton variant="h6">Mi cuenta</MenuButton>
+						<Typography variant="h6">Cerrar Sesión</Typography>
+					</Toolbar>
+				</AppBar>
+				<Container></Container>
+			</div>
+		);
 }
 
 export default Navbar;
