@@ -12,9 +12,11 @@ import Login from './routes/Login';
 import ProfesorDashboard from './routes/ProfesorDashboard';
 import Admin_Profesores from './routes/Admin_Profesores';
 import Profesor_Clases from './routes/Profesor_Clases';
+import Profesor_Modificar from './routes/Profesor_Modificar';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './temaCoding'
 import axios from 'axios';
+import SeccionDashboard from './routes/Seccion/SeccionDashboard';
 
 
 axios.defaults.baseURL = 'http://localhost:3333'
@@ -38,16 +40,23 @@ const router = createBrowserRouter([
     element: <Admin_Profesores />,
   },
   {
-    path:"/admin/profeores/:id/clases",
+    path:"/admin/profesores/:id/clases",
     element: <Profesor_Clases />,
+  },
+  {
+    path:"/admin/profesores/:id/modificar",
+    element: <Profesor_Modificar />
+  },
+  {
+    path:"/admin/secciones",
+    element: <SeccionDashboard />
   }
 ]);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <ThemeProvider theme={theme} >
       <RouterProvider router={router}/>
     </ThemeProvider>
-  </React.StrictMode>,
 )
