@@ -13,7 +13,7 @@ function ControlDashboard() {
     
   const navbar = [
     ["Profesor","/admin/profesores"],
-    ["Seccion","/admin/profesores"],
+    ["Seccion","/admin/secciones"],
     ["Materia","/admin/profesores"]];
 
 
