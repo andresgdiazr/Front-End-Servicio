@@ -25,8 +25,7 @@ const modificar = (id) =>{
 
    useEffect(() => {
       const fetchProfesores= async () => {
-      axios.defaults.headers.common['Authorization'] = "Bearer " + "NjU.6L5VwGevxF-BNvrRFlItcVoKG4SFAwZE1b4RhzxjwyXwyl7ggx37oQZlUNwd";
-       
+     
       const profesoresRes = await getProfesores();
         console.log(profesoresRes);
         setData(profesoresRes);
