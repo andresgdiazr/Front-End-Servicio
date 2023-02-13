@@ -29,22 +29,25 @@ export function INFO_PROFESORES({input,navbar}) {
        const profesoresRes = await getProfesores();
          console.log(profesoresRes);
          setData(profesoresRes);
+
+         const filteredData = datos.filter((el) => {
+            //if no input the return the original
+            if (input === '') {
+                return el;
+            }
+            //return the item which contains the user input
+            else {
+                return el.nombre.toLowerCase().includes(input)
+            }
+        });
+        
        };
     
        fetchProfesores();
     
     }, []);
 
-    const filteredData = datos.filter((el) => {
-        //if no input the return the original
-        if (input === '') {
-            return el;
-        }
-        //return the item which contains the user input
-        else {
-            return el.nombre.toLowerCase().includes(input)
-        }
-    });
+    
     
     
 
