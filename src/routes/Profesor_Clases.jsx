@@ -19,7 +19,6 @@ function Profesor_Clases() {
   useEffect( () =>{
 
     const fetchClases= async () => {
-        axios.defaults.headers.common['Authorization'] = "Bearer " + "NjU.6L5VwGevxF-BNvrRFlItcVoKG4SFAwZE1b4RhzxjwyXwyl7ggx37oQZlUNwd";
         
         const ClasesRes = await getClases(params.id);
         const ProfesoresRes= await getProfesores();

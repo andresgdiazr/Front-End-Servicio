@@ -11,94 +11,94 @@ import '../../css/tablas.css';
 
 export function INFO_PROFESORES({input,navbar}) {
  //   const [data, setData] = useState([]);
+//   const [data, setData] = useState([]);
 
- const[datos,setData]=useState([]);
- const navigate=useNavigate();
- 
- const informacion = (id) =>{
-     navigate(`/admin/profesores/${id}/clases`,{state: navbar})
- }
- const modificar = (id) =>{
-    navigate(`/admin/profesores/${id}/modificar`,{state: navbar})
- }
+const[datos,setData]=useState([]);
+const navigate=useNavigate();
 
-    useEffect(() => {
-       const fetchProfesores= async () => {
-       axios.defaults.headers.common['Authorization'] = "Bearer " + "NjU.6L5VwGevxF-BNvrRFlItcVoKG4SFAwZE1b4RhzxjwyXwyl7ggx37oQZlUNwd";
-        
-       const profesoresRes = await getProfesores();
-         console.log(profesoresRes);
-         setData(profesoresRes);
-       };
-    
-       fetchProfesores();
-    
-    }, []);
+const informacion = (id) =>{
+    navigate(`/admin/profesores/${id}/clases`,{state: navbar})
+}
+const modificar = (id) =>{
+   navigate(`/admin/profesores/${id}/modificar`,{state: navbar})
+}
 
-    const filteredData = datos.filter((el) => {
-        //if no input the return the original
-        if (input === '') {
-            return el;
-        }
-        //return the item which contains the user input
-        else {
-            return el.nombre.toLowerCase().includes(input)
-        }
-    });
-    
-    
-
-    const columns = useMemo(() => INFO_PROFESOR);
-    
-    
-    const data = useMemo(()=>filteredData);
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =    useTable({ columns, data });
+   useEffect(() => {
+      const fetchProfesores= async () => {
+     
+      const profesoresRes = await getProfesores();
+        console.log(profesoresRes);
+        setData(profesoresRes);
+      };
    
-    return (
-        <div className="container">
-        <table {...getTableProps()}>
-            <thead>
-                {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map((column) => (
-                            <th {...column.getHeaderProps()}>
-                                {column.render('Header')}
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-           
-           
-            <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map((cell) => {
+      fetchProfesores();
+   
+   }, []);
 
-                                if(typeof(cell.value)!=="number") return (
-                                    <td {...cell.getCellProps()}>
-                                     {cell.render('Cell')}
-                                    </td>
-                                      
-                                );
-                                else return(
-                                    <td {...cell.getCellProps()}>
-                                          <button onClick={ () => {informacion(cell.value)}}>Enviar</button>
-                                          <button onClick={ () => {modificar(cell.value)}}>Modificar</button>
-                                    </td>
-                                    
-                                )
-                            })}
-                          
-                        </tr>
-                    );
-                })}
-            </tbody>
+   const filteredData = datos.filter((el) => {
+       //if no input the return the original
+       if (input === '') {
+           return el;
+       }
+       //return the item which contains the user input
+       else {
+           return el.nombre.toLowerCase().includes(input)
+       }
+   });
+   
+   
 
-        </table>
-    </div>
-    );
+   const columns = useMemo(() => INFO_PROFESOR);
+   
+   
+   const data = useMemo(()=>filteredData);
+   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =    useTable({ columns, data });
   
+   return (
+       <div className="container">
+       <table {...getTableProps()}>
+           <thead>
+               {headerGroups.map((headerGroup) => (
+                   <tr {...headerGroup.getHeaderGroupProps()}>
+                       {headerGroup.headers.map((column) => (
+                           <th {...column.getHeaderProps()}>
+                               {column.render('Header')}
+                           </th>
+                       ))}
+                   </tr>
+               ))}
+           </thead>
+          
+          
+           <tbody {...getTableBodyProps()}>
+               {rows.map((row) => {
+                   prepareRow(row);
+                   return (
+                       <tr {...row.getRowProps()}>
+                           {row.cells.map((cell) => {
+
+                               if(typeof(cell.value)!=="number") return (
+                                   <td {...cell.getCellProps()}>
+                                    {cell.render('Cell')}
+                                   </td>
+                                     
+                               );
+                               else return(
+                                   <td {...cell.getCellProps()}>
+                                         <button onClick={ () => {informacion(cell.value)}}>Enviar</button>
+                                         <button onClick={ () => {modificar(cell.value)}}>Modificar</button>
+                                   </td>
+                                   
+                               )
+                           })}
+                         
+                       </tr>
+                   );
+               })}
+           </tbody>
+
+       </table>
+   </div>
+   );
+ 
 }

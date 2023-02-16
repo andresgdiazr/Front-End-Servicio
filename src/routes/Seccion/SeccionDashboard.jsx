@@ -1,39 +1,81 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Container, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { Container, Typography} from '@mui/material';
+import { useLocation, useNavigate} from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { getSecciones } from '../../api/secciones';
+import Acordion_Años from '../../components/Acordion/Acordion_Años';
 
 function SeccionDashboard() {
+
+    const navigate=useNavigate();
 
     var item ={
         "año":1,
         "secciones": ['a','b','c','d'],
     }
     const {state} = useLocation();
+    const [años,setAños]=useState([])
     const [secciones,setSecciones] = useState([])
+
+    const handleClick = () =>{
+        navigate('/admin/secciones/crear',{state: state})
+    }
    
+    
     useEffect( () =>{
 
         const fetchClases= async () => {
             
             const ProfesoresRes= await getSecciones();
                 ProfesoresRes.reverse();
-            let numero=0;
-            let objectjson;
-            let band=0;
-                ProfesoresRes.map(it =>{
+          
+
+            const PrimerAño = ProfesoresRes.filter((el) =>{
+                if(el.año === 1){
+                    return el;
+                }
+            } );
+
+            const SegundoAño= ProfesoresRes.filter((el) =>{
+                if(el.año ===2){
+                    return el;
+                }
+            })
+
+            const TerceroAño= ProfesoresRes.filter((el) =>{
+                if(el.año ===3){
+                    return el;
+                }
+            })
+
+            const CuartoAño= ProfesoresRes.filter((el) =>{
+                if(el.año ===4){
+                    return el;
+                }
+            })
+
+            const QuintoAño= ProfesoresRes.filter((el) =>{
+                if(el.año ===5){
+                    return el;
+                }
+            })
+
+            setSecciones([...secciones, PrimerAño,SegundoAño,TerceroAño,CuartoAño,QuintoAño]);
+
+           // setSecciones(TercerAño);
+          //  setSecciones(CuartoAño);
+          //  setSecciones(QuintoAño);
+               /* ProfesoresRes.map(it =>{
                     if(it.año !== numero){
+                        
                         
                         console.log(secciones);
                         if (numero !== 0) {
-                            setSecciones(objectjson);
-                            band=1;
-                        }
-                        if(band ==1){
                             setSecciones(secciones.push(objectjson))
+                        
                         }
+                       
 
                         numero=it.año;
                         objectjson={"año":numero,
@@ -44,7 +86,7 @@ function SeccionDashboard() {
                         objectjson.secciones.push(it.codigo);
                     }
                     
-                })
+                })*/
 
                 
             };
@@ -60,12 +102,14 @@ function SeccionDashboard() {
       
       <Container>
         <Navbar names={state} />
-        <h1>qweqwe</h1>
-        <h1>qweqwe</h1>
-        <h1>qweqwe</h1>
-        <h1>qweqwe</h1>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
 
-        <Typography> Bienvenido Mr pepe </Typography>
+       <Acordion_Años años={secciones}/>
+    
+        <button onClick={handleClick}> Crear Nueva sección</button>
       </Container>
  
   )
