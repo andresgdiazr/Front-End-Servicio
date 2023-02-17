@@ -1,9 +1,10 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import { TextField, Button } from '@mui/material';
 
 export default function SelectAÑo() {
   const [age, setAge] = React.useState('');
@@ -13,21 +14,29 @@ export default function SelectAÑo() {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <FormControl fullWidth mt="100%">
+  <InputLabel id="demo-simple-select-label">Año</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={age}
+    label="age"
+    onChange={handleChange}
+  >
+    <MenuItem value={1}>1</MenuItem>
+    <MenuItem value={2}>2</MenuItem>
+    <MenuItem value={3}>3</MenuItem>
+    <MenuItem value={4}>4</MenuItem>
+    <MenuItem value={5}>5</MenuItem>
+  </Select>
+
+    <br></br>
+  <TextField id="outlined-basic" label="Sección" variant="outlined" />
+    <br></br>
+  <Button  size="large" variant="contained" color="success">
+                  Confirmar
+                </Button>
+
+</FormControl>
   );
 }
