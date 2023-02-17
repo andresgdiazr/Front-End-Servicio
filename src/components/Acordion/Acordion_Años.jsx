@@ -4,8 +4,14 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+
 
 export default function Acordion_Años({años}) {
+
+    const navigate=useNavigate();
+
   return (
     <div>
         {console.log(años)}
@@ -28,12 +34,18 @@ export default function Acordion_Años({años}) {
                 <AccordionDetails>
                  {
                     el.map( seccion =>(
-                        <Typography>
+                        <Button onClick={ () => { 
+                            navigate(`/admin/secciones/${seccion.id}`)
+                    
+                        }}>
                             {`Sección: ${seccion.codigo}`}
-                            </Typography>
+                        </Button>
+                        
                     ))
                     }
                 
+             
+
              </AccordionDetails>
             </Accordion>
             );})

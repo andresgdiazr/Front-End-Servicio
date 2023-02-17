@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Container, Typography} from '@mui/material';
+import { Container, Typography,Button} from '@mui/material';
 import { useLocation, useNavigate} from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import { getSecciones } from '../../api/secciones';
@@ -109,7 +109,7 @@ function SeccionDashboard() {
 
        <Acordion_Años años={secciones}/>
     
-        <button onClick={handleClick}> Crear Nueva sección</button>
+        <Button onClick={handleClick}> Crear Nueva sección</Button>
       </Container>
  
   )

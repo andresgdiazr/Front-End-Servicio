@@ -5,11 +5,12 @@ import { useLocation } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import SelectAÑo from '../../components/select/SelectAño';
 
-function Seccion_Crear(){
-    const {state}=useLocation();
+function Seccion_Detalles(){
+    
+
     return(
         <div>
-                <Navbar names={state}/>
+              >
         
             <br></br>
             <br></br>
@@ -18,15 +19,18 @@ function Seccion_Crear(){
             <br></br>
             <br></br>
 
+    
+
                 <Typography>Crear sección</Typography>
                 
                
-                
-        <SelectAÑo />
+             <Typography>
+                DETALLESS
+             </Typography>
 
         </div>
     );
 };
 
-export default Seccion_Crear;
+export default Seccion_Detalles;
 

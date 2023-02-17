@@ -17,8 +17,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './temaCoding'
 import axios from 'axios';
 import SeccionDashboard from './routes/Seccion/SeccionDashboard';
-import Seccion_Crear from './routes/Seccion/Seccion_Crear';
-
+import Seccion_Crear from './routes/Seccion/Seccion_Crear'
+import Seccion_Detalles from './routes/Seccion/Seccion_Detalles';
 
 axios.defaults.baseURL = 'http://localhost:3333'
 
@@ -53,8 +53,12 @@ const router = createBrowserRouter([
     element: <SeccionDashboard />
   },
   {
-    path:"admin/secciones/crear",
+    path:"/admin/secciones/crear",
     element: <Seccion_Crear />
+  },
+  {
+    path:"/admin/secciones/:id",
+    element: <Seccion_Detalles />
   }
 ]);
 
