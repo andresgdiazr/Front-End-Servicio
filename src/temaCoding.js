@@ -1,14 +1,12 @@
-import {createMuiTheme} from '@material-ui/core/styles'
-import  purple from '@material-ui/core/colors/purple' 
-import lightGreen  from '@material-ui/core/colors/lightGreen'
-import { lightBlue } from '@material-ui/core/colors';
+import { createTheme } from '@mui/material/styles';
+import { purple, lightBlue } from '@mui/material/colors';
 
-const theme = createMuiTheme({
-    palette:{
-        primary:{
+const theme = createTheme({
+    palette: {
+        primary: {
             main: lightBlue[900]
         },
-        secondary:{
+        secondary: {
             main: purple[900]
         }
     }

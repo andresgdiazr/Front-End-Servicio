@@ -1,64 +1,61 @@
-import React from 'react'
-import { Box, AppBar, Icon, Toolbar, Typography, makeStyles, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu'
+import React from "react";
+import {
+	Box,
+	AppBar,
+	Toolbar,
+	Typography,
+	IconButton,
+	styled,
+} from "@mui/material";
 
-const useStyles = makeStyles(theme =>({
-    offset: theme.mixins.toolbar,
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    endText:{
+import MenuIcon from "@mui/icons-material/Menu";
 
-        flexGrow:3,
-        display: 'flex',
-        alignItems:'center',
-    },
-}))
+import { useNavigate } from "react-router-dom";
 
-const Navbar = ({names}) =>{
-    const classes = useStyles()
+const MenuButton = styled(Typography)(({ theme }) => ({
+	marginRight: theme.spacing(2),
+}));
 
-    return(
-        <div>
-          <AppBar position='fixed' color="primary">
-          
-            <Toolbar>
-               
-               <Box className={classes.endText}>
+const Container = styled(Typography)(({ theme }) => ({
+	offset: theme.mixins.toolbar,
+}));
 
-               
-                <IconButton
-                    color="inherit"
-                    aria-label="menu"
-                    className={classes.menuButton}
-                >
-                    <MenuIcon />
-                </IconButton>
-             
-                
+const Navbar = ({ names }) => {
+	const navigate = useNavigate();
 
-                {
-                    names.map(name => (
-                        <Typography variant="h6" className={classes.menuButton} >{name}</Typography>
-                    ))
-                }
+	const navegador = (data) => {
+		navigate(data, { state: names });
+	};
 
-                </Box>
-               
-
-                <Typography variant="h6" className={classes.menuButton}> 
-                Mi cuenta
-                </Typography>
-
-                <Typography variant="h6" >
-                    Cerrar Sesión
-                </Typography>
-
-            </Toolbar>
-          </AppBar>
-          <div ClassName={classes.offset}></div>
-        </div>
-    )
-}
+	return (
+		<div>
+			<AppBar position="fixed" color="primary">
+				<Toolbar>
+					<Box sx={{ flexGrow: 3, display: "flex", alignItems: "center" }}>
+						<IconButton color="inherit" aria-label="menu" sx={{ spacing: 2 }}>
+							<MenuIcon />
+						</IconButton>
+						{names.map((name, idx) => {
+							return (
+								<MenuButton
+									key={idx}
+									onClick={() => {
+										navegador(name[1]);
+									}}
+									variant="h6"
+								>
+									{name[0]}
+								</MenuButton>
+							);
+						})}
+					</Box>
+					<MenuButton variant="h6">Mi cuenta</MenuButton>
+					<Typography variant="h6">Cerrar Sesión</Typography>
+				</Toolbar>
+			</AppBar>
+			<Container></Container>
+		</div>
+	);
+};
 
 export default Navbar;
