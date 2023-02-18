@@ -11,5 +11,4 @@ export const COLUMNS = [
         Header: 'Last Name',
         accessor: 'seccion_id',
     }
- 
 ];

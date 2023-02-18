@@ -1,16 +1,14 @@
 import React from 'react'
-import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import { useLocation } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import SelectAÑo from '../../components/select/SelectAño';
+import SelectAño from '../../components/Select/SelectAño';
 
-function Seccion_Detalles(){
-    
-
+function SeccionCrear(){
+    const {state}=useLocation();
     return(
         <div>
-              >
+                <Navbar names={state}/>
         
             <br></br>
             <br></br>
@@ -19,18 +17,15 @@ function Seccion_Detalles(){
             <br></br>
             <br></br>
 
-    
-
                 <Typography>Crear sección</Typography>
                 
                
-             <Typography>
-                DETALLESS
-             </Typography>
+                
+        <SelectAño />
 
         </div>
     );
 };
 
-export default Seccion_Detalles;
+export default SeccionCrear;
 
