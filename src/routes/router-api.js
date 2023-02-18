@@ -1,20 +1,20 @@
 import {
-    createBrowserRouter
-  } from "react-router-dom";
+  createBrowserRouter
+} from "react-router-dom";
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Login />,
-    },
-    {
-      path: "/dashboard-profesor",
-      element: <ProfesorDashboard />,
-    },
-    {
-      path: "/dashboard-control",
-      element: <ControlDashboard />,
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard-profesor",
+    element: <ProfesorDashboard />,
+  },
+  {
+    path: "/dashboard-control",
+    element: <ControlDashboard />,
+  },
+]);
 
-  export default router;
+export default router;
