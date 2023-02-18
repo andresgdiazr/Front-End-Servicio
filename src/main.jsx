@@ -16,13 +16,15 @@ import axios from "axios";
 import SeccionDashboard from "./routes/Seccion/SeccionDashboard";
 import SeccionCrear from "./routes/Seccion/SeccionCrear";
 import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
+import PaginaError from "./routes/PaginaError";
 
 axios.defaults.baseURL = "http://localhost:3333";
-
+ 
 const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <Login />,
+		errorElement: <PaginaError />,
 	},
 	{
 		path: "/dashboard-profesor",
