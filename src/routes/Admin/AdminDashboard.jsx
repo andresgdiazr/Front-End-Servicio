@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
-function ControlDashboard() {
+function AdminDashboard() {
 	const navigate = useNavigate();
 
 	const Profesor = (ruta, datos) => {
@@ -16,7 +16,7 @@ function ControlDashboard() {
 	];
 
 	return (
-		<div>
+		<Container>
 			<Navbar names={navbar} />
 
 			<h2>Bienvenido administrador Carlos</h2>
@@ -43,8 +43,8 @@ function ControlDashboard() {
 			<br></br>
 
 			<a>Crear cuenta</a>
-		</div>
+		</Container>
 	);
 }
 
-export default ControlDashboard;
+export default AdminDashboard;

@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { INFO_PROFESORES } from "../components/Tables/INFO_PROFESORES";
+import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
+import Navbar from "../../components/Navbar";
+import { INFO_PROFESORES } from "../../components/Tables/INFO_PROFESORES";
 
 function AdminProfesores({ datos }) {
 	const { state } = useLocation();

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { Container, Typography } from "@mui/material";
-import { getClases } from "../api/profesores_clases";
 import { useLocation } from "react-router-dom";
-import { INFO_CLASES } from "../components/Tables/INFO_CLASES";
-import { getProfesores } from "../api/profesores";
+import Navbar from "../../components/Navbar";
+import { getClases } from "../../api/profesores_clases";
+import { INFO_CLASES } from "../../components/Tables/INFO_CLASES";
+import { getProfesores } from "../../api/profesores";
 
 function ProfesorClases() {
 	const [clases, setClase] = useState([]);
