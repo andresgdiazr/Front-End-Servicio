@@ -19,7 +19,6 @@ function ProfesorModificar() {
 
 	return (
 		<Container>
-			<Navbar names={state} />
 			<h4>Volver</h4>
 			<h2>Administración de profesores</h2>
 			<h3>Modificando cuenta</h3>

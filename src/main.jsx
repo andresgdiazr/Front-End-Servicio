@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 
 import Login from "./routes/Login";
+import AdminLayout from "./routes/Admin/AdminLayout";
 import AdminDashboard from "./routes/Admin/AdminDashboard";
 import AdminProfesores from "./routes/Admin/AdminProfesores";
 import ProfesorClases from "./routes/Admin/ProfesorClases";
@@ -28,8 +29,12 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/admin",
-		element: <AdminDashboard />,
+		element: <AdminLayout />,
 		children: [
+			{
+				path: "",
+				element: <AdminDashboard />
+			},
 			{
 				path: "profesores",
 				element: <AdminProfesores />,

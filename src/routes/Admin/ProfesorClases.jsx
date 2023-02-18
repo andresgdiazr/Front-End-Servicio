@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { getClases } from "../../api/profesores_clases";
@@ -26,9 +26,7 @@ function ProfesorClases() {
 	}, []);
 
 	return (
-		<Container>
-			<Navbar names={state} />
-
+		<>
 			<h1>Administración de profesores</h1>
 
 			<Typography>
@@ -45,7 +43,7 @@ function ProfesorClases() {
 			<br></br>
 
 			<h3>Añadir clase</h3>
-		</Container>
+		</>
 	);
 }
 
