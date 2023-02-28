@@ -16,15 +16,25 @@ import {
   ExpandMore as ExpandMore,
   ExpandLess as ExpandLess,
 }  from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
-const SeccionItem =  ( {seccion} ) => {
+const token = "MTM.4FirW3vWnBGfI-gRyexXnapw9M-KY_Y5qDr-3uSd7mdVAbWDcX7XevnQVcEI"
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+
+const SeccionItem =  ( {clase,materia} ) => {
+  const navigate =  useNavigate()
+
+  const handleOnClick = ()=>{
+    navigate('/one',{state:{ materia:  materia }})
+  }
+
   return (
     <Box pl={4}>
-      <ListItemButton  >
+      <ListItemButton onClick={handleOnClick}  >
         <Link to={'/dashboard-profesor/clases/evaluacion'} > </Link>
-        <ListItemText primary={ ` Seccion ${seccion.codigo}  ` } />
+        <ListItemText primary={ ` Seccion ${clase.seccion.codigo}  ` } />
       </ListItemButton>
     </Box>
   )
@@ -50,7 +60,7 @@ const MateriaItem = ({materia}) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {
-            clases.map( clase => <SeccionItem key={clase.seccion.id} seccion={clase.seccion} /> ) 
+            clases.map( clase => <SeccionItem key={clase.seccion.id} materia={materia} clase={clase} /> ) 
           }
         </List>
       </Collapse>
