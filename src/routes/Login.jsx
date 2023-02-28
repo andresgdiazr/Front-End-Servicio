@@ -1,81 +1,68 @@
-import React from 'react'
-import axios from "axios"
-import { useEffect,useState } from "react"
-import { useNavigate} from 'react-router-dom'
-import {getProfesores} from '../api/profesores'
-import {TablaMaterias} from '../components/TablaMaterias'
-
+import React from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+	const [email, setEmail] = useState("");
+	const [invalidCredentials, setInvalidCredentials] = useState(false);
+	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
+	const [ok, setok] = useState({});
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log({ email, password });
+		axios
+			.post("http://localhost:3333/login", { email, password })
+			.then((response) => {
+				const token = response.data.token;
 
-    const [email, setEmail] = useState('');
-    const [invalidCredentials,setInvalidCredentials] = useState(false);
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+				axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    const[ok,setok]=useState({});
+				if (response.data.userType == "Administrador") {
+					navigate("/dashboard-control");
+				} else if (response.data.userType == "Profesor") {
+					navigate("/dashboard-profesor");
+				}
+			})
+			.catch((err) => setInvalidCredentials(true));
+	};
 
-    const handleSubmit = e => {
-      e.preventDefault()
-      console.log({email,password});
-      axios
-        .post("http://localhost:3333/login", { email, password })
-        .then(response => {
+	return (
+		<div>
+			<form action="" id="login" method="post" onSubmit={handleSubmit}>
+				<h1>Login</h1>
 
-          const token = response.data.token
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-          if(response.data.userType == 'Administrador') {
-                navigate('/dashboard-control')
-            } else if (response.data.userType == 'Profesor') {
-                navigate('/dashboard-profesor')
-            }
-        })
-        .catch( (err) => setInvalidCredentials(true))
-    }
+				{invalidCredentials && <p>invalidad credentials</p>}
 
-  return (
-    <div>
-        <form action="" id="login" method="post" onSubmit={handleSubmit}>
-
-
-
-            <h1>Login</h1>
-
-            {
-                invalidCredentials && <p>invalidad credentials</p>
-            }
-            
-
-            <p className="item">
-            <label htmlFor="email"> Email </label>
-            <input
-                // type="email"
-                name="email"
-                id="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-            />
-            </p>
-            <p className="item">
-            <label htmlFor="password"> Password </label>
-            <input
-                type="password"
-                name="password"
-                id="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            />
-            </p>
-            <p className="item">
-            <input type="submit" value="Login" />
-            </p>
-        </form>
-
-           
-    </div>
-  )
+				<p className="item">
+					<label htmlFor="email"> Email </label>
+					<input
+						// type="email"
+						name="email"
+						id="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</p>
+				<p className="item">
+					<label htmlFor="password"> Password </label>
+					<input
+						type="password"
+						name="password"
+						id="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+				</p>
+				<p className="item">
+					<input type="submit" value="Login" />
+				</p>
+			</form>
+		</div>
+	);
 }
 
-export default Login
+export default Login;

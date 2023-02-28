@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTable } from 'react-table'
 import { useState, useEffect, useMemo } from 'react';
-import DATA from './DATA.json';
 import {COLUMNS} from './columns';
 
 

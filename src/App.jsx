@@ -1,25 +1,22 @@
-import reactLogo from './assets/react.svg'
-import {getProfesores} from './api/profesores'
-import {useEffect,useState} from 'react';
-import {TablaMaterias} from './components/TablaMaterias';
+import { getProfesores } from "./api/profesores";
+import { useEffect, useState } from "react";
+import { TablaMaterias } from "./components/TablaMaterias";
 
 function App() {
-  const[Profesores,setProfesores]=useState([])
+	const [Profesores, setProfesores] = useState([]);
 
-  useEffect(() => {
-    const fetchProfesores= async () => {
-      const profesoresRes = await getProfesores();
-      setProfesores(profesoresRes);
-    };
-    fetchProfesores();
-  }, []);
+	useEffect(() => {
+		const fetchProfesores = async () => {
+			const profesoresRes = await getProfesores();
+			setProfesores(profesoresRes);
+		};
+		fetchProfesores();
+	}, []);
 
-  return (
-    <div>
-      <TablaMaterias datos={Profesores}/>
-    </div>
-  )
+	return (
+		<div>
+			<TablaMaterias datos={Profesores} />
+		</div>
+	);
 }
-export default App
-
-
+export default App;

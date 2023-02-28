@@ -1,4 +1,3 @@
-
 const ESTUDIANTES = [
     {
         Header: 'Nombres',
@@ -6,123 +5,123 @@ const ESTUDIANTES = [
     },
     {
         Header: 'Apellidos',
-        accesor:'apellido',
+        accesor: 'apellido',
     },
     {
-        Header:'Correo',
-        accesor:'correo'
+        Header: 'Correo',
+        accesor: 'correo'
     },
     {
-        Header:'Notas',
-        accesor:'nota'
+        Header: 'Notas',
+        accesor: 'nota'
     }
 ];
 
-const ESTUDIANTES_1=[
+const ESTUDIANTES_1 = [
     {
-        Header:'Nombre',
-        accesor:'nombre',
+        Header: 'Nombre',
+        accesor: 'nombre',
     },
     {
-        Header:'Apellido',
-        accesor:'apellido',
+        Header: 'Apellido',
+        accesor: 'apellido',
     },
     {
-        Header:'Acción',
-        accesor:'acción'
+        Header: 'Acción',
+        accesor: 'acción'
     }
 
 ];
 
-const ESTUDIANTE_3=[
+const ESTUDIANTE_3 = [
     {
-        Header:'Nombre',
-        accesor:'nombre',
+        Header: 'Nombre',
+        accesor: 'nombre',
     },
     {
-        Header:'Apellido',
-        accesor:'apellido',
+        Header: 'Apellido',
+        accesor: 'apellido',
     },
     {
-        Header:'Cedula',
-        accesor:'cedula',
+        Header: 'Cedula',
+        accesor: 'cedula',
     },
     {
-        Header:'Nota',
-        accesor:'nota',
+        Header: 'Nota',
+        accesor: 'nota',
     }
-    
+
 ];
 
-const ESTUDIANTE_4=[
+const ESTUDIANTE_4 = [
     {
-        Header:'Nombre',
-        accesor:'nombre',
+        Header: 'Nombre',
+        accesor: 'nombre',
     },
     {
-        Header:'Apellido',
-        accesor:'apellido',
+        Header: 'Apellido',
+        accesor: 'apellido',
     },
     {
-        Header:'Cedula',
-        accesor:'cedula',
+        Header: 'Cedula',
+        accesor: 'cedula',
     },
     {
-        Header:'Nota',
-        accesor:'nota',
+        Header: 'Nota',
+        accesor: 'nota',
     },
     {
-        Header:'Puntos extra',
-        accesor:'puntos'
+        Header: 'Puntos extra',
+        accesor: 'puntos'
     }
-    
+
 ];
 
 const EVALUACION = [
     {
-        Header:'Evaluacion',
-        accesor:'descripcion',
+        Header: 'Evaluacion',
+        accesor: 'descripcion',
     },
     {
-        Header:'Ponderacion',
-        accesor:'ponderacion',
+        Header: 'Ponderacion',
+        accesor: 'ponderacion',
     }
 ];
 
 const EVALUACION_1 = [
     {
-        Header:'Evaluacion',
-        accesor:'descripcion',
+        Header: 'Evaluacion',
+        accesor: 'descripcion',
     },
     {
-        Header:'Accion',
-        accesor:'accion',
+        Header: 'Accion',
+        accesor: 'accion',
     }
 ];
 
 const EVALUACION_2 = [
     {
-        Header:'Evaluacion',
-        accesor:'descripcion',
+        Header: 'Evaluacion',
+        accesor: 'descripcion',
     },
     {
-        Header:'Ponderacion',
-        accesor:'ponderacion',
+        Header: 'Ponderacion',
+        accesor: 'ponderacion',
     },
     {
-        Header:'Accion',
-        accesor:'accion',
+        Header: 'Accion',
+        accesor: 'accion',
     }
 ];
 
 const LAPSO = [
     {
-        Header:'Lapso',
-        accesor:'lapso',
+        Header: 'Lapso',
+        accesor: 'lapso',
     },
     {
-        Header:'Acción',
-        accesor:'accion',
+        Header: 'Acción',
+        accesor: 'accion',
     }
 ];
 
@@ -133,34 +132,33 @@ const PROFESOR = [
     },
     {
         Header: 'Apellidos',
-        accesor:'apellido',
+        accesor: 'apellido',
     },
     {
-        Header:'Correo',
-        accesor:'correo'
+        Header: 'Correo',
+        accesor: 'correo'
     },
     {
-        Header:'Acción',
-        accesor:'accion'
+        Header: 'Acción',
+        accesor: 'accion'
     }
 ];
 
-export const MATERIA=[
+export const MATERIA = [
     {
-        Header:'Materia',
+        Header: 'Materia',
         accessor: 'nombre',
     },
     {
-        Header:"Año",
+        Header: "Año",
         accessor: 'año',
     },
     {
-        Header:"Seccion",
-        accesor:"seccion_id"
+        Header: "Seccion",
+        accesor: "seccion_id"
     },
     {
-        Header:"Accion",
-        accesor:"acción"
+        Header: "Accion",
+        accesor: "acción"
     }
-
 ];
