@@ -17,6 +17,10 @@ import SeccionDashboard from "./routes/Seccion/SeccionDashboard";
 import SeccionCrear from "./routes/Seccion/SeccionCrear";
 import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
 import PaginaError from "./routes/PaginaError";
+import Clase from "./routes/Profesor/Clase";
+
+import ProfesorLayout from "./components/layouts/ProfesorLayout";
+import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 
 axios.defaults.baseURL = "http://localhost:3333";
  
@@ -28,7 +32,13 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/dashboard-profesor",
-		element: <ProfesorDashboard />,
+		element: <ProfesorLayout />,
+		children: [
+			{ index:true, element: <ProfesorDashboard />},
+			{ path:"clases/:id", element: <Clase />},
+			{ path:"clases/:id/evaluaciones/:lapso", element: <ClaseEvaluaciones />},
+
+		]
 	},
 	{
 		path: "/dashboard-control",
@@ -57,7 +67,7 @@ const router = createBrowserRouter([
 	{
 		path: "/admin/secciones/:id",
 		element: <SeccionDetalles />,
-	},
+	}
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
