@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
 
 const token =
-  "MTM.4FirW3vWnBGfI-gRyexXnapw9M-KY_Y5qDr-3uSd7mdVAbWDcX7XevnQVcEI";
+  "MQ.ucAVxFMQoK6-MWQmYvDLTb2cziLUD_p4E9HtqHbCeNRSYt8kKhOHL-eqkJNJ";
 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 function ProfesorLayout() {

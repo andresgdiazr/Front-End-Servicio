@@ -21,6 +21,7 @@ import Clase from "./routes/Profesor/Clase";
 
 import ProfesorLayout from "./components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
+import Notas from "./routes/Profesor/Notas";
 
 axios.defaults.baseURL = "http://localhost:3333";
  
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
 			{ index:true, element: <ProfesorDashboard />},
 			{ path:"clases/:id", element: <Clase />},
 			{ path:"clases/:id/evaluaciones/:lapso", element: <ClaseEvaluaciones />},
+			{ path:"clases/:id/evaluaciones/:evaluacionId/notas", element: <Notas />},
+
 
 		]
 	},

@@ -2,12 +2,12 @@ import { css } from "@emotion/react";
 import { Upload } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTable } from "react-table";
 
+function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
+  const navigate = useNavigate();
 
-
-
-function ProfesorEvaluaciones({lapso,data}) {
   const columns = useMemo(
     () => [
       { Header: "Evaluacion", accessor: "evaluacion" },
@@ -16,11 +16,7 @@ function ProfesorEvaluaciones({lapso,data}) {
     []
   );
 
-  const memoData = useMemo(
-    () => data,
-    [data]
-    );
-    
+  const memoData = useMemo(() => data, [data]);
 
   const tableInstance = useTable({
     columns,
@@ -36,14 +32,18 @@ function ProfesorEvaluaciones({lapso,data}) {
       css={css`
         width: 50%;
         margin: 1rem auto;
-        h2 {font-size: 1.6rem; margin-bottom:1rem}
+        h2 {
+          font-size: 1.6rem;
+          margin-bottom: 1rem;
+        }
       `}
     >
-      <Typography variant="h2" >Plan de evaluacion para Lapso {lapso} </Typography>
-      
+      <Typography variant="h2">
+        Plan de evaluacion para Lapso {lapso}{" "}
+      </Typography>
+
       <table
         css={css`
-
           td,
           th {
             text-align: center;
@@ -86,13 +86,26 @@ function ProfesorEvaluaciones({lapso,data}) {
                       // Apply the cell props
                       return (
                         <td {...cell.getCellProps()}>
-                          { 
-                            cell.value ? 
-                            cell.render("Cell") : 
-                            <a>
+                          {cell.value ? (
+                            cell.render("Cell")
+                          ) : (
+                            <a
+                              onClick={() =>
+                                navigate(
+                                  `/dashboard-profesor/clases/${clase.id}/evaluaciones/${cell.row.original.fulldata.id}/notas`,
+                                  {
+                                    state: {
+                                      clase,
+                                      materia,
+                                      evaluacion: cell.row.original.fulldata,
+                                    },
+                                  }
+                                )
+                              }
+                            >
                               <Upload />
                             </a>
-                          }
+                          )}
                         </td>
                       );
                     })

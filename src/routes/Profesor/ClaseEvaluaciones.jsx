@@ -9,25 +9,34 @@ function ClaseEvaluaciones() {
   const [evaluaciones, setEvaluaciones] = useState([]);
 
   const {
-    state: { materia,clase },
+    state: { materia, clase },
   } = useLocation();
 
-  const {lapso} = useParams()
-
-
+  const { lapso } = useParams();
 
   useEffect(() => {
     axios
       .get(`/profesor/materias/${materia.id}/evaluaciones/lapsos/${lapso}`)
-      .then((response) => setEvaluaciones(response.data) || console.log(response) )
+      .then(
+        (response) => setEvaluaciones(response.data) || console.log(response)
+      )
       .catch((err) => null);
   }, []);
 
   return (
     <div>
       <GoBackButton to="prev" />
-      <ClaseInfo materia={materia.nombre} año={materia.año} seccion={clase.seccion.codigo} />
-      <ProfesorEvaluacionesTable lapso={lapso} data={evaluaciones.map( e => ({ evaluacion: e.titulo}) )} />
+      <ClaseInfo
+        materia={materia.nombre}
+        año={materia.año}
+        seccion={clase.seccion.codigo}
+      />
+      <ProfesorEvaluacionesTable
+        lapso={lapso}
+        materia={materia}
+        clase={clase}
+        data={evaluaciones.map((e) => ({ evaluacion: e.titulo, fulldata: e }))}
+      />
     </div>
   );
 }
