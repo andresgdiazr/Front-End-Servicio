@@ -24,12 +24,10 @@ const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-
-
     navigate(`/dashboard-profesor/clases/${clase.id}`, {
       state: {
         materia: materia,
-        clase: clase
+        clase: clase,
       },
     });
   };

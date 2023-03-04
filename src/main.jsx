@@ -22,54 +22,59 @@ import Clase from "./routes/Profesor/Clase";
 import ProfesorLayout from "./components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
+import AuthComponent from "./components/AuthComponent";
 
 axios.defaults.baseURL = "http://164.90.211.190";
- 
+
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <Login />,
-		errorElement: <PaginaError />,
-	},
-	{
-		path: "/dashboard-profesor",
-		element: <ProfesorLayout />,
-		children: [
-			{ index:true, element: <ProfesorDashboard />},
-			{ path:"clases/:id", element: <Clase />},
-			{ path:"clases/:id/evaluaciones/:lapso", element: <ClaseEvaluaciones />},
-			{ path:"clases/:id/evaluaciones/:evaluacionId/notas", element: <Notas />},
-
-
+		path:'/',
+		element: <AuthComponent />,
+		children:[
+			{
+				path: "/login",
+				element: <Login />,
+				errorElement: <PaginaError />,
+			},
+			{
+				path: "/dashboard-profesor",
+				element: <ProfesorLayout />,
+				children: [
+					{ index:true, element: <ProfesorDashboard />},
+					{ path:"clases/:id", element: <Clase />},
+					{ path:"clases/:id/evaluaciones/:lapso", element: <ClaseEvaluaciones />},
+					{ path:"clases/:id/evaluaciones/:evaluacionId/notas", element: <Notas />}
+				]
+			},
+			{
+				path: "/dashboard-control",
+				element: <ControlDashboard />,
+			},
+			{
+				path: "/admin/profesores",
+				element: <AdminProfesores />,
+			},
+			{
+				path: "/admin/profesores/:id/clases",
+				element: <ProfesorClases />,
+			},
+			{
+				path: "/admin/profesores/:id/modificar",
+				element: <Profesor_Modificar />,
+			},
+			{
+				path: "/admin/secciones",
+				element: <SeccionDashboard />,
+			},
+			{
+				path: "/admin/secciones/crear",
+				element: <SeccionCrear />,
+			},
+			{
+				path: "/admin/secciones/:id",
+				element: <SeccionDetalles />,
+			}
 		]
-	},
-	{
-		path: "/dashboard-control",
-		element: <ControlDashboard />,
-	},
-	{
-		path: "/admin/profesores",
-		element: <AdminProfesores />,
-	},
-	{
-		path: "/admin/profesores/:id/clases",
-		element: <ProfesorClases />,
-	},
-	{
-		path: "/admin/profesores/:id/modificar",
-		element: <Profesor_Modificar />,
-	},
-	{
-		path: "/admin/secciones",
-		element: <SeccionDashboard />,
-	},
-	{
-		path: "/admin/secciones/crear",
-		element: <SeccionCrear />,
-	},
-	{
-		path: "/admin/secciones/:id",
-		element: <SeccionDetalles />,
 	}
 ]);
 
