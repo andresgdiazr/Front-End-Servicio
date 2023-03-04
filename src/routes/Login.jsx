@@ -9,8 +9,6 @@ function Login() {
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 
-	const [ok, setok] = useState({});
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log({ email, password });
@@ -19,6 +17,10 @@ function Login() {
 			.then((response) => {
 				const token = response.data.token;
 
+				sessionStorage.setItem('token',token)
+				sessionStorage.setItem('user-type',response.data.userType)
+
+				
 				axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 				if (response.data.userType == "Administrador") {
@@ -26,6 +28,7 @@ function Login() {
 				} else if (response.data.userType == "Profesor") {
 					navigate("/dashboard-profesor");
 				}
+
 			})
 			.catch((err) => setInvalidCredentials(true));
 	};
