@@ -15,7 +15,7 @@ function Login() {
 		e.preventDefault();
 		console.log({ email, password });
 		axios
-			.post("http://localhost:3333/login", { email, password })
+			.post("/login", { email, password })
 			.then((response) => {
 				const token = response.data.token;
 
