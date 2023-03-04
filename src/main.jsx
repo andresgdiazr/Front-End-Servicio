@@ -23,7 +23,7 @@ import ProfesorLayout from "./components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
 
-axios.defaults.baseURL = "http://localhost:3333";
+axios.defaults.baseURL = "http://164.90.211.190";
  
 const router = createBrowserRouter([
 	{

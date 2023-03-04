@@ -38,7 +38,7 @@ function Notas() {
       />
 
       <NotasTable
-        refetch={ fetchNotas() }
+        refetch={ () => fetchNotas() }
         info={{evaluacion,clase,materia}}
         data={notas.map((n) => ({
           estudianteId: n.estudianteId,
