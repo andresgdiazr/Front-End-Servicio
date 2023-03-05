@@ -2,67 +2,124 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { css } from "@emotion/react";
+
+import LogoImg from "../assets/logo.jpeg";
+import { Button, TextField, Typography } from "@mui/material";
 
 function Login() {
-	const [email, setEmail] = useState("");
-	const [invalidCredentials, setInvalidCredentials] = useState(false);
-	const [password, setPassword] = useState("");
-	const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-	const [ok, setok] = useState({});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ email, password });
+    axios
+      .post("/login", { email, password })
+      .then((response) => {
+        const token = response.data.token;
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log({ email, password });
-		axios
-			.post("/login", { email, password })
-			.then((response) => {
-				const token = response.data.token;
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user-type", response.data.userType);
 
-				axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-				if (response.data.userType == "Administrador") {
-					navigate("/dashboard-control");
-				} else if (response.data.userType == "Profesor") {
-					navigate("/dashboard-profesor");
-				}
-			})
-			.catch((err) => setInvalidCredentials(true));
-	};
+        if (response.data.userType == "Administrador") {
+          navigate("/dashboard-control");
+        } else if (response.data.userType == "Profesor") {
+          navigate("/dashboard-profesor");
+        }
+      })
+      .catch((err) => setInvalidCredentials(true));
+  };
 
-	return (
-		<div>
-			<form action="" id="login" method="post" onSubmit={handleSubmit}>
-				<h1>Login</h1>
+  return (
+    <div
+      css={css`
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
 
-				{invalidCredentials && <p>invalidad credentials</p>}
+        h1 {
+          margin: 0;
+        }
 
-				<p className="item">
-					<label htmlFor="email"> Email </label>
-					<input
-						// type="email"
-						name="email"
-						id="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-				</p>
-				<p className="item">
-					<label htmlFor="password"> Password </label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-				</p>
-				<p className="item">
-					<input type="submit" value="Login" />
-				</p>
-			</form>
-		</div>
-	);
+        form {
+          width: 400px;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: center;
+          margin-top: calc(7vh + 1rem);
+        }
+
+        img {
+          width: 225px;
+        }
+      `}
+    >
+      <form action="" id="login" method="post" onSubmit={handleSubmit}>
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+          `}
+        >
+          <img src={LogoImg} alt="logo-img" />
+        </div>
+
+        <div
+          css={css`
+            margin: 1.5rem 0 1.5rem;
+
+          `}
+        >
+          {invalidCredentials && (
+            <Typography
+              css={css`
+                color: tomato;
+              `}
+            >
+              Credenciales Invalidas
+            </Typography>
+          )}
+
+          <TextField
+						css={css`width:100%;margin-top:0.8rem;`}
+            value={email}
+            label="Email"
+            variant="outlined"
+            onChange={(ev) => setEmail(ev.target.value)}
+          />
+        </div>
+        <TextField
+          value={password}
+          label="Contraseña"
+          variant="outlined"
+          onChange={(ev) => setPassword(ev.target.value)}
+          type="password"
+        />
+
+        <Button
+          css={css`
+            margin-top: 2rem;
+          `}
+          type="submit"
+          variant="contained"
+        >
+          Ingresar
+        </Button>
+      </form>
+    </div>
+  );
 }
 
 export default Login;
