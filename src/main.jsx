@@ -24,7 +24,7 @@ import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
 import AuthComponent from "./components/AuthComponent";
 
-axios.defaults.baseURL = "http://164.90.211.190";
+axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
 
 const router = createBrowserRouter([
 	{
