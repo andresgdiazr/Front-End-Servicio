@@ -4,6 +4,16 @@ a {
     cursor: pointer;
 }
 
+body {
+    margin:0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
 svg {
     color: #757575;
 }
