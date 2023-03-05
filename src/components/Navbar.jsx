@@ -6,6 +6,7 @@ import {
 	Typography,
 	IconButton,
 	styled,
+	css,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -26,6 +27,11 @@ const Navbar = ({ names }) => {
 	const navegador = (data) => {
 		navigate(data, { state: names });
 	};
+
+	const onLogout = () => {
+		sessionStorage.clear()
+		navigate('/login',{replace:true})
+	}
 
 	return (
 		<div>
@@ -50,7 +56,7 @@ const Navbar = ({ names }) => {
 						})}
 					</Box>
 					<MenuButton variant="h6">Mi cuenta</MenuButton>
-					<Typography variant="h6">Cerrar Sesión</Typography>
+					<Typography css={css`cursor:pointer;`}  onClick={onLogout} variant="h6">Cerrar Sesión</Typography>
 				</Toolbar>
 			</AppBar>
 			<Container></Container>

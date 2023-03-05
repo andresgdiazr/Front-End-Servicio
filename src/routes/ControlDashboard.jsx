@@ -1,13 +1,17 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ControlDashboard() {
 	const navigate = useNavigate();
 
+	const name = useSelector( state => state.main.name )
+
 	const Profesor = (ruta, datos) => {
 		navigate(ruta, { state: datos });
 	};
+	
 
 	const navbar = [
 		["Profesor", "/admin/profesores"],
@@ -17,9 +21,9 @@ function ControlDashboard() {
 
 	return (
 		<div>
-
-			<h2>Bienvenido administrador Carlos</h2>
-			<p> ¿Qué desea hacer?</p>
+			<h1>  {2} </h1>
+			<h2>Bienvenido administrador {name}</h2>
+			<p> ¿Qué desea hacer? blabla </p>
 
 			<div>
 				<button

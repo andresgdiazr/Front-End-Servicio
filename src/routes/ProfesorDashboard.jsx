@@ -19,6 +19,7 @@ import {
 } from "@mui/icons-material";
 
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();
@@ -77,6 +78,8 @@ const MateriaItem = ({ materia }) => {
 
 function ProfesorDashboard() {
   const [materias, setMaterias] = useState([]);
+  const name = useSelector( state => state.main.name )
+
   useEffect(() => {
     axios
       .get("/profesor/materias")
@@ -87,7 +90,7 @@ function ProfesorDashboard() {
   return (
     <div>
       <Typography variant="h5" fontWeight="normal" mt={1.5}>
-        Bienvenido Mr (Pendiente Agregar Nombre)
+        Bienvenido {name}
       </Typography>
       <Typography fontWeight="normal" mt={1} fontSize={16}>
         sus materias :

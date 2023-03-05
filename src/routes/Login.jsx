@@ -6,12 +6,15 @@ import { css } from "@emotion/react";
 
 import LogoImg from "../assets/logo.jpeg";
 import { Button, TextField, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setName } from "../store/features/main";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +26,9 @@ function Login() {
 
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("user-type", response.data.userType);
+        sessionStorage.setItem("name", response.data.name);
+        dispatch(setName(response.data.name))
+        
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
