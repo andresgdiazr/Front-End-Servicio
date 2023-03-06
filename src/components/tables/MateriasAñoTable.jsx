@@ -4,21 +4,21 @@ import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
 
 import React, { useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
 import { disableMateria } from "../../api/disableMateria";
 import { getMateriasByYear } from "../../api/getMateriasByYear";
 
 function MateriasAñoTable() {
   const [data, setData] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { year } = useParams();
 
-  const onClickDelete =  (id) => {
+  const onClickDelete = (id) => {
     disableMateria(id).then((response) => {
       if (response.status == 200) {
-        navigate(0)
+        navigate(0);
       }
     });
   };
@@ -29,7 +29,9 @@ function MateriasAñoTable() {
 
   const columns = useMemo(
     () => [
+      { Header: "Id", accessor: "id" },
       { Header: "Nombres", accessor: "nombre" },
+      { Header: "Materia Padre", accessor: "materia_padre_id" },
       { Header: "Acciones", accessor: "acciones" },
     ],
     []
@@ -108,13 +110,21 @@ function MateriasAñoTable() {
                                 onClickDelete(cell.row.original.id)
                               }
                             />
-                            <Edit />
+                            <Link
+                              to={`/dashboard-control/admin/materias/${cell.row.original.id}/editar`}
+                              state={{
+                                materias: data,
+                                target: cell.row.original,
+                              }}
+                            >
+                              <Edit />
+                            </Link>
                             <Book />
                           </div>
                         )}
                       </td>
                     );
-                  }) 
+                  })
                 }
               </tr>
             );

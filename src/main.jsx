@@ -31,6 +31,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import Materias from "./routes/admin/Materias";
 import MateriasPorAño from "./routes/admin/MateriasPorAño";
+import EditarMateria from "./routes/admin/EditarMateria";
 
 
 
@@ -69,6 +70,8 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
 					{ path:"admin/materias", element: <Materias />},
 					{ path:"admin/materias/year/:year", element: <MateriasPorAño />},
+					{ path:"admin/materias/:id/editar", element: <EditarMateria />},
+
 
 					
 

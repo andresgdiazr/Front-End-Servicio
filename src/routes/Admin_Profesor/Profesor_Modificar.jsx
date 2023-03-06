@@ -6,31 +6,36 @@ import GoBackButton from "../../components/atoms/GoBackButton";
 import { updateProfesor } from "../../api/updateProfesor";
 
 function Profesor_Modificar() {
-  const {state} = useLocation()
+  const { state } = useLocation();
 
   const [nombre, setNombre] = useState(state.nombre);
   const [apellido, setApellido] = useState(state.apellido);
   const [email, setEmail] = useState(state.email);
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let response = await updateProfesor(state.id,{nombre,apellido,email})
-    if(  response.status == 200 ) {
-      setOpen(true)
+    let response = await updateProfesor(state.id, { nombre, apellido, email });
+    if (response.status == 200) {
+      setOpen(true);
     }
   };
-
 
   return (
     <div>
       <Snackbar
-        css={css` svg { color:white; } `}
+        css={css`
+          svg {
+            color: white;
+          }
+        `}
         open={open}
         autoHideDuration={1000}
-        onClose={()=>setOpen(false)}
+        onClose={() => setOpen(false)}
       >
-        <Alert variant="filled" severity="success">Cuenta modificada satisfactoriamente</Alert>
+        <Alert variant="filled" severity="success">
+          Cuenta modificada satisfactoriamente
+        </Alert>
       </Snackbar>
       <GoBackButton to={"prev"} />
       <h2>Administración de profesores</h2>
@@ -70,7 +75,10 @@ function Profesor_Modificar() {
         </p>
 
         <p className="item">
-          <Button variant="contained" type="submit"> Guardar y Enviar </Button>
+          <Button variant="contained" type="submit">
+            {" "}
+            Guardar y Enviar{" "}
+          </Button>
         </p>
       </form>
     </div>
