@@ -55,30 +55,6 @@ const router = createBrowserRouter([
 				]
 			},
 			{
-				path: "/admin/profesores",
-				element: <AdminProfesores />,
-			},
-			{
-				path: "/admin/profesores/:id/clases",
-				element: <ProfesorClases />,
-			},
-			{
-				path: "/admin/profesores/:id/modificar",
-				element: <Profesor_Modificar />,
-			},
-			{
-				path: "/admin/secciones",
-				element: <SeccionDashboard />,
-			},
-			{
-				path: "/admin/secciones/crear",
-				element: <SeccionCrear />,
-			},
-			{
-				path: "/admin/secciones/:id",
-				element: <SeccionDetalles />,
-			},
-			{
 				path: "/dashboard-control",
 				element: <AdminLayout />,
 				children: [
@@ -89,9 +65,8 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones", element: <SeccionDashboard /> },
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
-		
 				]
-			},
+			}
 		]
 	},
 	

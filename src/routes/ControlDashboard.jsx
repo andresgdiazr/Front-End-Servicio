@@ -46,13 +46,9 @@ function ControlDashboard() {
       <Typography> ¿Qué desea hacer? </Typography>
 
       <div className="link-group">
-        <a
-          onClick={() => {
-            Profesor("admin/profesores", navbar);
-          }}
-        >
+        <Link to="admin/profesores" state={navbar} >
           <Typography> Administrar Profesores </Typography> 
-        </a>
+        </Link>
         <Link to="/" >
           <Typography> Adminsitrar secciones </Typography>
         </Link>
