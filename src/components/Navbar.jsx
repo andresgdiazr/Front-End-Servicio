@@ -22,15 +22,13 @@ const Container = styled(Typography)(({ theme }) => ({
 }));
 
 const defaultNames = [
-	["Profesor", "/admin/profesores"],
-	["Seccion", "/admin/secciones"],
-	["Materia", "/admin/profesores"],
+  ["Profesor", "/admin/profesores"],
+  ["Seccion", "/admin/secciones"],
+  ["Materia", "/admin/profesores"],
 ];
 
 const Navbar = ({ names = defaultNames }) => {
   const navigate = useNavigate();
-
-	console.log(names)
 
   const navegador = (data) => {
     navigate(data, { state: names });

@@ -1,11 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { css, Typography } from "@mui/material";
 
 function ControlDashboard() {
-  const navigate = useNavigate();
   const name = useSelector((state) => state.main.name);
   return (
     <div
@@ -34,13 +32,13 @@ function ControlDashboard() {
       <Typography> ¿Qué desea hacer? </Typography>
 
       <div className="link-group">
-        <Link to="admin/profesores" state={navbar} >
+        <Link to="admin/profesores" >
           <Typography> Administrar Profesores </Typography> 
         </Link>
         <Link to="admin/secciones" >
           <Typography> Adminsitrar secciones </Typography>
         </Link>
-        <Link to="/" >
+        <Link to="admin/materias" >
           <Typography> Administrar materias </Typography>
         </Link>
       </div>

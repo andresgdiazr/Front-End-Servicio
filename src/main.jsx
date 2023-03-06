@@ -29,6 +29,8 @@ import AuthComponent from "./components/AuthComponent";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import Materias from "./routes/admin/Materias";
+import MateriasPorAño from "./routes/admin/MateriasPorAño";
 
 
 
@@ -65,6 +67,9 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones", element: <SeccionDashboard /> },
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
+					{ path:"admin/materias", element: <Materias />},
+					{ path:"admin/materias/year/:year", element: <MateriasPorAño />},
+
 					
 
 				]
