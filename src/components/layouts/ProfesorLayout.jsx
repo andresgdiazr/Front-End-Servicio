@@ -14,7 +14,7 @@ function ProfesorLayout() {
 
   return (
     <div>
-      <Navbar names={["Datos", "Casos"]} />
+      <Navbar />
       <div
         css={css`
           margin-top: 64px;

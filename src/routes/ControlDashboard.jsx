@@ -6,19 +6,7 @@ import { css, Typography } from "@mui/material";
 
 function ControlDashboard() {
   const navigate = useNavigate();
-
   const name = useSelector((state) => state.main.name);
-
-  const Profesor = (ruta, datos) => {
-    navigate(ruta, { state: datos });
-  };
-
-  const navbar = [
-    ["Profesor", "/admin/profesores"],
-    ["Seccion", "/admin/secciones"],
-    ["Materia", "/admin/profesores"],
-  ];
-
   return (
     <div
       css={css`
@@ -49,7 +37,7 @@ function ControlDashboard() {
         <Link to="admin/profesores" state={navbar} >
           <Typography> Administrar Profesores </Typography> 
         </Link>
-        <Link to="/" >
+        <Link to="admin/secciones" >
           <Typography> Adminsitrar secciones </Typography>
         </Link>
         <Link to="/" >

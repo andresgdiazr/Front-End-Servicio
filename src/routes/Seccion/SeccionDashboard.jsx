@@ -7,13 +7,6 @@ import AcordionAños from "../../components/acordion/AcordionAños";
 
 function SeccionDashboard() {
 	const navigate = useNavigate();
-
-	var item = {
-		año: 1,
-		secciones: ["a", "b", "c", "d"],
-	};
-	const { state } = useLocation();
-	const [años, setAños] = useState([]);
 	const [secciones, setSecciones] = useState([]);
 
 	const handleClick = () => {
@@ -96,7 +89,7 @@ function SeccionDashboard() {
 	console.log(secciones);
 	return (
 		<Container>
-			<Navbar names={state} />
+			<Navbar />
 			<br></br>
 			<br></br>
 			<br></br>
