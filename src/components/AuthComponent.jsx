@@ -29,7 +29,7 @@ function AuthComponent() {
     if (token && userType && name) {
       // there was prev login
       if (location.pathname == "/") {
-        if( userTpe == "Profesor" ) {
+        if( userType == "Profesor" ) {
           navigate("/dashboard-profesor",{replace:true});
         } else {
           navigate("/dashboard-control",{replace:true});  
