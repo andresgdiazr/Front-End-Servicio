@@ -55,10 +55,6 @@ const router = createBrowserRouter([
 				]
 			},
 			{
-				path: "/dashboard-control",
-				element: <ControlDashboard />,
-			},
-			{
 				path: "/admin/profesores",
 				element: <AdminProfesores />,
 			},
