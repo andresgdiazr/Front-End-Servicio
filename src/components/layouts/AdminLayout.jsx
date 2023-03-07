@@ -16,8 +16,8 @@ function AdminLayout(){
             <Navbar names={navbar} />
             <div
                 css={css`
-                margin-top:64px;
-                padding: 1rem 2rem;
+                    margin-top:64px;
+                    padding: 1rem 2rem;
                 `}
             >
                 <Outlet/>

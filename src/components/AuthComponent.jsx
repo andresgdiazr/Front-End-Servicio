@@ -10,7 +10,6 @@ function AuthComponent() {
   const dispatch = useDispatch();
 
   if (sessionStorage.getItem("token")) {
-    console.log(sessionStorage.getItem("token"));
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${sessionStorage.getItem("token")}`;
@@ -29,7 +28,7 @@ function AuthComponent() {
     if (token && userType && name) {
       // there was prev login
       if (location.pathname == "/") {
-        if( userTpe == "Profesor" ) {
+        if( userType == "Profesor" ) {
           navigate("/dashboard-profesor",{replace:true});
         } else {
           navigate("/dashboard-control",{replace:true});  

@@ -18,7 +18,7 @@ function Notas() {
       .get(
         `/profesor/clases/${clase.id}/evaluaciones/${evaluacion.id}/calificaciones`
       )
-      .then((response) => setNotas(response.data) || console.log(response))
+      .then((response) => setNotas(response.data) )
       .catch((err) => null);
   }
 

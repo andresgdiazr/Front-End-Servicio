@@ -7,13 +7,6 @@ import AcordionAños from "../../components/acordion/AcordionAños";
 
 function SeccionDashboard() {
 	const navigate = useNavigate();
-
-	var item = {
-		año: 1,
-		secciones: ["a", "b", "c", "d"],
-	};
-	const { state } = useLocation();
-	const [años, setAños] = useState([]);
 	const [secciones, setSecciones] = useState([]);
 
 	const handleClick = () => {
@@ -69,9 +62,6 @@ function SeccionDashboard() {
 			//  setSecciones(QuintoAño);
 			/* ProfesoresRes.map(it =>{
                     if(it.año !== numero){
-                        
-                        
-                        console.log(secciones);
                         if (numero !== 0) {
                             setSecciones(secciones.push(objectjson))
                         
@@ -93,10 +83,10 @@ function SeccionDashboard() {
 		fetchClases();
 	}, []);
 
-	console.log(secciones);
+
 	return (
 		<Container>
-			<Navbar names={state} />
+			<Navbar />
 			<br></br>
 			<br></br>
 			<br></br>

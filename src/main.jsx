@@ -29,6 +29,10 @@ import AuthComponent from "./components/AuthComponent";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import Materias from "./routes/admin/Materias";
+import MateriasPorAño from "./routes/admin/MateriasPorAño";
+import EditarMateria from "./routes/admin/EditarMateria";
+import CrearMateria from "./routes/admin/CrearMateria";
 
 
 
@@ -56,34 +60,6 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/dashboard-control",
-				element: <ControlDashboard />,
-			},
-			{
-				path: "/admin/profesores",
-				element: <AdminProfesores />,
-			},
-			{
-				path: "/admin/profesores/:id/clases",
-				element: <ProfesorClases />,
-			},
-			{
-				path: "/admin/profesores/:id/modificar",
-				element: <Profesor_Modificar />,
-			},
-			{
-				path: "/admin/secciones",
-				element: <SeccionDashboard />,
-			},
-			{
-				path: "/admin/secciones/crear",
-				element: <SeccionCrear />,
-			},
-			{
-				path: "/admin/secciones/:id",
-				element: <SeccionDetalles />,
-			},
-			{
-				path: "/dashboard-control",
 				element: <AdminLayout />,
 				children: [
 					{ index:true, element: <ControlDashboard />},
@@ -93,9 +69,12 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones", element: <SeccionDashboard /> },
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
-		
+					{ path:"admin/materias", element: <Materias />},
+					{ path:"admin/materias/:year", element: <MateriasPorAño />},
+					{ path:"admin/materias/:year/:id/editar", element: <EditarMateria />},
+					{ path:"admin/materias/:year/crear", element: <CrearMateria />},
 				]
-			},
+			}
 		]
 	},
 	
