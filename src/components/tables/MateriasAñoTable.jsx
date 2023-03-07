@@ -2,30 +2,29 @@ import { css } from "@emotion/react";
 import Book from "@mui/icons-material/Book";
 import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
+import { Typography } from "@mui/material";
 
 import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 import { disableMateria } from "../../api/disableMateria";
-import { getMateriasByYear } from "../../api/getMateriasByYear";
+import { deleteMateria, useMaterias } from "../../store/features/materias";
+import añoToData from "../../utils/añoToData";
 
 function MateriasAñoTable() {
-  const [data, setData] = useState([]);
-  const navigate = useNavigate();
+  const { year: año } = useParams();
 
-  const { year } = useParams();
+  const data = useMaterias(añoToData(año).value);
+  const dispatch = useDispatch();
 
   const onClickDelete = (id) => {
     disableMateria(id).then((response) => {
       if (response.status == 200) {
-        navigate(0);
+        dispatch(deleteMateria({ id }));
       }
     });
   };
-
-  useState(() => {
-    getMateriasByYear(year).then((materias) => setData(materias));
-  }, []);
 
   const columns = useMemo(
     () => [
@@ -39,17 +38,64 @@ function MateriasAñoTable() {
 
   const memoData = useMemo(() => data, [data]);
 
-  const tableInstance = useTable({
-    columns,
-    data: memoData,
-  });
+  const sortees = React.useMemo(
+    () => [
+      {
+        id: "id",
+        desc: false,
+      },
+    ],
+    []
+  );
+
+  const tableInstance = useTable(
+    {
+      columns,
+      data: memoData,
+      initialState: {
+        sortBy: sortees,
+      },
+    },
+    useSortBy
+  );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
-  return (
-    // apply the table props
+  function renderCell(cell) {
+    if (cell.column.id === "acciones") {
+      return (
+        <div
+          css={css`
+            svg {
+              margin: 0 0.5rem;
+              cursor: pointer;
+            }
+          `}
+        >
+          <Delete onClick={() => onClickDelete(cell.row.original.id)} />
+          <Link
+            to={`/dashboard-control/admin/materias/${año}/${cell.row.original.id}/editar`}
+          >
+            <Edit />
+          </Link>
+          <Book />
+        </div>
+      );
+    } else if (cell.column.id == "materia_padre_id") {
 
+      if( cell.value === null ) {
+        return <Typography>Ninguna</Typography>
+      } else {
+        return cell.render('Cell')
+      }
+
+    } else {
+      return cell.render("Cell");
+    }
+  }
+
+  return (
     <table
       css={css`
         td,
@@ -60,76 +106,29 @@ function MateriasAñoTable() {
       {...getTableProps()}
     >
       <thead>
-        {
-          // Loop over the header rows
-          headerGroups.map((headerGroup) => (
-            // Apply the header row props
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {
-                // Loop over the headers in each row
-                headerGroup.headers.map((column) => (
-                  // Apply the header cell props
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))
-              }
-            </tr>
-          ))
-        }
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
       </thead>
-      {/* Apply the table body props */}
       <tbody {...getTableBodyProps()}>
-        {
-          // Loop over the table rows
-          rows.map((row) => {
-            // Prepare the row for display
-            prepareRow(row);
-            return (
-              // Apply the row props
-              <tr {...row.getRowProps()}>
-                {
-                  // Loop over the rows cells
-                  row.cells.map((cell) => {
-                    // Apply the cell props
-                    return (
-                      <td css={css``} {...cell.getCellProps()}>
-                        {cell.value ? (
-                          cell.render("Cell")
-                        ) : (
-                          <div
-                            css={css`
-                              svg {
-                                margin: 0 0.5rem;
-                                cursor: pointer;
-                              }
-                            `}
-                          >
-                            <Delete
-                              onClick={() =>
-                                onClickDelete(cell.row.original.id)
-                              }
-                            />
-                            <Link
-                              to={`/dashboard-control/admin/materias/${cell.row.original.id}/editar`}
-                              state={{
-                                materias: data,
-                                target: cell.row.original,
-                              }}
-                            >
-                              <Edit />
-                            </Link>
-                            <Book />
-                          </div>
-                        )}
-                      </td>
-                    );
-                  })
-                }
-              </tr>
-            );
-          })
-        }
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  <td css={css``} {...cell.getCellProps()}>
+                    {renderCell(cell)}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

@@ -26,7 +26,6 @@ function NotasTable({ data, info, refetch }) {
         data: { calificaciones: updatedNotas },
       })
       .then((response) => {
-        console.log(response);
         setUpdatedNotas([]);
         refetch();
       })

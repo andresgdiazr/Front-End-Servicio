@@ -62,9 +62,6 @@ function SeccionDashboard() {
 			//  setSecciones(QuintoAño);
 			/* ProfesoresRes.map(it =>{
                     if(it.año !== numero){
-                        
-                        
-                        console.log(secciones);
                         if (numero !== 0) {
                             setSecciones(secciones.push(objectjson))
                         
@@ -86,7 +83,7 @@ function SeccionDashboard() {
 		fetchClases();
 	}, []);
 
-	console.log(secciones);
+
 	return (
 		<Container>
 			<Navbar />

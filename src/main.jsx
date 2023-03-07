@@ -32,6 +32,7 @@ import store from "./store";
 import Materias from "./routes/admin/Materias";
 import MateriasPorAño from "./routes/admin/MateriasPorAño";
 import EditarMateria from "./routes/admin/EditarMateria";
+import CrearMateria from "./routes/admin/CrearMateria";
 
 
 
@@ -69,12 +70,9 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
 					{ path:"admin/materias", element: <Materias />},
-					{ path:"admin/materias/year/:year", element: <MateriasPorAño />},
-					{ path:"admin/materias/:id/editar", element: <EditarMateria />},
-
-
-					
-
+					{ path:"admin/materias/:year", element: <MateriasPorAño />},
+					{ path:"admin/materias/:year/:id/editar", element: <EditarMateria />},
+					{ path:"admin/materias/:year/crear", element: <CrearMateria />},
 				]
 			}
 		]

@@ -8,45 +8,37 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { editarMateria } from "../../api/editarMateria";
+import { createMateria } from "../../api/createMateria";
 import GoBackButton from "../../components/atoms/GoBackButton";
-import { updateMateria, useMaterias } from "../../store/features/materias";
+import { addMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
 
-function EditarMateria() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { year: año, id } = useParams();
+function CrearMateria() {
+  const { year: año } = useParams();
 
   const materias = useMaterias(añoToData(año).value);
-
-  const target = useMemo(() => materias.find((m) => m.id == id)  , [materias]);
-
+  const navigate = useNavigate();
 
   const [materiaPadre, setMateriaPadre] = useState(null);
-  const [nombre, setNombre] = useState('');
+  const [nombre, setNombre] = useState("");
 
-  useEffect(() => {
-    if(target) {
-      setMateriaPadre(target.materia_padre_id)
-      setNombre(target.nombre)
-    }
-  }, [target]);
+  const dispatch = useDispatch();
 
-
-  const onUpload = async (ev) => {
+  const onSubmit = async (ev) => {
     ev.preventDefault();
-    const response = await editarMateria(id, {
+
+    const res = await createMateria({
       nombre,
-      materiaPadreId:  materiaPadre,
+      materiaPadreId: materiaPadre,
+      año: añoToData(año).value,
     });
 
-    if (response.status == 200) {
-      dispatch(updateMateria({ id, nombre, materia_padre_id: materiaPadre }));
+
+    if (res.status == 200) {
+      dispatch(addMateria({ newMateria: res.data }));
       navigate(-1);
     }
   };
@@ -58,23 +50,20 @@ function EditarMateria() {
           font-size: 1.5rem;
           margin-bottom: 0.5rem;
         }
-
-        h1 {
-          font-size: 1.5rem;
-          margin-bottom: 0.5rem;
-        }
       `}
     >
       <GoBackButton to="prev" />
       <Typography variant="h2">Administracion de materias</Typography>
-      <Typography>Modificando la informacion de materia</Typography>
+
+      <Typography>Creación de materias</Typography>
+
       <div
         css={css`
           margin-top: 1.5rem;
         `}
       >
         <form
-          onSubmit={onUpload}
+          onSubmit={onSubmit}
           css={css`
             display: flex;
             flex-direction: column;
@@ -84,7 +73,7 @@ function EditarMateria() {
           <TextField
             variant="filled"
             css={css`
-              width: 400px;
+              width: 300px;
             `}
             label="nombre"
             value={nombre}
@@ -94,24 +83,22 @@ function EditarMateria() {
             variant="filled"
             css={css`
               margin-top: 1rem;
-              width: 400px;
+              width: 300px;
             `}
           >
             <InputLabel id="materia-padre"> Materia Padre </InputLabel>
             <Select
               labelId="materia-padre"
-              value={materiaPadre === null ? 'Ninguna' : materiaPadre}
+              value={materiaPadre === null ? "Ninguna" : materiaPadre}
               label="Nombre"
               onChange={(ev) => setMateriaPadre(ev.target.value)}
             >
               <MenuItem value={"Ninguna"}>Ninguna</MenuItem>
-              {materias
-                .filter((mat) => mat.id != target.id)
-                .map((mat) => (
-                  <MenuItem key={mat.id} value={mat.id}>
-                    {mat.nombre}
-                  </MenuItem>
-                ))}
+              {materias.map((mat) => (
+                <MenuItem key={mat.id} value={mat.id}>
+                  {mat.nombre}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <Button
@@ -129,4 +116,4 @@ function EditarMateria() {
   );
 }
 
-export default EditarMateria;
+export default CrearMateria;
