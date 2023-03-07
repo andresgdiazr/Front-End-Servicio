@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createMateria } from "../../api/createMateria";
+import ErrorInput from "../../components/atoms/ErrorInput";
 import GoBackButton from "../../components/atoms/GoBackButton";
 import { addMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
@@ -22,6 +23,8 @@ function CrearMateria() {
   const materias = useMaterias(añoToData(año).value);
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+
   const [materiaPadre, setMateriaPadre] = useState(null);
   const [nombre, setNombre] = useState("");
 
@@ -30,12 +33,16 @@ function CrearMateria() {
   const onSubmit = async (ev) => {
     ev.preventDefault();
 
+    if (nombre.trim().length < 1) {
+      setError(true);
+      return;
+    }
+
     const res = await createMateria({
       nombre,
       materiaPadreId: materiaPadre,
       año: añoToData(año).value,
     });
-
 
     if (res.status == 200) {
       dispatch(addMateria({ newMateria: res.data }));
@@ -70,6 +77,10 @@ function CrearMateria() {
             align-items: flex-start;
           `}
         >
+          <ErrorInput
+            show={error}
+            message={"Se requiere el nombre de la materia"}
+          />
           <TextField
             variant="filled"
             css={css`
@@ -77,7 +88,12 @@ function CrearMateria() {
             `}
             label="nombre"
             value={nombre}
-            onChange={(ev) => setNombre(ev.target.value)}
+            onChange={(ev) => {
+              if( ev.target.value.trim().length > 0 ) {
+                setError(false);
+              }
+              setNombre(ev.target.value);
+            }}
           />
           <FormControl
             variant="filled"
@@ -91,7 +107,9 @@ function CrearMateria() {
               labelId="materia-padre"
               value={materiaPadre === null ? "Ninguna" : materiaPadre}
               label="Nombre"
-              onChange={(ev) => setMateriaPadre(ev.target.value)}
+              onChange={(ev) => {
+                setMateriaPadre(ev.target.value);
+              }}
             >
               <MenuItem value={"Ninguna"}>Ninguna</MenuItem>
               {materias.map((mat) => (

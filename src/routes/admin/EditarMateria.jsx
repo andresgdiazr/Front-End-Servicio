@@ -12,6 +12,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarMateria } from "../../api/editarMateria";
+import ErrorInput from "../../components/atoms/ErrorInput";
 import GoBackButton from "../../components/atoms/GoBackButton";
 import { updateMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
@@ -24,25 +25,30 @@ function EditarMateria() {
 
   const materias = useMaterias(añoToData(año).value);
 
-  const target = useMemo(() => materias.find((m) => m.id == id)  , [materias]);
-
+  const target = useMemo(() => materias.find((m) => m.id == id), [materias]);
 
   const [materiaPadre, setMateriaPadre] = useState(null);
-  const [nombre, setNombre] = useState('');
+  const [nombre, setNombre] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if(target) {
-      setMateriaPadre(target.materia_padre_id)
-      setNombre(target.nombre)
+    if (target) {
+      setMateriaPadre(target.materia_padre_id);
+      setNombre(target.nombre);
     }
   }, [target]);
 
-
   const onUpload = async (ev) => {
     ev.preventDefault();
+
+    if(nombre.trim().length < 1) {
+      setError(true)
+      return
+    }
+
     const response = await editarMateria(id, {
       nombre,
-      materiaPadreId:  materiaPadre,
+      materiaPadreId: materiaPadre,
     });
 
     if (response.status == 200) {
@@ -81,6 +87,10 @@ function EditarMateria() {
             align-items: flex-start;
           `}
         >
+          <ErrorInput
+            show={error}
+            message={"Se requiere el nombre de la materia"}
+          />
           <TextField
             variant="filled"
             css={css`
@@ -88,7 +98,12 @@ function EditarMateria() {
             `}
             label="nombre"
             value={nombre}
-            onChange={(ev) => setNombre(ev.target.value)}
+            onChange={(ev) => {
+              if(ev.target.value.trim()>0) {
+                setError(false)
+              }
+              setNombre(ev.target.value)
+            }}
           />
           <FormControl
             variant="filled"
@@ -100,7 +115,7 @@ function EditarMateria() {
             <InputLabel id="materia-padre"> Materia Padre </InputLabel>
             <Select
               labelId="materia-padre"
-              value={materiaPadre === null ? 'Ninguna' : materiaPadre}
+              value={materiaPadre === null ? "Ninguna" : materiaPadre}
               label="Nombre"
               onChange={(ev) => setMateriaPadre(ev.target.value)}
             >
