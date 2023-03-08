@@ -29,10 +29,12 @@ import AuthComponent from "./components/AuthComponent";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store";
-import Materias from "./routes/admin/Materias";
-import MateriasPorAño from "./routes/admin/MateriasPorAño";
-import EditarMateria from "./routes/admin/EditarMateria";
-import CrearMateria from "./routes/admin/CrearMateria";
+
+import SeccionEstudiantes from "./routes/Seccion/SeccionEstudiantes";
+import SeccionMaterias from "./routes/Seccion/SeccionMaterias";
+import SeccionAñadir from "./routes/Seccion/SeccionAñadir";
+import SeccionModificar from "./routes/Seccion/SeccionModificar";
+
 
 
 
@@ -69,10 +71,12 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones", element: <SeccionDashboard /> },
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
-					{ path:"admin/materias", element: <Materias />},
-					{ path:"admin/materias/:year", element: <MateriasPorAño />},
-					{ path:"admin/materias/:year/:id/editar", element: <EditarMateria />},
-					{ path:"admin/materias/:year/crear", element: <CrearMateria />},
+
+					{ path:"admin/secciones/:id/estudiantes", element: <SeccionEstudiantes />},
+					{ path:"admin/secciones/:id/materias", element: <SeccionMaterias />},
+					{ path:"admin/secciones/:id/añadir_estudiantes", element:<SeccionAñadir />},
+					{ path:"admin/secciones/:id/modificar", element: <SeccionModificar />},
+		
 				]
 			}
 		]
