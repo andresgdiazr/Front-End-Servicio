@@ -11,9 +11,17 @@ body {
 
 * {
     box-sizing: border-box;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+ul {
+   margin:0;
+   padding:0;
+   list-style: none; 
 }
 
 
 svg {
     color: #757575;
 }
+

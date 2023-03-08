@@ -7,8 +7,6 @@ import {COLUMNS} from './columns';
 import '../css/tablas.css'
 
 export function TablaMaterias({datos}) {
- //   const [data, setData] = useState([]);
-{console.log(datos)}
     const columns = useMemo(() => COLUMNS);
 
     const data = useMemo(()=> datos);

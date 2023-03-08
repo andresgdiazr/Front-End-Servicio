@@ -14,13 +14,13 @@ function ClaseEvaluaciones() {
 
   const { lapso } = useParams();
 
-  console.log(`Este es ${lapso}`);
+
 
   useEffect(() => {
     axios
       .get(`/profesor/materias/${materia.id}/evaluaciones/lapsos/${lapso}`)
       .then(
-        (response) => setEvaluaciones(response.data) || console.log(response)
+        (response) => setEvaluaciones(response.data) 
       )
       .catch((err) => null);
   }, []);
