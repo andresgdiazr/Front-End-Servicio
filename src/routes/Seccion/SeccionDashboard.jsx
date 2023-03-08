@@ -1,62 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar";
 import { getSecciones } from "../../api/secciones";
-import AcordionAños from "../../components/acordion/AcordionAños";
+import {
+	Box,
+	Collapse,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Typography,
+  } from "@mui/material";
+  import {
+	ExpandMore as ExpandMore,
+	ExpandLess as ExpandLess,
+  } from "@mui/icons-material";
 
 function SeccionDashboard() {
 	const navigate = useNavigate();
 
-	var item = {
-		año: 1,
-		secciones: ["a", "b", "c", "d"],
-	};
+	
 	const { state } = useLocation();
 	const [años, setAños] = useState([]);
-	const [secciones, setSecciones] = useState([]);
 
 	const handleClick = () => {
 		navigate("crear", { state: state });
 	};
 
+	
+
+
+	
+
+
 	useEffect(() => {
 		const fetchClases = async () => {
-			const ProfesoresRes = await getSecciones();
-			ProfesoresRes.reverse();
-
-			const PrimerAño = ProfesoresRes.filter((el) => {
+			const SeccionesRes = await getSecciones();
+			
+	
+			
+			const PrimerAño = SeccionesRes.filter((el) => {
 				if (el.año === 1) {
 					return el;
 				}
 			});
 
-			const SegundoAño = ProfesoresRes.filter((el) => {
+			const SegundoAño = SeccionesRes.filter((el) => {
 				if (el.año === 2) {
 					return el;
 				}
 			});
 
-			const TerceroAño = ProfesoresRes.filter((el) => {
+			const TerceroAño = SeccionesRes.filter((el) => {
 				if (el.año === 3) {
 					return el;
 				}
 			});
 
-			const CuartoAño = ProfesoresRes.filter((el) => {
+			const CuartoAño = SeccionesRes.filter((el) => {
 				if (el.año === 4) {
 					return el;
 				}
 			});
 
-			const QuintoAño = ProfesoresRes.filter((el) => {
+			const QuintoAño = SeccionesRes.filter((el) => {
 				if (el.año === 5) {
 					return el;
 				}
 			});
 
-			setSecciones([
-				...secciones,
+			setAños([
+				...años,
 				PrimerAño,
 				SegundoAño,
 				TerceroAño,
@@ -64,48 +79,103 @@ function SeccionDashboard() {
 				QuintoAño,
 			]);
 
-			// setSecciones(TercerAño);
-			//  setSecciones(CuartoAño);
-			//  setSecciones(QuintoAño);
-			/* ProfesoresRes.map(it =>{
-                    if(it.año !== numero){
-                        
-                        
-                        console.log(secciones);
-                        if (numero !== 0) {
-                            setSecciones(secciones.push(objectjson))
-                        
-                        }
-                       
-
-                        numero=it.año;
-                        objectjson={"año":numero,
-                        secciones: [],}
-                        objectjson.secciones.push(it.codigo);
-                    } 
-                    else{
-                        objectjson.secciones.push(it.codigo);
-                    }
-                    
-                })*/
 		};
 
 		fetchClases();
 	}, []);
 
-	console.log(secciones);
-	return (
-		<Container>
-			<Navbar names={state} />
-			<br></br>
-			<br></br>
-			<br></br>
-			<br></br>
 
-			<AcordionAños años={secciones} />
+	const SeccionItem = ({ seccion }) => {
+		const navigate = useNavigate();
+	  
+		const handleOnClick = () => {
+			navigate(`/dashboard-control/admin/secciones/${seccion.id}`, {
+			  state: {
+				año:seccion.año,
+				seccion:seccion.codigo
+			  },
+			});
+		  };
+	  
+		return (
+		  <Box pl={4}>
+			<ListItemButton>
+			  <ListItemText onClick={handleOnClick} primary={` Seccion ${seccion.codigo}  `} />
+			</ListItemButton>
+		  </Box>
+		);
+	  };
+
+
+	const AñoItem = ({ secciones }) => {
+		const [expanded, setExpanded] = useState(false);
+	  
+		secciones.sort(function (a, b) {
+			if (a.codigo < b.codigo) {
+			  return -1;
+			}
+			if (a.codigo > b.codigo) {
+			  return 1;
+			}
+			return 0;
+		  });
+		
+		
+
+		console.log(secciones);
+
+		return (
+		  <>
+			<ListItem disablePadding onClick={() => setExpanded(!expanded)}>
+			  <ListItemIcon style={{ minWidth: "32px" }}>
+				{expanded ? (
+				  <ExpandLess fontSize="large" />
+				) : (
+				  <ExpandMore fontSize="large" />
+				)}
+			  </ListItemIcon>
+			  <ListItemText
+				primaryTypographyProps={{ fontSize: 20, component: "h3" }}
+				primary={`Año: ${secciones[0].año}`  
+					
+					 }
+			  />
+			</ListItem>
+			<Collapse in={expanded} timeout="auto" unmountOnExit>
+			  <List component="div" disablePadding>
+				{secciones.map((seccion) => (
+				  <SeccionItem
+					key={seccion.id}
+					seccion={seccion}
+				  />
+				))}
+			  </List>
+			</Collapse>
+		  </>
+		);
+	  };
+
+
+
+
+	return (
+		<>
+			<List>
+				{
+					años.map( (año) =>(
+						<AñoItem 
+						key={año[0].año} 
+						secciones={año}>
+							{año[0].año}
+						</AñoItem>
+					))
+				}
+			</List>
+
+			
 
 			<Button onClick={handleClick}> Crear Nueva sección</Button>
-		</Container>
+		</>
 	);
 }
 

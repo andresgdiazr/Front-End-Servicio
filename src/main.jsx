@@ -29,6 +29,10 @@ import AuthComponent from "./components/AuthComponent";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import SeccionEstudiantes from "./routes/Seccion/SeccionEstudiantes";
+import SeccionMaterias from "./routes/Seccion/SeccionMaterias";
+import SeccionAñadir from "./routes/Seccion/SeccionAñadir";
+import SeccionModificar from "./routes/Seccion/SeccionModificar";
 
 
 
@@ -93,6 +97,10 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones", element: <SeccionDashboard /> },
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},
 					{ path:"admin/secciones/:id", element: <SeccionDetalles />},
+					{ path:"admin/secciones/:id/estudiantes", element: <SeccionEstudiantes />},
+					{ path:"admin/secciones/:id/materias", element: <SeccionMaterias />},
+					{ path:"admin/secciones/:id/añadir_estudiantes", element:<SeccionAñadir />},
+					{ path:"admin/secciones/:id/modificar", element: <SeccionModificar />},
 		
 				]
 			},
