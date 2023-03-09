@@ -36,6 +36,10 @@ import SeccionAñadir from "./routes/Seccion/SeccionAñadir";
 import SeccionModificar from "./routes/Seccion/SeccionModificar";
 
 
+import Materias from "./routes/admin/Materias";
+import MateriasPorAño from './routes/admin/MateriasPorAño'
+import EditarMaterias from './routes/admin/EditarMateria'
+import CrearMateria from './routes/admin/CrearMateria'
 
 
 axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
@@ -77,6 +81,17 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones/:id/añadir_estudiantes", element:<SeccionAñadir />},
 					{ path:"admin/secciones/:id/modificar", element: <SeccionModificar />},
 		
+					{ path:"admin/materias", element: <Materias />},
+					{ path:"admin/materias/:year", element: <MateriasPorAño />},
+					{ path:"admin/materias/:year/:id/editar", element: <EditarMaterias />},
+					{ path:"admin/materias/:year/crear", element: <CrearMateria />},
+
+					
+
+
+
+
+
 				]
 			}
 		]
