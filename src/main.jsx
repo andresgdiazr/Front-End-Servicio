@@ -40,6 +40,10 @@ import Materias from "./routes/admin/Materias";
 import MateriasPorAño from './routes/admin/MateriasPorAño'
 import EditarMaterias from './routes/admin/EditarMateria'
 import CrearMateria from './routes/admin/CrearMateria'
+import LapsosMateria from "./routes/admin/LapsosMateria";
+import MateriaEvaluaciones from "./routes/admin/MateriaEvaluaciones";
+import CrearEvaluacion from "./routes/admin/CrearEvaluacion";
+import EditarEvaluacion from "./routes/admin/EditarEvaluacion";
 
 
 axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
@@ -86,11 +90,10 @@ const router = createBrowserRouter([
 					{ path:"admin/materias/:year/:id/editar", element: <EditarMaterias />},
 					{ path:"admin/materias/:year/crear", element: <CrearMateria />},
 
-					
-
-
-
-
+					{ path:"admin/materias/:year/:id/lapsos", element: <LapsosMateria />},
+					{ path:"admin/materias/:year/:id/lapsos/:lapso/evaluaciones", element: <MateriaEvaluaciones />},
+					{ path:"admin/materias/:year/:id/lapsos/:lapso/evaluaciones/crear", element: <CrearEvaluacion />},
+					{ path:"admin/materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar", element: <EditarEvaluacion />},
 
 				]
 			}
