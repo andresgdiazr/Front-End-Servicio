@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import Book from "@mui/icons-material/Book";
+import { Description } from "@mui/icons-material";
 import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
@@ -79,7 +79,11 @@ function MateriasAñoTable() {
           >
             <Edit />
           </Link>
-          <Book />
+          <Link
+            to={`/dashboard-control/admin/materias/${año}/${cell.row.original.id}/lapsos`}
+          >
+            <Description />
+          </Link>
         </div>
       );
     } else if (cell.column.id == "materia_padre_id") {
