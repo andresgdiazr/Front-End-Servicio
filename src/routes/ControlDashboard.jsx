@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { css, Typography } from "@mui/material";
+import Overlay from "../components/organisms/Overlay";
 
 function ControlDashboard() {
   const name = useSelector((state) => state.main.name);
@@ -30,7 +31,6 @@ function ControlDashboard() {
     >
       <Typography variant="h1"> Bienvenido administrador {name} </Typography>
       <Typography> ¿Qué desea hacer? </Typography>
-
       <div className="link-group">
         <Link to="admin/profesores" >
           <Typography> Administrar Profesores </Typography> 

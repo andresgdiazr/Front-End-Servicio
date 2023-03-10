@@ -44,12 +44,17 @@ import LapsosMateria from "./routes/admin/LapsosMateria";
 import MateriaEvaluaciones from "./routes/admin/MateriaEvaluaciones";
 import CrearEvaluacion from "./routes/admin/CrearEvaluacion";
 import EditarEvaluacion from "./routes/admin/EditarEvaluacion";
+import SetPassword from "./routes/SetPassword";
 
 
 axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
 
 const router = createBrowserRouter([
 	{
+		path:'/set-password',
+		element: <SetPassword />
+	}
+	,{
 		path:'/',
 		element: <AuthComponent />,
 		children:[
