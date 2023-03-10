@@ -10,24 +10,36 @@ import EditIcon from "@mui/icons-material/Edit";
 import LockIcon from "@mui/icons-material/Lock";
 
 import "../../css/tablas.css";
+import Overlay from "../organisms/Overlay";
+import { Button, Typography } from "@mui/material";
+import { getChangePasswordToken } from "../../api/getChangePasswordToken";
 
 function InfoProfesores({ input }) {
   const [datos, setData] = useState([]);
+  const [passwordOverlay, setPasswordOverlay] = useState(false);
+  const [passwordRow, setPasswordRow] = useState(null);
+  const [passwordLink,setPasswordLink] = useState(null)
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!passwordOverlay) {
+      setPasswordLink(null)
+    }
+  },[passwordOverlay])
+
 
   const informacion = (id) => {
     navigate(`${id}/clases`);
   };
   const modificar = (cell) => {
-    const row = cell.row.original
-    navigate(`${row.id}/modificar`,{state:row});
+    const row = cell.row.original;
+    navigate(`${row.id}/modificar`, { state: row });
   };
 
   useEffect(() => {
     const fetchProfesores = async () => {
       const profesoresRes = await getProfesores();
       setData(profesoresRes);
-
     };
 
     fetchProfesores();
@@ -52,6 +64,36 @@ function InfoProfesores({ input }) {
 
   return (
     <div className="container">
+      <Overlay
+        show={passwordOverlay}
+        onShowChange={(value) => setPasswordOverlay(value)}
+      >
+        <div
+          css={css`
+            background-color: white;
+            width: 70%;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            height: 250px;
+          `}
+        >
+          <Button variant="contained" onClick={async () => {
+            if( passwordLink ) {
+              return
+            }
+            const response = await getChangePasswordToken(passwordRow)
+            if(response.status === 200) {
+              const link = `http://localhost:5173/set-password?token=${response.data.token}`
+              setPasswordLink(link)
+            }
+            
+          }}>
+            Generar link para cambiar contraseña
+          </Button>
+          { passwordLink && <Typography css={css`font-size:0.8rem;`} > {passwordLink} </Typography> }
+          
+        </div>
+      </Overlay>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -99,7 +141,12 @@ function InfoProfesores({ input }) {
                             }}
                           />
 
-                          <LockIcon />
+                          <LockIcon
+                            onClick={() => {
+                              setPasswordRow(cell.row.original.id);
+                              setPasswordOverlay(true);
+                            }}
+                          />
                         </div>
                       </td>
                     );
@@ -114,4 +161,3 @@ function InfoProfesores({ input }) {
 }
 
 export default InfoProfesores;
- 
