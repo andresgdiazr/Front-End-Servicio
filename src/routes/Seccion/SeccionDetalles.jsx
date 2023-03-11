@@ -3,6 +3,7 @@ import { Typography, Button } from "@mui/material";
 import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { List } from "@mui/icons-material";
+import GoBackButton from "../../components/atoms/GoBackButton";
 function SeccionDetalles() {
 
 	const navigate=useNavigate();
@@ -17,7 +18,7 @@ function SeccionDetalles() {
 
 	return (
 		<div>
-			
+			<GoBackButton to="prev" />
 		<Typography>Administración de secciones</Typography>
 		<Typography>{`Año ${año}. Sección: ${seccion}`}</Typography>
 		<br></br>
