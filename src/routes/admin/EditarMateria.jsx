@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editarMateria } from "../../api/editarMateria";
 import ErrorInput from "../../components/atoms/ErrorInput";
 import GoBackButton from "../../components/atoms/GoBackButton";
+import { setLoading } from "../../store/features/main";
 import { updateMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
 
@@ -45,7 +46,7 @@ function EditarMateria() {
       setError(true)
       return
     }
-
+    dispatch(setLoading(true))
     const response = await editarMateria(id, {
       nombre,
       materiaPadreId: materiaPadre,
@@ -53,8 +54,12 @@ function EditarMateria() {
 
     if (response.status == 200) {
       dispatch(updateMateria({ id, nombre, materia_padre_id: materiaPadre }));
+      dispatch(setLoading(false))
       navigate(-1);
+    } else {
+      dispatch(setLoading(false))
     }
+
   };
 
   return (

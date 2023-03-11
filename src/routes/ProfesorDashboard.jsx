@@ -18,7 +18,8 @@ import {
 } from "@mui/icons-material";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../store/features/main";
 
 const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();
@@ -77,13 +78,16 @@ const MateriaItem = ({ materia }) => {
 
 function ProfesorDashboard() {
   const [materias, setMaterias] = useState([]);
-  const name = useSelector( state => state.main.name )
+  const name = useSelector((state) => state.main.name);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setLoading(true))
     axios
       .get("/profesor/materias")
       .then((response) => setMaterias(response.data))
-      .catch((err) => null);
+      .then(() => dispatch(setLoading(false))) 
+      .catch((err) => dispatch(setLoading(false)));
   }, []);
 
   return (
