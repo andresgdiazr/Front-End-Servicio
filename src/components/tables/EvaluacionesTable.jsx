@@ -5,6 +5,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
 import { disableEvaluacion } from "../../api/disableEvaluacion";
 import { getEvaluaciones } from "../../api/getEvaluaciones";
+import { deleteEvaluacion, useEvaluaciones } from "../../store/features/evaluaciones";
 import { setLoading } from "../../store/features/main";
 
 function EvaluacionesTable() {
@@ -12,16 +13,7 @@ function EvaluacionesTable() {
   const dispatch = useDispatch();
   const { lapso, id } = useParams();
 
-  const [evaluaciones, setEvaluaciones] = useState([]);
-
-  useEffect(() => {
-    dispatch(setLoading(true));
-    getEvaluaciones({ lapso, materiaId: id })
-      .then((evs) => setEvaluaciones(evs))
-      .then(() => dispatch(setLoading(false)));
-  }, []);
-
-  const memoData = useMemo(() => evaluaciones, [evaluaciones]);
+  const evaluaciones = useEvaluaciones({ materiaId: id, lapso });
 
   const columns = useMemo(
     () => [
@@ -33,7 +25,7 @@ function EvaluacionesTable() {
 
   const tableInstance = useTable({
     columns,
-    data: memoData,
+    data: evaluaciones,
   });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -45,13 +37,13 @@ function EvaluacionesTable() {
         <div>
           <Delete
             onClick={async () => {
-              dispatch(setLoading(true))
+              dispatch(setLoading(true));
               const response = await disableEvaluacion(cell.row.original.id);
-              if (response.status == 200) {
-                dispatch(setLoading(false))
-                navigate(0);
-              }else {
-                dispatch(setLoading(false))
+              if ( response.status == 200) {
+                dispatch(deleteEvaluacion({materiaId:id,evaluacionId:cell.row.original.id}))
+                dispatch(setLoading(false));
+              } else {
+                dispatch(setLoading(false));
               }
             }}
           />
