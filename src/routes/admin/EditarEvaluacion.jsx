@@ -1,18 +1,32 @@
 import { Button, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarEvaluacion } from "../../api/editarEvaluacion";
 import GoBackButton from "../../components/atoms/GoBackButton";
-import { editEvaluacion } from "../../store/features/evaluaciones";
+import {
+  editEvaluacion,
+  useEvaluaciones,
+} from "../../store/features/evaluaciones";
 import { setLoading } from "../../store/features/main";
 
 function EditarEvaluacion() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { evaluacionId, id } = useParams();
+  const { evaluacionId, id, lapso } = useParams();
 
-  const [titulo, setTitulo] = useState("");
+  const evaluacion = useEvaluaciones({ materiaId: id, lapso }).find(
+    (ev) => ev.id == parseInt(evaluacionId)
+  );
+
+  const [titulo, setTitulo] = useState('');
+
+  useEffect(()=>{
+    if(evaluacion?.titulo ) {
+      setTitulo(evaluacion?.titulo)
+    }
+  },[evaluacion?.titulo])
+
 
   const onSubmit = async (ev) => {
     ev.preventDefault();
