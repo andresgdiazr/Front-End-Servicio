@@ -12,7 +12,7 @@ const INFO_PROFESOR = [
         accessor: 'email',
     },
     {
-        Header: 'Correo',
+        Header: 'Acciones',
         accessor: 'id',
     },
 ];

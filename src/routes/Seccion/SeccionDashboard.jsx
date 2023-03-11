@@ -24,6 +24,7 @@ function SeccionDashboard() {
 	const { state } = useLocation();
 	const [años, setAños] = useState([]);
 
+
 	const handleClick = () => {
 		navigate("crear", { state: state });
 	};
@@ -78,6 +79,7 @@ function SeccionDashboard() {
 				CuartoAño,
 				QuintoAño,
 			]);
+
 
 		};
 
@@ -171,6 +173,7 @@ function SeccionDashboard() {
 					))
 				}
 			</List>
+
 
 			
 
