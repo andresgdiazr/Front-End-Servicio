@@ -5,8 +5,13 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
 import { disableEvaluacion } from "../../api/disableEvaluacion";
 import { getEvaluaciones } from "../../api/getEvaluaciones";
-import { deleteEvaluacion, useEvaluaciones } from "../../store/features/evaluaciones";
+import {
+  deleteEvaluacion,
+  useEvaluaciones,
+} from "../../store/features/evaluaciones";
 import { setLoading } from "../../store/features/main";
+import EmptyTableRow from "../molecules/EmptyTableRow";
+import THead from "../molecules/THead";
 
 function EvaluacionesTable() {
   const navigate = useNavigate();
@@ -39,8 +44,13 @@ function EvaluacionesTable() {
             onClick={async () => {
               dispatch(setLoading(true));
               const response = await disableEvaluacion(cell.row.original.id);
-              if ( response.status == 200) {
-                dispatch(deleteEvaluacion({materiaId:id,evaluacionId:cell.row.original.id}))
+              if (response.status == 200) {
+                dispatch(
+                  deleteEvaluacion({
+                    materiaId: id,
+                    evaluacionId: cell.row.original.id,
+                  })
+                );
                 dispatch(setLoading(false));
               } else {
                 dispatch(setLoading(false));
@@ -59,15 +69,7 @@ function EvaluacionesTable() {
 
   return (
     <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
+      <THead headerGroups={headerGroups} />
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
@@ -79,6 +81,11 @@ function EvaluacionesTable() {
             </tr>
           );
         })}
+        <EmptyTableRow
+          rows={rows}
+          headerGroups={headerGroups}
+          message="No hay ninguna evaluacion para este lapso"
+        />
       </tbody>
     </table>
   );

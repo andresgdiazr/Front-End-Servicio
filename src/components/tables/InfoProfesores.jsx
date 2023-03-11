@@ -15,21 +15,22 @@ import { Button, Typography } from "@mui/material";
 import { getChangePasswordToken } from "../../api/getChangePasswordToken";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../store/features/main";
+import THead from "../molecules/THead";
+import EmptyTableRow from "../molecules/EmptyTableRow";
 
 function InfoProfesores({ input }) {
   const [datos, setData] = useState([]);
   const [passwordOverlay, setPasswordOverlay] = useState(false);
   const [passwordRow, setPasswordRow] = useState(null);
-  const [passwordLink,setPasswordLink] = useState(null)
+  const [passwordLink, setPasswordLink] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(!passwordOverlay) {
-      setPasswordLink(null)
+  useEffect(() => {
+    if (!passwordOverlay) {
+      setPasswordLink(null);
     }
-  },[passwordOverlay])
-
+  }, [passwordOverlay]);
 
   const informacion = (id) => {
     navigate(`${id}/clases`);
@@ -41,10 +42,10 @@ function InfoProfesores({ input }) {
 
   useEffect(() => {
     const fetchProfesores = async () => {
-      dispatch(setLoading(true))
+      dispatch(setLoading(true));
       const profesoresRes = await getProfesores();
       setData(profesoresRes);
-      dispatch(setLoading(false))
+      dispatch(setLoading(false));
     };
 
     fetchProfesores();
@@ -82,34 +83,35 @@ function InfoProfesores({ input }) {
             height: 250px;
           `}
         >
-          <Button variant="contained" onClick={async () => {
-            if( passwordLink ) {
-              return
-            }
-            const response = await getChangePasswordToken(passwordRow)
-            if(response.status === 200) {
-              const link = `http://localhost:5173/set-password?token=${response.data.token}`
-              setPasswordLink(link)
-            }
-            
-          }}>
+          <Button
+            variant="contained"
+            onClick={async () => {
+              if (passwordLink) {
+                return;
+              }
+              const response = await getChangePasswordToken(passwordRow);
+              if (response.status === 200) {
+                const link = `http://localhost:5173/set-password?token=${response.data.token}`;
+                setPasswordLink(link);
+              }
+            }}
+          >
             Generar link para cambiar contraseña
           </Button>
-          { passwordLink && <Typography css={css`font-size:0.8rem;`} > {passwordLink} </Typography> }
-          
+          {passwordLink && (
+            <Typography
+              css={css`
+                font-size: 0.8rem;
+              `}
+            >
+              
+              {passwordLink}
+            </Typography>
+          )}
         </div>
       </Overlay>
       <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-
+        <THead headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
@@ -159,6 +161,11 @@ function InfoProfesores({ input }) {
               </tr>
             );
           })}
+          <EmptyTableRow
+            message="Actualmente el sistema no cuenta con ningun profesor"
+            rows={rows}
+            headerGroups={headerGroups}
+          />
         </tbody>
       </table>
     </div>
