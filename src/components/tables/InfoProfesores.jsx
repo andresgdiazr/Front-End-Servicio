@@ -68,6 +68,48 @@ function InfoProfesores({ input }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
+  const renderCell = (cell) => {
+    if (typeof cell.value !== "number") {
+      return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+    }
+    else {
+      return (
+        <td {...cell.getCellProps()}>
+          <div
+            css={css`
+            width=100%;
+            display:flex;
+            justify-content:space-evenly;
+            align-items:center;
+            svg {
+              cursor:pointer;
+            }
+          `}
+          >
+            <SchoolIcon
+              onClick={() => {
+                informacion(cell.value);
+              }}
+            />
+
+            <EditIcon
+              onClick={() => {
+                modificar(cell);
+              }}
+            />
+
+            <LockIcon
+              onClick={() => {
+                setPasswordRow(cell.row.original.id);
+                setPasswordOverlay(true);
+              }}
+            />
+          </div>
+        </td>
+      );
+    }
+  };
+
   return (
     <div className="container">
       <Overlay
@@ -104,7 +146,6 @@ function InfoProfesores({ input }) {
                 font-size: 0.8rem;
               `}
             >
-              
               {passwordLink}
             </Typography>
           )}
@@ -117,47 +158,7 @@ function InfoProfesores({ input }) {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  if (typeof cell.value !== "number")
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  else
-                    return (
-                      <td {...cell.getCellProps()}>
-                        <div
-                          css={css`
-														width=100%;
-														display:flex;
-														justify-content:space-evenly;
-														align-items:center;
-														svg {
-															cursor:pointer;
-														}
-													`}
-                        >
-                          <SchoolIcon
-                            onClick={() => {
-                              informacion(cell.value);
-                            }}
-                          />
-
-                          <EditIcon
-                            onClick={() => {
-                              modificar(cell);
-                            }}
-                          />
-
-                          <LockIcon
-                            onClick={() => {
-                              setPasswordRow(cell.row.original.id);
-                              setPasswordOverlay(true);
-                            }}
-                          />
-                        </div>
-                      </td>
-                    );
-                })}
+                {row.cells.map((cell) => renderCell(cell))}
               </tr>
             );
           })}

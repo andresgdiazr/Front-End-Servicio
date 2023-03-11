@@ -8,6 +8,10 @@ const INFO_PROFESOR = [
         accessor: 'apellido',
     },
     {
+        Header: 'Cedula',
+        accessor: 'cedula',
+    },
+    {
         Header: 'Correo',
         accessor: 'email',
     },
