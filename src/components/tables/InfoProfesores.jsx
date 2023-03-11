@@ -91,7 +91,7 @@ function InfoProfesores({ input }) {
               }
               const response = await getChangePasswordToken(passwordRow);
               if (response.status === 200) {
-                const link = `http://localhost:5173/set-password?token=${response.data.token}`;
+                const link = `${window.origin}/set-password?token=${response.data.token}`;
                 setPasswordLink(link);
               }
             }}
