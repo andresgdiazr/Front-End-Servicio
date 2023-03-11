@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMaterias } from "../../api/getMaterias";
+import { setLoading } from "./main";
 
 const mainSlice = createSlice({
   name: "materias",
@@ -22,13 +23,14 @@ const mainSlice = createSlice({
       materia.nombre = payload.nombre;
       materia.materia_padre_id = payload.materia_padre_id;
     },
-    addMateria: (state,{payload}) => {
-      state.materias.push( payload.newMateria )
-    }
+    addMateria: (state, { payload }) => {
+      state.materias.push(payload.newMateria);
+    },
   },
 });
 
-export const { setMaterias, deleteMateria, updateMateria,addMateria } = mainSlice.actions;
+export const { setMaterias, deleteMateria, updateMateria, addMateria } =
+  mainSlice.actions;
 
 function useMaterias(año) {
   const materias = useSelector((state) => state.materias.materias);
@@ -37,12 +39,16 @@ function useMaterias(año) {
 
   useEffect(() => {
     if (!fetched) {
-      getMaterias().then((materias) => {
-        dispatch(setMaterias({ materias }));
-      });
+      dispatch(setLoading(true));
+      getMaterias()
+        .then((materias) => dispatch(setMaterias({ materias })))
+        .then(() => dispatch(setLoading(false)));
     }
   }, [fetched]);
-  const memoMaterias = useMemo(() => materias.filter((m) => m.año == año), [materias,año]);
+  const memoMaterias = useMemo(
+    () => materias.filter((m) => m.año == año),
+    [materias, año]
+  );
   return memoMaterias;
 }
 

@@ -13,6 +13,8 @@ import "../../css/tablas.css";
 import Overlay from "../organisms/Overlay";
 import { Button, Typography } from "@mui/material";
 import { getChangePasswordToken } from "../../api/getChangePasswordToken";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../store/features/main";
 
 function InfoProfesores({ input }) {
   const [datos, setData] = useState([]);
@@ -20,6 +22,7 @@ function InfoProfesores({ input }) {
   const [passwordRow, setPasswordRow] = useState(null);
   const [passwordLink,setPasswordLink] = useState(null)
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     if(!passwordOverlay) {
@@ -38,8 +41,10 @@ function InfoProfesores({ input }) {
 
   useEffect(() => {
     const fetchProfesores = async () => {
+      dispatch(setLoading(true))
       const profesoresRes = await getProfesores();
       setData(profesoresRes);
+      dispatch(setLoading(false))
     };
 
     fetchProfesores();

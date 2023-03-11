@@ -1,21 +1,24 @@
 import { Delete, Edit, RepeatOneSharp } from "@mui/icons-material";
 import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
 import { disableEvaluacion } from "../../api/disableEvaluacion";
 import { getEvaluaciones } from "../../api/getEvaluaciones";
+import { setLoading } from "../../store/features/main";
 
 function EvaluacionesTable() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const { lapso, id } = useParams();
 
   const [evaluaciones, setEvaluaciones] = useState([]);
 
   useEffect(() => {
-    getEvaluaciones({ lapso, materiaId: id }).then((evs) =>
-      setEvaluaciones(evs)
-    );
+    dispatch(setLoading(true));
+    getEvaluaciones({ lapso, materiaId: id })
+      .then((evs) => setEvaluaciones(evs))
+      .then(() => dispatch(setLoading(false)));
   }, []);
 
   const memoData = useMemo(() => evaluaciones, [evaluaciones]);
@@ -42,13 +45,17 @@ function EvaluacionesTable() {
         <div>
           <Delete
             onClick={async () => {
+              dispatch(setLoading(true))
               const response = await disableEvaluacion(cell.row.original.id);
-              if( response.status == 200 ) {
-                navigate(0)
+              if (response.status == 200) {
+                dispatch(setLoading(false))
+                navigate(0);
+              }else {
+                dispatch(setLoading(false))
               }
             }}
           />
-          <Link to={`${cell.row.original.id}/editar`} >
+          <Link to={`${cell.row.original.id}/editar`}>
             <Edit />
           </Link>
         </div>

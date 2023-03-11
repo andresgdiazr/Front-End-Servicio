@@ -6,18 +6,24 @@ import { useLocation } from "react-router-dom";
 import { INFO_CLASES } from "../../components/Tables/INFO_CLASES";
 import { getProfesores } from "../../api/profesores";
 import GoBackButton from "../../components/atoms/GoBackButton";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../store/features/main";
 
 function ProfesorClases() {
   const [clases, setClase] = useState([]);
   const [profesor, setProfesor] = useState([]);
 
-  const { state } = useLocation();
   const params = useParams();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchClases = async () => {
+      dispatch(setLoading(true));
       const ClasesRes = await getClases(params.id);
       const ProfesoresRes = await getProfesores();
+      dispatch(setLoading(false));
+
       setProfesor(ProfesoresRes);
       setClase(ClasesRes);
     };
@@ -41,7 +47,14 @@ function ProfesorClases() {
 
       <INFO_CLASES datos={clases} />
 
-      <Button css={css`margin-top:1rem;`} variant="contained">Añadir clase</Button>
+      <Button
+        css={css`
+          margin-top: 1rem;
+        `}
+        variant="contained"
+      >
+        Añadir clase
+      </Button>
     </Container>
   );
 }

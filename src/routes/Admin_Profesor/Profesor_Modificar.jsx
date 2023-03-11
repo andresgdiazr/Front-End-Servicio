@@ -4,6 +4,8 @@ import { useLocation, useParams } from "react-router-dom";
 import { Alert, Button, css, Snackbar, Typography } from "@mui/material";
 import GoBackButton from "../../components/atoms/GoBackButton";
 import { updateProfesor } from "../../api/updateProfesor";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../store/features/main";
 
 function Profesor_Modificar() {
   const { state } = useLocation();
@@ -13,9 +15,14 @@ function Profesor_Modificar() {
   const [email, setEmail] = useState(state.email);
   const [open, setOpen] = useState(false);
 
+  const dispatch = useDispatch()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true))
     let response = await updateProfesor(state.id, { nombre, apellido, email });
+    dispatch(setLoading(false))
+
     if (response.status == 200) {
       setOpen(true);
     }
