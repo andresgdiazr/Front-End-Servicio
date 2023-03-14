@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+
+import {  useState } from "react";
+import { Link } from "react-router-dom";
 import InfoProfesores from "../../components/tables/InfoProfesores";
 import TextField from "@mui/material/TextField";
 import GoBackButton from "../../components/atoms/GoBackButton";

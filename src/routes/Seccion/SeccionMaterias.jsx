@@ -7,8 +7,7 @@ function SeccionMaterias() {
   useEffect(() => {
 		const fetchProfesores = async () => {
             let estudiantesRes = await getEstudiantes(id);
-		
-          console.log(estudiantesRes);
+
 		};
 
 		fetchProfesores();

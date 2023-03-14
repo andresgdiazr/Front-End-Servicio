@@ -23,7 +23,7 @@ function TextInput({ label, placeholder, id, reactHookProps = {} , error}) {
 
 
         input {
-          width:300px;
+          width:350px;
           font-size:1.05rem;
           padding: 0.6rem 1rem;
           border-radius:3px;
