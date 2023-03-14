@@ -70,8 +70,8 @@ const router = createBrowserRouter([
 				children: [
 					{ index:true, element: <ProfesorDashboard />},
 					{ path:"clases/:id", element: <Clase />},
-					{ path:"clases/:id/evaluaciones/:lapso", element: <ClaseEvaluaciones />},
-					{ path:"clases/:id/evaluaciones/:evaluacionId/notas", element: <Notas />}
+					{ path:"clases/:id/lapsos/:lapso/evaluaciones", element: <ClaseEvaluaciones />},
+					{ path:"clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas", element: <Notas />}
 				]
 			},
 			{
