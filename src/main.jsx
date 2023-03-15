@@ -47,6 +47,7 @@ import EditarEvaluacion from "./routes/admin/EditarEvaluacion";
 import SetPassword from "./routes/SetPassword";
 import ProfesorCrear from "./routes/Admin_Profesor/ProfesorCrear";
 import CrearClase from "./routes/admin/CrearClase";
+import EditarClase from "./routes/admin/EditarClase";
 
 
 axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
@@ -85,8 +86,7 @@ const router = createBrowserRouter([
 					{ path:"admin/profesores/crear",element: <ProfesorCrear />},
 					{ path:"admin/profesores/:id/clases",element: <ProfesorClases />},
 					{ path:"admin/profesores/:profesorId/clases/crear",element: <CrearClase />},
-
-
+					{ path:"admin/profesores/:profesorId/clases/:claseId/editar",element: <EditarClase />},
 
 					{ path:"admin/secciones", element: <SeccionDashboard /> },
 					{ path:"admin/secciones/crear",element: <SeccionCrear />},

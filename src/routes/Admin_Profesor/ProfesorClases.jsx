@@ -24,7 +24,7 @@ function ProfesorClases() {
         {profesor.nombre} {profesor.apellido}
       </Typography>
 
-      <ClasesProfesoresTable datos={clases} />
+      <ClasesProfesoresTable profesor={profesor} datos={clases} />
 
       <Link
         to="crear"

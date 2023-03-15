@@ -2,7 +2,15 @@ import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import React from "react";
 
-function SelectInput({ id, label, error , options = [] ,reactHookProps = {}}) {
+function SelectInput({
+  id,
+  label,
+  error,
+  options = [],
+  onChange = () => null,
+  value,
+  inputRef
+}) {
   return (
     <div
       css={css`
@@ -25,17 +33,13 @@ function SelectInput({ id, label, error , options = [] ,reactHookProps = {}}) {
         }
 
         select {
-
           width: 350px;
           font-size: 1.05rem;
           padding: 0.6rem 1rem;
           border-radius: 3px;
           border: 1px solid #333;
           grid-area: input;
-
-
         }
-
 
         p {
           display: flex;
@@ -49,11 +53,20 @@ function SelectInput({ id, label, error , options = [] ,reactHookProps = {}}) {
     >
       <Typography>{error}</Typography>
       <label htmlFor={id}> {label} </label>
-      <select name="pets" id="pet-select"  {...reactHookProps}>
-        {options.map( ({value,display}) => {
-          return <option key={value} value={value}>{display}</option>
-        } )}
-
+      <select
+        ref={inputRef}
+        value={value}
+        name="pets"
+        id="pet-select"
+        onChange={(ev) => onChange(ev.target.value)}
+      >
+        {options.map(({ value, display }) => {
+          return (
+            <option key={value} value={value}>
+              {display}
+            </option>
+          );
+        })}
       </select>
     </div>
   );

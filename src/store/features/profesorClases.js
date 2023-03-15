@@ -21,35 +21,38 @@ const profesorClasesSlice = createSlice({
         state.profesores.push({ id: profesorId, clases });
       }
     },
-    removeClase: (state, { payload:{claseId} }) => {
-      for( const profesor of state.profesores ) {
-        if( profesor.clases.some( c => c.id == parseInt(claseId)) ) {
-          profesor.clases = profesor.clases.filter( c => c.id != parseInt(claseId) )
+    removeClase: (state, { payload: { claseId } }) => {
+      for (const profesor of state.profesores) {
+        if (profesor.clases.some((c) => c.id == parseInt(claseId))) {
+          profesor.clases = profesor.clases.filter(
+            (c) => c.id != parseInt(claseId)
+          );
         }
       }
     },
-    editEvaluacion: (state, { payload }) => {
-      const matIdx = state.materiaEvaluaciones.findIndex(
-        (mat) => mat.id == parseInt(payload.materiaId)
-      );
-      if (matIdx != -1) {
-        const evIdx = state.materiaEvaluaciones[matIdx].evaluaciones.findIndex(
-          (ev) => ev.id == parseInt(payload.evaluacionId)
-        );
-        state.materiaEvaluaciones[matIdx].evaluaciones[evIdx] =
-          payload.evaluacion;
+    editClase: (state, { payload: { claseId, materia, seccion } }) => {
+      for (const profesor of state.profesores) {
+        let clase = profesor.clases.find((c) => c.id == parseInt(claseId));
+        if (clase) {
+          clase.materia = { ...clase.materia, ...materia };
+          clase.seccion = { ...clase.seccion, ...seccion };
+          return;
+        }
       }
     },
-    addClase: (state, { payload:{profesorId,clase} }) => {
-      const profesor = state.profesores.find( p => p.id == parseInt(profesorId))
-      if ( profesor ) {
-        profesor.clases.push(clase)
+    addClase: (state, { payload: { profesorId, clase } }) => {
+      const profesor = state.profesores.find(
+        (p) => p.id == parseInt(profesorId)
+      );
+      if (profesor) {
+        profesor.clases.push(clase);
       }
     },
   },
 });
 
-export const { setProfesorClases,removeClase,addClase } = profesorClasesSlice.actions;
+export const { setProfesorClases, removeClase, addClase, editClase } =
+  profesorClasesSlice.actions;
 
 function useProfesorClases({ profesorId }) {
   const profesor = useSelector((state) => {

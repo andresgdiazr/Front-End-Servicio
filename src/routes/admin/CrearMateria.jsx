@@ -48,6 +48,8 @@ function CrearMateria() {
     if (res.status == 200) {
       dispatch(addMateria({ newMateria: res.data }));
       navigate(-1);
+    } else {
+      console.log(res.data)
     }
     dispatch( setLoading(false) )
 

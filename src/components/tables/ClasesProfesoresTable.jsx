@@ -14,8 +14,9 @@ import { deleteClase } from "../../api/deleteClase";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../store/features/main";
 import { removeClase } from "../../store/features/profesorClases";
+import { Link } from "react-router-dom";
 
-export function ClasesProfesoresTable({ datos }) {
+export function ClasesProfesoresTable({ datos, profesor = {} }) {
   const dispatch = useDispatch();
 
   const columns = useMemo(
@@ -36,6 +37,7 @@ export function ClasesProfesoresTable({ datos }) {
         Header: "Acciónes",
         accessor: "acciones",
         Cell: ({ row }) => {
+          const claseId = row.original.id;
           return (
             <div
               css={css`
@@ -49,13 +51,14 @@ export function ClasesProfesoresTable({ datos }) {
               `}
             >
               <VisibilityIcon />
-              <EditIcon />
+              <Link to={`${claseId}/editar`} state={{ profesor,clase:row.original }}>
+                <EditIcon />
+              </Link>
               <DeleteIcon
                 onClick={async () => {
-                  const claseId = row.original.id;
                   dispatch(setLoading(true));
-                  const response = await deleteClase({claseId})
-                  if (  response.status === 204) {
+                  const response = await deleteClase({ claseId });
+                  if (response.status === 204) {
                     dispatch(removeClase({ claseId }));
                   }
                   dispatch(setLoading(false));

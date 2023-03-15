@@ -39,7 +39,9 @@ function CrearClase() {
       );
       navigate(-1);
     } else {
-      console.log(response.data)
+      if( response.data.errors.some( error => error.field === 'all' && error.rule === 'duplicate' ) ) {
+        return 'dup-error'
+      }      
     }
   };
 
