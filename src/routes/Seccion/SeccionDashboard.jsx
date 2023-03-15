@@ -122,9 +122,7 @@ function SeccionDashboard() {
 			return 0;
 		  });
 		
-		
 
-		console.log(secciones);
 
 		return (
 		  <>

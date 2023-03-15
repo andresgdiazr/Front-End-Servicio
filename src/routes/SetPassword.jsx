@@ -26,11 +26,11 @@ function SetPassword() {
 
 
     const response = await changePassword({ password, token });
-    console.log(response)
+
     if (response.status == 200) {
       setSuccessDialog(true);
     } else {
-      console.log('wtf')
+
       setFailureDialog(true)
     }
   };

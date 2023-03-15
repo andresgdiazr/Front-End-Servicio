@@ -24,11 +24,11 @@ export default function SelectAño() {
 		axios
       .post("/admin/secciones",{año,codigo})
       .then(response => {
-        console.log(response)
+  
         // Handle response
       })
 	  .catch(e => {
-		console.log(e);
+
 	  })
 
 	}

@@ -20,7 +20,7 @@ function SeccionAñadir(){
       axios
         .post("/admin/secciones",{año,codigo})
         .then(response => {
-          console.log(response)
+
           // Handle response
         })
       .catch(e => {

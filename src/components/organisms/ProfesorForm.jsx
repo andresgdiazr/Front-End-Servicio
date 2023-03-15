@@ -19,6 +19,8 @@ function ProfesorForm({
     defaultValues,
   });
 
+  console.log(errors)
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -82,9 +84,6 @@ function ProfesorForm({
         })}
         error={
           errors?.cedula?.message ||
-          (usedEmails.some((email) => email == watch("email"))
-            ? "El email ya esta en uso"
-            : "") ||
           (usedCedulas.some((cedula) => cedula == watch("cedula"))
             ? "Esta cedula ya esta asignada"
             : "")

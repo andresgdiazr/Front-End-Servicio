@@ -33,7 +33,7 @@ function InfoProfesores({ input }) {
   }, [passwordOverlay]);
 
   const informacion = (id) => {
-    navigate(`${id}/clases`);
+    navigate(`${id}/clases`,{state:{profesores:datos}});
   };
   const modificar = (cell) => {
     const row = cell.row.original;

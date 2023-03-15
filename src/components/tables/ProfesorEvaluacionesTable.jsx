@@ -2,18 +2,34 @@ import { css } from "@emotion/react";
 import { Upload } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import React, { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTable } from "react-table";
+import THead from "../molecules/THead";
 
 function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
-  const navigate = useNavigate();
-
   const columns = useMemo(
     () => [
       { Header: "Evaluacion", accessor: "evaluacion" },
-      { Header: "Accion", accessor: "accion" },
+      {
+        Header: "Accion",
+        accessor: "accion",
+        Cell: ({ row }) => {
+          return (
+            <Link
+              to={`${row.original.fulldata.id}/notas`}
+              state={{
+                clase,
+                materia,
+                evaluacion: row.original.fulldata,
+              }}
+            >
+              <Upload />
+            </Link>
+          );
+        },
+      },
     ],
-    []
+    [clase, materia]
   );
 
   const memoData = useMemo(() => data, [data]);
@@ -27,7 +43,6 @@ function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
     tableInstance;
 
   return (
-    // apply the table props
     <div
       css={css`
         width: 50%;
@@ -39,7 +54,7 @@ function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
       `}
     >
       <Typography variant="h2">
-        Plan de evaluacion para Lapso {lapso}{" "}
+        Plan de evaluacion para Lapso {lapso}
       </Typography>
 
       <table
@@ -51,69 +66,20 @@ function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
         `}
         {...getTableProps()}
       >
-        <thead>
-          {
-            // Loop over the header rows
-            headerGroups.map((headerGroup) => (
-              // Apply the header row props
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {
-                  // Loop over the headers in each row
-                  headerGroup.headers.map((column) => (
-                    // Apply the header cell props
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))
-                }
-              </tr>
-            ))
-          }
-        </thead>
-        {/* Apply the table body props */}
+        <THead headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>
-          {
-            // Loop over the table rows
-            rows.map((row) => {
-              // Prepare the row for display
-              prepareRow(row);
-              return (
-                // Apply the row props
-                <tr {...row.getRowProps()}>
-                  {
-                    // Loop over the rows cells
-                    row.cells.map((cell) => {
-                      // Apply the cell props
-                      return (
-                        <td {...cell.getCellProps()}>
-                          {cell.value ? (
-                            cell.render("Cell")
-                          ) : (
-                            <a
-                              onClick={() =>
-                                navigate(
-                                  `/dashboard-profesor/clases/${clase.id}/evaluaciones/${cell.row.original.fulldata.id}/notas`,
-                                  {
-                                    state: {
-                                      clase,
-                                      materia,
-                                      evaluacion: cell.row.original.fulldata,
-                                    },
-                                  }
-                                )
-                              }
-                            >
-                              <Upload />
-                            </a>
-                          )}
-                        </td>
-                      );
-                    })
-                  }
-                </tr>
-              );
-            })
-          }
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
