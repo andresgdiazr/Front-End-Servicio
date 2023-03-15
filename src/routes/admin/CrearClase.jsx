@@ -20,7 +20,7 @@ function CrearClase() {
     const response = await crearClase({
       profesorId: state.profesor.id,
       materiaId: parseInt(data.materia),
-      seccionId: parseInt(data.seccion),
+      seccionId: parseInt(data.seccion),  
     });
     dispatch(setLoading(false));
 
@@ -38,6 +38,8 @@ function CrearClase() {
         })
       );
       navigate(-1);
+    } else {
+      console.log(response.data)
     }
   };
 
