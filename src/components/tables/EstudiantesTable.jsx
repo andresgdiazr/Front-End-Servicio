@@ -9,18 +9,23 @@ import LockIcon from '@mui/icons-material/Lock';
 import "../../css/tablas.css";
 
 import { getEstudiantes } from "../../api/admin_estudiantes";
+import { useNavigate } from "react-router-dom";
 
 export function Estudiantes_table({ input, id}) {
 	
 
+	const navigate = useNavigate();
 
 	const [estudiante, setEstudiante] = useState([]);
 	
 	useEffect(() => {
 		const fetchProfesores = async () => {
             let estudiantesRes = await getEstudiantes(id);
+
+	
+
 			let estudianteRes = estudiantesRes.map( (estudiante) => {
-                return { 'nombres':`${estudiante.nombre} ${estudiante.apellido}`, 'cedula':`${estudiante.cedula}`}
+                return { ...estudiante, 'nombres':`${estudiante.nombre} ${estudiante.apellido}` }
             })
          
             
@@ -93,7 +98,13 @@ export function Estudiantes_table({ input, id}) {
 												
 												<EditIcon
 
-												
+												onClick={ () => {  navigate(`${cell.row.original.id}/modificar`,{
+													state:{
+														'nombre': cell.row.original.nombre,
+														'apellido': cell.row.original.apellido,
+														'id': cell.row.original.id,
+													}
+												})}}
 												/>
 
 												</div>	

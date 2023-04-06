@@ -45,9 +45,10 @@ import MateriaEvaluaciones from "./routes/admin/MateriaEvaluaciones";
 import CrearEvaluacion from "./routes/admin/CrearEvaluacion";
 import EditarEvaluacion from "./routes/admin/EditarEvaluacion";
 import SetPassword from "./routes/SetPassword";
+import ModificarEstudiante from "./routes/Seccion/ModificarEstudiante";
 
 
-axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
+axios.defaults.baseURL = "http://localhost:3333"
 
 const router = createBrowserRouter([
 	{
@@ -89,6 +90,7 @@ const router = createBrowserRouter([
 					{ path:"admin/secciones/:id/materias", element: <SeccionMaterias />},
 					{ path:"admin/secciones/:id/añadir_estudiantes", element:<SeccionAñadir />},
 					{ path:"admin/secciones/:id/modificar", element: <SeccionModificar />},
+					{ path:"admin/secciones/:id/estudiantes/:id/modificar", element:<ModificarEstudiante />},
 		
 					{ path:"admin/materias", element: <Materias />},
 					{ path:"admin/materias/:year", element: <MateriasPorAño />},
