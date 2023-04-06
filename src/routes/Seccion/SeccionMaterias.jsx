@@ -15,6 +15,7 @@ function SeccionMaterias() {
 
   useEffect(() => {
 		const fetchProfesores = async () => {
+
           
 		const Res= await getClases(id);
   
@@ -25,6 +26,7 @@ function SeccionMaterias() {
       setMaterias(materias => [...materias,materia]);
    
     })
+
 
 		};
 

@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import GoBackButton from "../../components/atoms/GoBackButton";
 import ClaseInfo from "../../components/organisms/ClaseInfo";
 import ProfesorEvaluacionesTable from "../../components/tables/ProfesorEvaluacionesTable";
+import { setLoading } from "../../store/features/main";
 
 function ClaseEvaluaciones() {
   const [evaluaciones, setEvaluaciones] = useState([]);
+
+  const dispatch = useDispatch()
 
   const {
     state: { materia, clase },
@@ -17,12 +21,12 @@ function ClaseEvaluaciones() {
 
 
   useEffect(() => {
+    dispatch(setLoading(true))
     axios
       .get(`/profesor/materias/${materia.id}/evaluaciones/lapsos/${lapso}`)
-      .then(
-        (response) => setEvaluaciones(response.data) 
-      )
-      .catch((err) => null);
+      .then( (response) => setEvaluaciones(response.data) )
+      .then( ()=> dispatch(setLoading(false))  )
+      .catch((err) => dispatch(setLoading(false)));
   }, []);
 
   return (

@@ -1,11 +1,12 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+
+import {  useState } from "react";
+import { Link } from "react-router-dom";
 import InfoProfesores from "../../components/tables/InfoProfesores";
 import TextField from "@mui/material/TextField";
 import GoBackButton from "../../components/atoms/GoBackButton";
 import { css } from "@emotion/react";
+import { Button } from "@mui/material";
 
 function AdminProfesores() {
   const [text, setText] = useState("");
@@ -21,6 +22,10 @@ function AdminProfesores() {
 
       <h2>Administrador de Profesores</h2>
       <h3>Listado de profesores</h3>
+
+      <Link to="crear">
+        <Button css={css`margin-bottom:1rem;`} variant="contained">Crear Profesor</Button>
+      </Link>
 
       <TextField
         css={css`
