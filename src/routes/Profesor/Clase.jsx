@@ -15,7 +15,7 @@ function Clase() {
   const materiaData = {materia,clase}
   return (
     <div>
-      <GoBackButton to={"/dashboard-profesor"} />
+      <GoBackButton to={"prev"} />
       <ClaseInfo materia={materia.nombre} año={materia.año} seccion={clase.seccion.codigo} />
 
       <EvaluacionLapsoTable claseId={claseId} materiaData={materiaData} />

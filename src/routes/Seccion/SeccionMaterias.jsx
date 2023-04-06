@@ -1,19 +1,40 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import GoBackButton from "../../components/atoms/GoBackButton";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getClases } from "../../api/getClases";
+import SeccionClases from "../../components/tables/SeccionClases";
 
 function SeccionMaterias() {
 
+  const [materias,setMaterias]=useState([]);
+  const [clases,setClases]=useState([]);
+  const {id}= useParams();
+
+
   useEffect(() => {
 		const fetchProfesores = async () => {
-            let estudiantesRes = await getEstudiantes(id);
+
+          
+		const Res= await getClases(id);
+  
+    setClases(Res);
+    console.log(Res)
+    Res.map( ({materia}) =>{
+
+      setMaterias(materias => [...materias,materia]);
+   
+    })
+
 
 		};
 
 		fetchProfesores();
 	}, []);
 
-    
+  
+
 
     return(
         <>
@@ -23,6 +44,8 @@ function SeccionMaterias() {
 
           <Typography>Listado</Typography>
 
+
+         <SeccionClases InfoMaterias={clases} />
 
         </>
     );
