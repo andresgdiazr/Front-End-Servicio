@@ -5,6 +5,7 @@ import { TextField, Button } from "@mui/material";
 
 function SeccionAñadir() {
 	const FormatoCrearEstudiante = () => {
+
 		const [codigo, setCodigo] = useState("");
 		const [nombre, setNombres] = useState("");
 		const [apellido, setApellidos] = useState("");
@@ -12,7 +13,7 @@ function SeccionAñadir() {
 		const handleSubmit = (e) => {
 			e.preventDefault();
 			axios
-				.post("/admin/secciones", { año, codigo })
+				.post("/admin/estudiantes", { año, codigo })
 				.then((response) => {
 					// Handle response
 				})
@@ -29,7 +30,7 @@ function SeccionAñadir() {
 						label="Nombres del estudiante"
 						variant="outlined"
 						value={codigo}
-						onChange={(e) => setCodigo(e.target.value)}
+						onChange={(e) => setNombres(e.target.value)}
 					/>
 
 					<br></br>
@@ -38,7 +39,7 @@ function SeccionAñadir() {
 						label="Apellidos del estudiante"
 						variant="outlined"
 						value={codigo}
-						onChange={(e) => setCodigo(e.target.value)}
+						onChange={(e) => setApellidos(e.target.value)}
 					/>
 
 					<br></br>
