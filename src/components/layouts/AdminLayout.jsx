@@ -2,12 +2,14 @@ import React from "react";
 import { css } from "@emotion/react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
+import GoBackButton from "../atoms/GoBackButton";
 
 function AdminLayout() {
 	const navbar = [
-		["Profesor", "/dashboard-control/admin/profesores"],
+		["Inicio", "/dashboard-control"],
+		["Profesor", "admin/profesores"],
 		["Seccion", "admin/secciones"],
-		["Materia", "admin/profesores"],
+		["Materia", "admin/materias"],
 	];
 
 	return (
