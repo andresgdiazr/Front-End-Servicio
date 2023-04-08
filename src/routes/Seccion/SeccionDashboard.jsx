@@ -11,36 +11,26 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Typography,
-  } from "@mui/material";
-  import {
+} from "@mui/material";
+import {
 	ExpandMore as ExpandMore,
 	ExpandLess as ExpandLess,
-  } from "@mui/icons-material";
+} from "@mui/icons-material";
 
 function SeccionDashboard() {
 	const navigate = useNavigate();
 
-	
 	const { state } = useLocation();
 	const [años, setAños] = useState([]);
-
 
 	const handleClick = () => {
 		navigate("crear", { state: state });
 	};
 
-	
-
-
-	
-
-
 	useEffect(() => {
 		const fetchClases = async () => {
 			const SeccionesRes = await getSecciones();
-			
-	
-			
+
 			const PrimerAño = SeccionesRes.filter((el) => {
 				if (el.año === 1) {
 					return el;
@@ -79,101 +69,83 @@ function SeccionDashboard() {
 				CuartoAño,
 				QuintoAño,
 			]);
-
-
 		};
 
 		fetchClases();
 	}, []);
 
-
 	const SeccionItem = ({ seccion }) => {
 		const navigate = useNavigate();
-	  
+
 		const handleOnClick = () => {
 			navigate(`/dashboard-control/admin/secciones/${seccion.id}`, {
-			  state: {
-				año:seccion.año,
-				seccion:seccion.codigo
-			  },
+				state: {
+					año: seccion.año,
+					seccion: seccion.codigo,
+				},
 			});
-		  };
-	  
-		return (
-		  <Box pl={4}>
-			<ListItemButton>
-			  <ListItemText onClick={handleOnClick} primary={` Seccion ${seccion.codigo}  `} />
-			</ListItemButton>
-		  </Box>
-		);
-	  };
+		};
 
+		return (
+			<Box pl={4}>
+				<ListItemButton>
+					<ListItemText
+						onClick={handleOnClick}
+						primary={` Seccion ${seccion.codigo}  `}
+					/>
+				</ListItemButton>
+			</Box>
+		);
+	};
 
 	const AñoItem = ({ secciones }) => {
 		const [expanded, setExpanded] = useState(false);
-	  
+
 		secciones.sort(function (a, b) {
 			if (a.codigo < b.codigo) {
-			  return -1;
+				return -1;
 			}
 			if (a.codigo > b.codigo) {
-			  return 1;
+				return 1;
 			}
 			return 0;
-		  });
-		
-
+		});
 
 		return (
-		  <>
-			<ListItem disablePadding onClick={() => setExpanded(!expanded)}>
-			  <ListItemIcon style={{ minWidth: "32px" }}>
-				{expanded ? (
-				  <ExpandLess fontSize="large" />
-				) : (
-				  <ExpandMore fontSize="large" />
-				)}
-			  </ListItemIcon>
-			  <ListItemText
-				primaryTypographyProps={{ fontSize: 20, component: "h3" }}
-				primary={`Año: ${secciones[0].año}`  
-					
-					 }
-			  />
-			</ListItem>
-			<Collapse in={expanded} timeout="auto" unmountOnExit>
-			  <List component="div" disablePadding>
-				{secciones.map((seccion) => (
-				  <SeccionItem
-					key={seccion.id}
-					seccion={seccion}
-				  />
-				))}
-			  </List>
-			</Collapse>
-		  </>
+			<>
+				<ListItem disablePadding onClick={() => setExpanded(!expanded)}>
+					<ListItemIcon style={{ minWidth: "32px" }}>
+						{expanded ? (
+							<ExpandLess fontSize="large" />
+						) : (
+							<ExpandMore fontSize="large" />
+						)}
+					</ListItemIcon>
+					<ListItemText
+						primaryTypographyProps={{ fontSize: 20, component: "h3" }}
+						primary={`Año: ${secciones[0].año}`}
+					/>
+				</ListItem>
+				<Collapse in={expanded} timeout="auto" unmountOnExit>
+					<List component="div" disablePadding>
+						{secciones.map((seccion) => (
+							<SeccionItem key={seccion.id} seccion={seccion} />
+						))}
+					</List>
+				</Collapse>
+			</>
 		);
-	  };
-
-
-
+	};
 
 	return (
 		<>
 			<List>
-				{
-					años.map( (año) =>(
-						<AñoItem 
-						key={año[0].año} 
-						secciones={año}>
-							{año[0].año}
-						</AñoItem>
-					))
-				}
+				{años.map((año) => (
+					<AñoItem key={año[0].año} secciones={año}>
+						{año[0].año}
+					</AñoItem>
+				))}
 			</List>
-
-
-			
 
 			<Button onClick={handleClick}> Crear Nueva sección</Button>
 		</>

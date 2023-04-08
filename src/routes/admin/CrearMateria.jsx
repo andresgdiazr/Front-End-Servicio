@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createMateria } from "../../api/createMateria";
 import ErrorInput from "../../components/atoms/ErrorInput";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { setLoading } from "../../store/features/main";
 import { addMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
@@ -64,7 +63,6 @@ function CrearMateria() {
         }
       `}
     >
-      <GoBackButton to="prev" />
       <Typography variant="h2">Administracion de materias</Typography>
 
       <Typography>Creación de materias</Typography>

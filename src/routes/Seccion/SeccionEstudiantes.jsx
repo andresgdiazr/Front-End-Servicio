@@ -1,29 +1,25 @@
 import React from "react";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { getEstudiantes } from "../../api/admin_estudiantes";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { Estudiantes_table } from "../../components/tables/EstudiantesTable";
 
-function SeccionEstudiantes (){
+function SeccionEstudiantes() {
+	const { id } = useParams();
 
-  const {id} = useParams();
-
-  const [text, setText] = useState("");
+	const [text, setText] = useState("");
 
 	const inputHandler = ({ target }) => {
 		let lowerCase = target.value.toLowerCase();
 		setText(lowerCase);
 	};
 
-    return(
-        <>
+	return (
+		<>
+			<br></br>
 
-      <GoBackButton to="prev" />
-   <br></br>
-
-      <TextField
+			<TextField
 				id="outlined-basic"
 				variant="outlined"
 				fullWidth
@@ -34,15 +30,9 @@ function SeccionEstudiantes (){
 			<br></br>
 			<br></br>
 
-       
-      <Estudiantes_table input={text} id={id} />
-
-
-        </>
-
-
-    );
+			<Estudiantes_table input={text} id={id} />
+		</>
+	);
 }
-
 
 export default SeccionEstudiantes;

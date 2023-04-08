@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createCuenta } from "../../api/createCuenta";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import CuentaForm from "../../components/organisms/CuentaForm";
 import { setLoading } from "../../store/features/main";
 // TODO añadir snackbar
@@ -41,7 +40,6 @@ function CuentaCrear({ tipo }) {
 
 	return (
 		<div>
-			<GoBackButton to="prev" />
 			<h2>Administración de {tipo}</h2>
 			<h3>Creacion de cuenta</h3>
 

@@ -4,7 +4,6 @@ import {  useState } from "react";
 import { Link } from "react-router-dom";
 import InfoProfesores from "../../components/tables/InfoProfesores";
 import TextField from "@mui/material/TextField";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { css } from "@emotion/react";
 import { Button } from "@mui/material";
 
@@ -18,8 +17,6 @@ function AdminProfesores() {
 
   return (
     <div>
-      <GoBackButton to={"prev"} />
-
       <h2>Administrador de Profesores</h2>
       <h3>Listado de profesores</h3>
 
