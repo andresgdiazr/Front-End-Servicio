@@ -1,14 +1,35 @@
 import React from "react";
 
-import {  useState } from "react";
+import {  useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import InfoProfesores from "../../components/tables/InfoProfesores";
 import TextField from "@mui/material/TextField";
 import { css } from "@emotion/react";
 import { Button } from "@mui/material";
+import { getProfesores } from "../../api/profesores";
+import { useDispatch } from "react-redux";
+import TablaBusqueda from "../../components/tables/TABLAUNICA";
+
+
+import { setLoading } from "../../store/features/main";
 
 function AdminProfesores() {
   const [text, setText] = useState("");
+  const [profesores, setProfesores]= useState("");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProfesores = async () => {
+      dispatch(setLoading(true));
+      const profesoresRes = await getProfesores();
+      setProfesores(profesoresRes);
+      dispatch(setLoading(false));
+    };
+
+    fetchProfesores();
+  }, []);
+
 
   const inputHandler = ({ target }) => {
     const lowerCase = target.value.toLowerCase();
@@ -35,7 +56,8 @@ function AdminProfesores() {
         onChange={inputHandler}
       />
 
-      <InfoProfesores input={text} />
+      <TablaBusqueda input={text} datos={profesores} nombre={"INFO_PROFESOR"} />
+
     </div>
   );
 }
