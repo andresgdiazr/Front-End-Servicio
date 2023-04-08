@@ -21,10 +21,9 @@ const Container = styled(Typography)(({ theme }) => ({
   offset: theme.mixins.toolbar,
 }));
 
+// TODO debe haber una manera de que esto sea dinámico o si no se debe eliminar
 const defaultNames = [
-  ["Profesor", "/admin/profesores"],
-  ["Seccion", "/admin/secciones"],
-  ["Materia", "/admin/profesores"],
+  ["Inicio", "/"],
 ];
 
 const Navbar = ({ names = defaultNames }) => {

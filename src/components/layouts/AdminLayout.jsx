@@ -1,29 +1,30 @@
 import React from "react";
-import {css} from "@emotion/react";
-import {Outlet} from "react-router-dom";
+import { css } from "@emotion/react";
+import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
+import GoBackButton from "../atoms/GoBackButton";
 
-function AdminLayout(){
-
-    const navbar = [
-		["Profesor", "/dashboard-control/admin/profesores"],
+function AdminLayout() {
+	const navbar = [
+		["Inicio", "/dashboard-control"],
+		["Profesor", "admin/profesores"],
 		["Seccion", "admin/secciones"],
-		["Materia", "admin/profesores"],
+		["Materia", "admin/materias"],
 	];
 
-    return(
-        <div>
-            <Navbar names={navbar} />
-            <div
-                css={css`
-                    margin-top:64px;
-                    padding: 1rem 2rem;
-                `}
-            >
-                <Outlet/>
-            </div>
-        </div>
-    )
+	return (
+		<div>
+			<Navbar names={navbar} />
+			<div
+				css={css`
+					margin-top: 64px;
+					padding: 1rem 2rem;
+				`}
+			>
+				<Outlet />
+			</div>
+		</div>
+	);
 }
 
 export default AdminLayout;
