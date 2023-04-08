@@ -9,11 +9,30 @@ function SeccionEstudiantes() {
 	const { id } = useParams();
 
 	const [text, setText] = useState("");
+	const [estudiante, setEstudiante] = useState([]);
 
 	const inputHandler = ({ target }) => {
 		let lowerCase = target.value.toLowerCase();
 		setText(lowerCase);
 	};
+
+	useEffect(() => {
+		const fetchProfesores = async () => {
+            let estudiantesRes = await getEstudiantes(id);
+
+	
+
+			let estudianteRes = estudiantesRes.map( (estudiante) => {
+                return { ...estudiante, 'nombres':`${estudiante.nombre} ${estudiante.apellido}` }
+            })
+         
+            
+            setEstudiante(estudianteRes);
+		};
+
+		fetchProfesores();
+	}, []);
+
 
 	return (
 		<>
