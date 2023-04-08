@@ -19,7 +19,6 @@ function AdminLayout() {
 					padding: 1rem 2rem;
 				`}
 			>
-				<GoBackButton to="prev" />
 				<Outlet />
 			</div>
 		</div>
