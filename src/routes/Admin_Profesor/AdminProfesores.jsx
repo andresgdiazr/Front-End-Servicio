@@ -15,7 +15,7 @@ import { setLoading } from "../../store/features/main";
 
 function AdminProfesores() {
   const [text, setText] = useState("");
-  const [profesores, setProfesores]= useState("");
+  const [profesores, setProfesores]= useState([]);
 
   const dispatch = useDispatch();
 
@@ -25,6 +25,7 @@ function AdminProfesores() {
       const profesoresRes = await getProfesores();
       setProfesores(profesoresRes);
       dispatch(setLoading(false));
+      
     };
 
     fetchProfesores();

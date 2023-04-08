@@ -22,20 +22,23 @@ import EmptyTableRow from "../molecules/EmptyTableRow";
 
 function TablaBusqueda({input,datos,nombre}){
 
+    
+    
+
     const [passwordOverlay, setPasswordOverlay] = useState(false);
     const [passwordRow, setPasswordRow] = useState(null);
     const [passwordLink, setPasswordLink] = useState(null);
     const navigate = useNavigate();
     //const dispatch = useDispatch();
-
+ 
     useEffect(() => {
         if (!passwordOverlay) {
           setPasswordLink(null);
         }
       }, [passwordOverlay]);
 
-    console.log(datos);
-     
+    
+  
     const filteredData = datos.filter((el) => {
          //if no input the return the original
         if (input === "") {
@@ -46,7 +49,7 @@ function TablaBusqueda({input,datos,nombre}){
           return el.nombre.toLowerCase().includes(input);
         }
       });
-
+    
     //Informacion referente a la tabla
     
     const columns = useMemo(() => getTabla(nombre));
