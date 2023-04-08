@@ -33,25 +33,22 @@ function ControlDashboard() {
       <Typography> ¿Qué desea hacer? </Typography>
       <div className="link-group">
         <Link to="admin/profesores" >
-          <Typography> Administrar Profesores </Typography> 
+          <Typography> Administrar Profesores</Typography> 
         </Link>
         <Link to="admin/secciones" >
-          <Typography> Adminsitrar secciones </Typography>
+          <Typography> Administrar secciones</Typography>
         </Link>
         <Link to="admin/materias" >
-          <Typography> Administrar materias </Typography>
+          <Typography> Administrar materias</Typography>
         </Link>
       </div>
 
       <div className="link-group">
         <Link to="/" >
-          <Typography> Aministrar supervisor</Typography>
+          <Typography> Administrar supervisores</Typography>
         </Link>
         <Link to="/" >
-          <Typography> Administrar administrador</Typography>
-        </Link>
-        <Link to="/" >
-          <Typography> Crear cuenta</Typography>
+          <Typography> Administrar administradores</Typography>
         </Link>
       </div>
     </div>

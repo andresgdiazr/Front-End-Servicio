@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Alert, Button, css, MenuItem, Select, Snackbar } from "@mui/material";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { getSecciones } from "../../api/secciones";
 
 function ModificarEstudiante() {
@@ -72,7 +71,6 @@ function ModificarEstudiante() {
 				</Alert>
 			</Snackbar>
 
-			<GoBackButton to={"prev"} />
 			<h2>Administración de estudiantes</h2>
 			<h3>Modificando cuentas</h3>
 			<h3>Modificando información de la cuenta</h3>

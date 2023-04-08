@@ -1,7 +1,6 @@
 import { Button, css, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import MateriasAñoTable from "../../components/tables/MateriasAñoTable";
 import añoToData from "../../utils/añoToData";
 
@@ -26,7 +25,6 @@ function MateriasPorAño() {
         }
       `}
     >
-      <GoBackButton to="prev" />
       <Typography variant="h2">Administracion de materias</Typography>
       
       <Typography>Materias por año</Typography>

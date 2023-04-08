@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { crearEvaluacion } from "../../api/crearEvaluacion";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { addEvaluacion } from "../../store/features/evaluaciones";
 import { setLoading } from "../../store/features/main";
 
@@ -39,7 +38,6 @@ function CrearEvaluacion() {
 
   return (
     <div>
-      <GoBackButton to="prev" />
       <form onSubmit={onSubmit}>
         <TextField
           value={titulo}

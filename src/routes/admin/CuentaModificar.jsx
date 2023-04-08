@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { updateCuenta } from "../../api/updateCuenta";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import CuentaForm from "../../components/organisms/CuentaForm";
 import { setLoading } from "../../store/features/main";
 import { Alert, css, Snackbar } from "@mui/material";
@@ -60,7 +59,6 @@ function CuentaModificar({ tipo }) {
 					Cuenta modificada satisfactoriamente
 				</Alert>
 			</Snackbar>
-			<GoBackButton to="prev" />
 			<h2>Administración de {tipo}</h2>
 			<h3>Modificando información de la cuenta</h3>
 

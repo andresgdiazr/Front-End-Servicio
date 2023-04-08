@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getClases } from "../../api/getClases";
@@ -38,8 +37,6 @@ function SeccionMaterias() {
 
     return(
         <>
-          <GoBackButton to="prev" />
-
           <Typography> Adminstración de secciones</Typography>
 
           <Typography>Listado</Typography>

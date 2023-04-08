@@ -20,6 +20,7 @@ import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
 import PaginaError from "./routes/PaginaError";
 import Clase from "./routes/Profesor/Clase";
 
+import NoRootLayout from "./components/layouts/NoRootLayout";
 import ProfesorLayout from "./components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
@@ -74,14 +75,20 @@ const router = createBrowserRouter([
 				element: <ProfesorLayout />,
 				children: [
 					{ index: true, element: <ProfesorDashboard /> },
-					{ path: "clases/:id", element: <Clase /> },
 					{
-						path: "clases/:id/lapsos/:lapso/evaluaciones",
-						element: <ClaseEvaluaciones />,
-					},
-					{
-						path: "clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas",
-						element: <Notas />,
+						path: "clases/:id",
+						element: <NoRootLayout />,
+						children: [
+							{ index: true, element: <Clase /> },
+							{
+								path: "lapsos/:lapso/evaluaciones",
+								element: <ClaseEvaluaciones />,
+							},
+							{
+								path: "lapsos/:lapso/evaluaciones/:evaluacionId/notas",
+								element: <Notas />,
+							},
+						],
 					},
 				],
 			},
@@ -90,73 +97,82 @@ const router = createBrowserRouter([
 				element: <AdminLayout />,
 				children: [
 					{ index: true, element: <ControlDashboard /> },
-					{ path: "admin/profesores", element: <AdminProfesores /> },
 					{
-						path: "admin/profesores/:id/modificar",
-						element: <CuentaModificar tipo="profesores" />,
-					},
-					{
-						path: "admin/profesores/crear",
-						element: <CuentaCrear tipo="profesores" />,
-					},
-					{ path: "admin/profesores/:id/clases", element: <ProfesorClases /> },
-					{
-						path: "admin/profesores/:profesorId/clases/crear",
-						element: <CrearClase />,
-					},
-					{
-						path: "admin/profesores/:profesorId/clases/:claseId/editar",
-						element: <EditarClase />,
-					},
+						path: "admin",
+						element: <NoRootLayout />,
+						children: [
+							{ path: "profesores", element: <AdminProfesores /> },
+							{
+								path: "profesores/:id/modificar",
+								element: <CuentaModificar tipo="profesores" />,
+							},
+							{
+								path: "profesores/crear",
+								element: <CuentaCrear tipo="profesores" />,
+							},
+							{
+								path: "profesores/:id/clases",
+								element: <ProfesorClases />,
+							},
+							{
+								path: "profesores/:profesorId/clases/crear",
+								element: <CrearClase />,
+							},
+							{
+								path: "profesores/:profesorId/clases/:claseId/editar",
+								element: <EditarClase />,
+							},
 
-					{ path: "admin/secciones", element: <SeccionDashboard /> },
-					{ path: "admin/secciones/crear", element: <SeccionCrear /> },
-					{ path: "admin/secciones/:id", element: <SeccionDetalles /> },
+							{ path: "secciones", element: <SeccionDashboard /> },
+							{ path: "secciones/crear", element: <SeccionCrear /> },
+							{ path: "secciones/:id", element: <SeccionDetalles /> },
 
-					{
-						path: "admin/secciones/:id/estudiantes",
-						element: <SeccionEstudiantes />,
-					},
-					{
-						path: "admin/secciones/:id/materias",
-						element: <SeccionMaterias />,
-					},
-					{
-						path: "admin/secciones/:id/añadir_estudiantes",
-						element: <SeccionAñadir />,
-					},
-					{
-						path: "admin/secciones/:id/modificar",
-						element: <SeccionModificar />,
-					},
-					{
-						path: "admin/secciones/:id/estudiantes/:id/modificar",
-						element: <ModificarEstudiante />,
-					},
+							{
+								path: "secciones/:id/estudiantes",
+								element: <SeccionEstudiantes />,
+							},
+							{
+								path: "secciones/:id/materias",
+								element: <SeccionMaterias />,
+							},
+							{
+								path: "secciones/:id/añadir_estudiantes",
+								element: <SeccionAñadir />,
+							},
+							{
+								path: "secciones/:id/modificar",
+								element: <SeccionModificar />,
+							},
+							{
+								path: "secciones/:id/estudiantes/:id/modificar",
+								element: <ModificarEstudiante />,
+							},
 
-					{ path: "admin/materias", element: <Materias /> },
-					{ path: "admin/materias/:year", element: <MateriasPorAño /> },
-					{
-						path: "admin/materias/:year/:id/editar",
-						element: <EditarMaterias />,
-					},
-					{ path: "admin/materias/:year/crear", element: <CrearMateria /> },
+							{ path: "materias", element: <Materias /> },
+							{ path: "materias/:year", element: <MateriasPorAño /> },
+							{
+								path: "materias/:year/:id/editar",
+								element: <EditarMaterias />,
+							},
+							{ path: "materias/:year/crear", element: <CrearMateria /> },
 
-					{
-						path: "admin/materias/:year/:id/lapsos",
-						element: <LapsosMateria />,
-					},
-					{
-						path: "admin/materias/:year/:id/lapsos/:lapso/evaluaciones",
-						element: <MateriaEvaluaciones />,
-					},
-					{
-						path: "admin/materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
-						element: <CrearEvaluacion />,
-					},
-					{
-						path: "admin/materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
-						element: <EditarEvaluacion />,
+							{
+								path: "materias/:year/:id/lapsos",
+								element: <LapsosMateria />,
+							},
+							{
+								path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
+								element: <MateriaEvaluaciones />,
+							},
+							{
+								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
+								element: <CrearEvaluacion />,
+							},
+							{
+								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
+								element: <EditarEvaluacion />,
+							},
+						],
 					},
 				],
 			},
