@@ -38,7 +38,6 @@ function SeccionModificar() {
 						id="año"
 						label="Año"
 						value={año}
-						sx={{ width: "227px" }}
 						onChange={(e) => setAño(e.target.value)}
 					>
 						<MenuItem value={1}>1</MenuItem>
@@ -56,7 +55,6 @@ function SeccionModificar() {
 						id="seccion"
 						label="Seccion"
 						value={codigo}
-						sx={{ width: "227px" }}
 						onChange={(e) => setCodigo(e.target.value)}
 					>
 						<MenuItem value={"A"}>A</MenuItem>

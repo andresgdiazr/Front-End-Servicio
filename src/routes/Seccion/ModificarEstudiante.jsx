@@ -11,7 +11,6 @@ import {
 	TextField,
 	InputLabel,
 } from "@mui/material";
-import GoBackButton from "../../components/atoms/GoBackButton";
 import { getSecciones } from "../../api/secciones";
 import { updateEstudiante } from "../../api/updateEstudiante";
 import CustomForm from "../../components/CustomForm";
@@ -86,7 +85,6 @@ function ModificarEstudiante() {
 				</Alert>
 			</Snackbar>
 
-			<GoBackButton to={"prev"} />
 			<h2>Administración de estudiantes</h2>
 			<h3>Modificando cuentas</h3>
 			<h3>Modificando información de la cuenta</h3>
@@ -100,7 +98,6 @@ function ModificarEstudiante() {
 						label="Año"
 						value={año}
 						onChange={handleChange}
-						sx={{ minWidth: "230px" }}
 					>
 						<MenuItem value={1}>1</MenuItem>
 						<MenuItem value={2}>2</MenuItem>
@@ -118,7 +115,6 @@ function ModificarEstudiante() {
 						label="Sección"
 						value={seccion}
 						onChange={handleSeccion}
-						sx={{ minWidth: "230px" }}
 					>
 						<MenuItem value={"A"}>A</MenuItem>
 						<MenuItem value={"B"}>B</MenuItem>

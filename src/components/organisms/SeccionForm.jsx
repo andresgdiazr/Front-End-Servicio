@@ -29,9 +29,6 @@ export default function SeccionForm({ especial = false }) {
 					id="select"
 					value={año}
 					label="Año"
-					sx={{
-						width: "227px",
-					}} /* Debería hacerse desde tema pero se rehusa a funcionar */
 					onChange={handleChange}
 				>
 					<MenuItem value={1}>1</MenuItem>
