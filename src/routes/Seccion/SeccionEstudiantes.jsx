@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { Estudiantes_table } from "../../components/tables/EstudiantesTable";
+import TablaBusqueda from "../../components/tables/TABLAUNICA";
 
 function SeccionEstudiantes() {
 	const { id } = useParams();
@@ -23,7 +24,7 @@ function SeccionEstudiantes() {
 	
 
 			let estudianteRes = estudiantesRes.map( (estudiante) => {
-                return { ...estudiante, 'nombres':`${estudiante.nombre} ${estudiante.apellido}` }
+                return { ...estudiante, 'nombre':`${estudiante.nombre} ${estudiante.apellido}` }
             })
          
             
@@ -49,7 +50,7 @@ function SeccionEstudiantes() {
 			<br></br>
 			<br></br>
 
-			<Estudiantes_table input={text} id={id} />
+			<TablaBusqueda input={text} datos={estudiante} nombre={"INFO_ESTUDIANTE"} />
 		</>
 	);
 }
