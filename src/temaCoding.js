@@ -18,16 +18,14 @@ const theme = createTheme({
                     flexDirection: "column",
                     marginTop: "1.5rem",
                     alignItems: "center",
-                    justifyContent: "space-evenly",
-                    minHeight: "200px",
+                    justifyContent: "space-between",
                     '& Button': {
                         alignSelf: "center",
                         marginTop: "1rem",
                     },
-                    '& > *': {
+                    '& > div': {
                         minWidth: "230px",
                         marginBottom: "1rem",
-                        /* TODO no funciona si no es con !important */
                     }
                 },
             },

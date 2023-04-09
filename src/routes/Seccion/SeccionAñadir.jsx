@@ -100,7 +100,6 @@ function SeccionAñadir() {
 								console.log(e.target.value);
 							}}
 							value={sexo}
-							sx={{ minWidth: "230px" }}
 						>
 							<MenuItem value={`M`} defaultValue="">
 								M
