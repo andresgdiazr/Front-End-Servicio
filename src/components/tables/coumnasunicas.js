@@ -23,7 +23,7 @@ const COLUMNAS = {
     },
     {
         Header: 'Acciones',
-        accessor: 'id',
+        accessor: 'accion',
     }
 ]
 ,
@@ -53,7 +53,7 @@ INFO_ESTUDIANTE : [
    
     {
         Header: 'Nombres y apellidos',
-        accessor: 'nombres',
+        accessor: 'nombre',
     },
     {
         Header: 'Cédula',
