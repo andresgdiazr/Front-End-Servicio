@@ -12,8 +12,6 @@ export default function AcordionAños({ años }) {
 
 	return (
 		<div>
-			{console.log(años)}
-
 			{años.map((el) => {
 				return (
 					<Accordion>

@@ -1,50 +1,58 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { css, Typography } from "@mui/material";
+import Overlay from "../components/organisms/Overlay";
 
 function ControlDashboard() {
-	const navigate = useNavigate();
+  const name = useSelector((state) => state.main.name);
+  return (
+    <div
+      css={css`
+        h1 {
+					margin-top:0.6rem;
+          font-size: 1.8rem;
+        }
 
-	const Profesor = (ruta, datos) => {
-		navigate(ruta, { state: datos });
-	};
+        .link-group {
+          display: flex;
+					align-items:flex-start;
+          flex-direction: column;
+					margin-top:2rem;
 
-	const navbar = [
-		["Profesor", "/admin/profesores"],
-		["Seccion", "/admin/secciones"],
-		["Materia", "/admin/profesores"],
-	];
+					a p {
+						font-size:1.3rem;
+						margin:0.5rem 0;
+					}
 
-	return (
-		<div>
-			<Navbar names={navbar} />
 
-			<h2>Bienvenido administrador Carlos</h2>
-			<p> ¿Qué desea hacer?</p>
+        }
+      `}
+    >
+      <Typography variant="h1"> Bienvenido administrador {name} </Typography>
+      <Typography> ¿Qué desea hacer? </Typography>
+      <div className="link-group">
+        <Link to="admin/profesores" >
+          <Typography> Administrar Profesores</Typography> 
+        </Link>
+        <Link to="admin/secciones" >
+          <Typography> Administrar secciones</Typography>
+        </Link>
+        <Link to="admin/materias" >
+          <Typography> Administrar materias</Typography>
+        </Link>
+      </div>
 
-			<div>
-				<button
-					onClick={() => {
-						Profesor("/admin/profesores", navbar);
-					}}
-				>
-					Administrar Profesores
-				</button>
-
-				<a>Adminsitrar secciones</a>
-				<a>Administrar materias</a>
-			</div>
-			<br></br>
-
-			<div>
-				<a> Aministrar supervisor</a>
-				<a> Administrar administrador</a>
-			</div>
-			<br></br>
-
-			<a>Crear cuenta</a>
-		</div>
-	);
+      <div className="link-group">
+        <Link to="/" >
+          <Typography> Administrar supervisores</Typography>
+        </Link>
+        <Link to="/" >
+          <Typography> Administrar administradores</Typography>
+        </Link>
+      </div>
+    </div>
+  );
 }
 
 export default ControlDashboard;

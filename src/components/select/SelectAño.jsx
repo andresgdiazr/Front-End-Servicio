@@ -4,22 +4,47 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { TextField, Button } from "@mui/material";
+import axios from 'axios';
+
 
 export default function SelectAño() {
-	const [age, setAge] = React.useState("");
-
+	const [año, setAño] = React.useState("");
+	const [habilitado, setHabilitado] = React.useState(true);
 	const handleChange = (e) => {
-		setAge(e.target.value);
+		setAño(e.target.value);
 	};
+	
+	const [codigo,setCodigo] = React.useState("");
+
+	const handleSubmit = (e) =>{
+		e.preventDefault();
+
+		
+
+		axios
+      .post("/admin/secciones",{año,codigo})
+      .then(response => {
+  
+        // Handle response
+      })
+	  .catch(e => {
+
+	  })
+
+	}
+
 
 	return (
-		<FormControl fullWidth mt="100%">
+		<FormControl fullWidth mt="100%"
+		
+		>
+
 			<InputLabel id="demo-simple-select-label">Año</InputLabel>
 			<Select
 				labelId="demo-simple-select-label"
 				id="demo-simple-select"
-				value={age}
-				label="age"
+				value={año}
+				label="año"
 				onChange={handleChange}
 			>
 				<MenuItem value={1}>1</MenuItem>
@@ -30,10 +55,19 @@ export default function SelectAño() {
 			</Select>
 
 			<br></br>
-			<TextField id="outlined-basic" label="Sección" variant="outlined" />
+			<TextField 
+			id="outlined-basic" 
+			label="Sección"
+			variant="outlined" 
+			value={codigo}
+			onChange={ e=> setCodigo(e.target.value)}
+			/>
+
 			<br></br>
-			<Button size="large" variant="contained" color="success">
-				Confirmar
+			<Button size="large" variant="contained" color="success"
+			
+			onClick={handleSubmit}>
+				Crear sección
 			</Button>
 		</FormControl>
 	);

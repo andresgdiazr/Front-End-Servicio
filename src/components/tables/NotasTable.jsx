@@ -7,8 +7,9 @@ import { useTable } from "react-table";
 import EditCell from "../molecules/EditCell";
 import axios from "axios";
 
-function NotasTable({ data, info,refetch }) {
+function NotasTable({ data, info, refetch }) {
   const [updatedNotas, setUpdatedNotas] = useState([]);
+
   const onChange = (estudianteId, puntaje) => {
     const newUpdatedNotas = [
       ...updatedNotas.filter((n) => n.estudianteId != estudianteId),
@@ -25,10 +26,8 @@ function NotasTable({ data, info,refetch }) {
         data: { calificaciones: updatedNotas },
       })
       .then((response) => {
-
-        console.log(response);
-        setUpdatedNotas([])
-        refetch()
+        setUpdatedNotas([]);
+        refetch();
       })
       .catch((err) => null);
   };
@@ -77,8 +76,7 @@ function NotasTable({ data, info,refetch }) {
           Cargar notas de {info.evaluacion.titulo}
         </Typography>
         <Button onClick={onUpload} variant="contained">
-          {" "}
-          Enviar{" "}
+          Enviar
         </Button>
       </div>
 

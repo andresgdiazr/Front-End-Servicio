@@ -8,11 +8,16 @@ const INFO_PROFESOR = [
         accessor: 'apellido',
     },
     {
+        Header: 'Cedula',
+        accessor: 'cedula',
+    },
+
+    {
         Header: 'Correo',
         accessor: 'email',
     },
     {
-        Header: 'Correo',
+        Header: 'Acciones',
         accessor: 'id',
     },
 ];
@@ -36,4 +41,20 @@ const INFO_CLASE = [
     },
 ];
 
-export { INFO_PROFESOR, INFO_CLASE };
+const INFO_ESTUDIANTE = [
+    {
+        Header: 'Nombres y apellidos',
+        accessor: 'nombres',
+    },
+    {
+        Header: 'Cédula',
+        accessor: 'cedula',
+    },
+    {
+        Header: 'Acción',
+        accessor: 'accion',
+    },
+];
+
+
+export { INFO_PROFESOR, INFO_CLASE, INFO_ESTUDIANTE };

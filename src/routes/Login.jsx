@@ -6,16 +6,19 @@ import { css } from "@emotion/react";
 
 import LogoImg from "../assets/logo.jpeg";
 import { Button, TextField, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setLoading, setName } from "../store/features/main";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password });
+    dispatch(setLoading(true));
     axios
       .post("/login", { email, password })
       .then((response) => {
@@ -23,6 +26,8 @@ function Login() {
 
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("user-type", response.data.userType);
+        sessionStorage.setItem("name", response.data.name);
+        dispatch(setName(response.data.name));
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -32,7 +37,8 @@ function Login() {
           navigate("/dashboard-profesor");
         }
       })
-      .catch((err) => setInvalidCredentials(true));
+      .catch((err) => setInvalidCredentials(true))
+      .finally(() => dispatch(setLoading(false)));
   };
 
   return (
@@ -79,7 +85,6 @@ function Login() {
         <div
           css={css`
             margin: 1.5rem 0 1.5rem;
-
           `}
         >
           {invalidCredentials && (
@@ -93,7 +98,10 @@ function Login() {
           )}
 
           <TextField
-						css={css`width:100%;margin-top:0.8rem;`}
+            css={css`
+              width: 100%;
+              margin-top: 0.8rem;
+            `}
             value={email}
             label="Email"
             variant="outlined"

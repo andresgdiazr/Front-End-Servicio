@@ -2,35 +2,69 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import "./index.css";
+import axios from "axios";
 
+import CuentaCrear from "./routes/admin/CuentaCrear";
+import CuentaModificar from "./routes/admin/CuentaModificar";
 import ControlDashboard from "./routes/ControlDashboard";
 import Login from "./routes/Login";
 import ProfesorDashboard from "./routes/ProfesorDashboard";
-import AdminProfesores from "./routes/AdminProfesores";
-import ProfesorClases from "./routes/ProfesorClases";
-import Profesor_Modificar from "./routes/Profesor_Modificar";
+import AdminProfesores from "./routes/Admin_Profesor/AdminProfesores";
+import ProfesorClases from "./routes/Admin_Profesor/ProfesorClases";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./temaCoding";
-import axios from "axios";
+
 import SeccionDashboard from "./routes/Seccion/SeccionDashboard";
 import SeccionCrear from "./routes/Seccion/SeccionCrear";
 import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
 import PaginaError from "./routes/PaginaError";
 import Clase from "./routes/Profesor/Clase";
 
+import NoRootLayout from "./components/layouts/NoRootLayout";
 import ProfesorLayout from "./components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
+import AdminLayout from "./components/layouts/AdminLayout";
 import AuthComponent from "./components/AuthComponent";
 
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store";
+
+import SeccionEstudiantes from "./routes/Seccion/SeccionEstudiantes";
+import SeccionMaterias from "./routes/Seccion/SeccionMaterias";
+import SeccionAñadir from "./routes/Seccion/SeccionAñadir";
+import SeccionModificar from "./routes/Seccion/SeccionModificar";
+
+import Materias from "./routes/admin/Materias";
+import MateriasPorAño from "./routes/admin/MateriasPorAño";
+import EditarMaterias from "./routes/admin/EditarMateria";
+import CrearMateria from "./routes/admin/CrearMateria";
+import LapsosMateria from "./routes/admin/LapsosMateria";
+import MateriaEvaluaciones from "./routes/admin/MateriaEvaluaciones";
+import CrearEvaluacion from "./routes/admin/CrearEvaluacion";
+import EditarEvaluacion from "./routes/admin/EditarEvaluacion";
+import SetPassword from "./routes/SetPassword";
+
+import ModificarEstudiante from "./routes/Seccion/ModificarEstudiante";
+
+import CrearClase from "./routes/admin/CrearClase";
+import EditarClase from "./routes/admin/EditarClase";
+
+axios.defaults.baseURL = "http://localhost:3333";
+/* TODO la url del backend debe ser la que esta comentada
 axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
+*/
 
 const router = createBrowserRouter([
 	{
-		path:'/',
+		path: "/set-password",
+		element: <SetPassword />,
+	},
+	{
+		path: "/",
 		element: <AuthComponent />,
-		children:[
+		children: [
 			{
 				path: "/login",
 				element: <Login />,
@@ -40,46 +74,116 @@ const router = createBrowserRouter([
 				path: "/dashboard-profesor",
 				element: <ProfesorLayout />,
 				children: [
-					{ index:true, element: <ProfesorDashboard />},
-					{ path:"clases/:id", element: <Clase />},
-					{ path:"clases/:id/evaluaciones/:lapso", element: <ClaseEvaluaciones />},
-					{ path:"clases/:id/evaluaciones/:evaluacionId/notas", element: <Notas />}
-				]
+					{ index: true, element: <ProfesorDashboard /> },
+					{
+						path: "clases/:id",
+						element: <NoRootLayout />,
+						children: [
+							{ index: true, element: <Clase /> },
+							{
+								path: "lapsos/:lapso/evaluaciones",
+								element: <ClaseEvaluaciones />,
+							},
+							{
+								path: "lapsos/:lapso/evaluaciones/:evaluacionId/notas",
+								element: <Notas />,
+							},
+						],
+					},
+				],
 			},
 			{
 				path: "/dashboard-control",
-				element: <ControlDashboard />,
+				element: <AdminLayout />,
+				children: [
+					{ index: true, element: <ControlDashboard /> },
+					{
+						path: "admin",
+						element: <NoRootLayout />,
+						children: [
+							{ path: "profesores", element: <AdminProfesores /> },
+							{
+								path: "profesores/:id/modificar",
+								element: <CuentaModificar tipo="profesores" />,
+							},
+							{
+								path: "profesores/crear",
+								element: <CuentaCrear tipo="profesores" />,
+							},
+							{
+								path: "profesores/:id/clases",
+								element: <ProfesorClases />,
+							},
+							{
+								path: "profesores/:profesorId/clases/crear",
+								element: <CrearClase />,
+							},
+							{
+								path: "profesores/:profesorId/clases/:claseId/editar",
+								element: <EditarClase />,
+							},
+
+							{ path: "secciones", element: <SeccionDashboard /> },
+							{ path: "secciones/crear", element: <SeccionCrear /> },
+							{ path: "secciones/:id", element: <SeccionDetalles /> },
+
+							{
+								path: "secciones/:id/estudiantes",
+								element: <SeccionEstudiantes />,
+							},
+							{
+								path: "secciones/:id/materias",
+								element: <SeccionMaterias />,
+							},
+							{
+								path: "secciones/:id/añadir_estudiantes",
+								element: <SeccionAñadir />,
+							},
+							{
+								path: "secciones/:id/modificar",
+								element: <SeccionModificar />,
+							},
+							{
+								path: "secciones/:id/estudiantes/:id/modificar",
+								element: <ModificarEstudiante />,
+							},
+
+							{ path: "materias", element: <Materias /> },
+							{ path: "materias/:year", element: <MateriasPorAño /> },
+							{
+								path: "materias/:year/:id/editar",
+								element: <EditarMaterias />,
+							},
+							{ path: "materias/:year/crear", element: <CrearMateria /> },
+
+							{
+								path: "materias/:year/:id/lapsos",
+								element: <LapsosMateria />,
+							},
+							{
+								path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
+								element: <MateriaEvaluaciones />,
+							},
+							{
+								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
+								element: <CrearEvaluacion />,
+							},
+							{
+								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
+								element: <EditarEvaluacion />,
+							},
+						],
+					},
+				],
 			},
-			{
-				path: "/admin/profesores",
-				element: <AdminProfesores />,
-			},
-			{
-				path: "/admin/profesores/:id/clases",
-				element: <ProfesorClases />,
-			},
-			{
-				path: "/admin/profesores/:id/modificar",
-				element: <Profesor_Modificar />,
-			},
-			{
-				path: "/admin/secciones",
-				element: <SeccionDashboard />,
-			},
-			{
-				path: "/admin/secciones/crear",
-				element: <SeccionCrear />,
-			},
-			{
-				path: "/admin/secciones/:id",
-				element: <SeccionDetalles />,
-			}
-		]
-	}
+		],
+	},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<ThemeProvider theme={theme}>
-		<RouterProvider router={router} />
-	</ThemeProvider>
+	<Provider store={store}>
+		<ThemeProvider theme={theme}>
+			<RouterProvider router={router} />
+		</ThemeProvider>
+	</Provider>
 );
