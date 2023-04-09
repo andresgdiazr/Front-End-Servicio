@@ -13,6 +13,8 @@ import TablaBusqueda from "../../components/tables/TABLAUNICA";
 
 import { setLoading } from "../../store/features/main";
 
+
+
 function AdminProfesores() {
   const [text, setText] = useState("");
   const [profesores, setProfesores]= useState([]);
