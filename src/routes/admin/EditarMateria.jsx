@@ -9,13 +9,14 @@ import {
 	Typography,
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarMateria } from "../../api/editarMateria";
 import ErrorInput from "../../components/atoms/ErrorInput";
 import { setLoading } from "../../store/features/main";
 import { updateMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
+import CustomForm from "../../components/CustomForm";
 
 function EditarMateria() {
 	const navigate = useNavigate();
@@ -61,34 +62,15 @@ function EditarMateria() {
 	};
 
 	return (
-		<div
-			css={css`
-				h2 {
-					font-size: 1.5rem;
-					margin-bottom: 0.5rem;
-				}
-
-				h1 {
-					font-size: 1.5rem;
-					margin-bottom: 0.5rem;
-				}
-			`}
-		>
-			<Typography variant="h2">Administracion de materias</Typography>
-			<Typography>Modificando la informacion de materia</Typography>
-			<div
-				css={css`
-					margin-top: 1.5rem;
-				`}
+		<>
+			<Typography
+				variant="h2"
+				sx={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}
 			>
-				<form
-					onSubmit={onUpload}
-					css={css`
-						display: flex;
-						flex-direction: column;
-						align-items: flex-start;
-					`}
-				>
+				Administracion de materias
+			</Typography>
+			<Typography>Modificando la informacion de materia</Typography>
+			<CustomForm onSubmit={onUpload}>
 					<ErrorInput
 						show={error}
 						message={"Se requiere el nombre de la materia"}
@@ -131,18 +113,11 @@ function EditarMateria() {
 								))}
 						</Select>
 					</FormControl>
-					<Button
-						css={css`
-							margin-top: 1.5rem;
-						`}
-						variant="contained"
-						type="submit"
-					>
+					<Button variant="contained" type="submit">
 						Guardar Cambios
 					</Button>
-				</form>
-			</div>
-		</div>
+			</CustomForm>
+		</>
 	);
 }
 

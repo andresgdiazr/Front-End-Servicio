@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, FormControl, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,6 +8,7 @@ import {
 	useEvaluaciones,
 } from "../../store/features/evaluaciones";
 import { setLoading } from "../../store/features/main";
+import CustomForm from "../../components/CustomForm";
 
 function EditarEvaluacion() {
 	const navigate = useNavigate();
@@ -48,7 +49,7 @@ function EditarEvaluacion() {
 	return (
 		<div>
 			<Typography> Editar Evaluacion </Typography>
-			<form onSubmit={onSubmit}>
+			<CustomForm onSubmit={onSubmit}>
 				<TextField
 					value={titulo}
 					onChange={(ev) => setTitulo(ev.target.value)}
@@ -57,7 +58,7 @@ function EditarEvaluacion() {
 				<Button variant="contained" type="submit">
 					Editar
 				</Button>
-			</form>
+			</CustomForm>
 		</div>
 	);
 }
