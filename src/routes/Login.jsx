@@ -5,15 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 
 import LogoImg from "../assets/logo.jpeg";
-import {
-	Button,
-	FormControl,
-	TextField,
-	Typography,
-	Container,
-} from "@mui/material";
+import { Button, TextField, Typography, Container } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setLoading, setName } from "../store/features/main";
+import CustomForm from "../components/CustomForm";
 
 function Login() {
 	const [email, setEmail] = useState("");
@@ -65,18 +60,20 @@ function Login() {
 				width="225px"
 			/>
 
-			<form
+			<CustomForm
 				action=""
 				id="login"
 				method="post"
 				onSubmit={handleSubmit}
-				css={css`
-					display: flex;
-					flex-direction: column;
-					width: 400px;
-					align-items: stretch;
-					margin: 1.5rem 0;
-				`}
+				sx={{
+					alignItems: "stretch",
+					margin: "1.5rem 0",
+					width: "400px",
+					color: "red",
+					"& Button": {
+						alignSelf: "stretch",
+					},
+				}}
 			>
 				{invalidCredentials && (
 					<Typography color="tomato">Credenciales Invalidas</Typography>
@@ -96,10 +93,10 @@ function Login() {
 					type="password"
 				/>
 
-				<Button type="submit" variant="contained" sx={{ marginTop: "2rem" }}>
+				<Button type="submit" variant="contained">
 					Ingresar
 				</Button>
-			</form>
+			</CustomForm>
 		</Container>
 	);
 }

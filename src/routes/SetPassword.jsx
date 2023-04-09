@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { changePassword } from "../api/changePassword";
+import CustomForm from "../components/CustomForm";
 
 function SetPassword() {
 	const navigate = useNavigate();
@@ -55,7 +56,7 @@ function SetPassword() {
 				</DialogActions>
 			</Dialog>
 			<Typography variant="h1">Ingrese La Contraseña para su cuenta</Typography>
-			<form onSubmit={onSubmit}>
+			<CustomForm onSubmit={onSubmit}>
 				<TextField
 					value={password}
 					onChange={(ev) => setPassword(ev.target.value)}
@@ -66,7 +67,7 @@ function SetPassword() {
 					{" "}
 					Confirmar{" "}
 				</Button>
-			</form>
+			</CustomForm>
 		</div>
 	);
 }
