@@ -65,8 +65,7 @@ function SeccionModificar() {
 				</FormControl>
 
 				<Button variant="contained" type="submit">
-					{" "}
-					Guardar y Enviar{" "}
+					Guardar y Enviar
 				</Button>
 			</CustomForm>
 		</>
