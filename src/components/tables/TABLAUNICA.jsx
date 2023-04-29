@@ -3,84 +3,15 @@ import { getTabla } from "./coumnasunicas";
 
 import { useTable } from "react-table";
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { css } from "@emotion/react";
-import SchoolIcon from "@mui/icons-material/School";
-import EditIcon from "@mui/icons-material/Edit";
-import LockIcon from "@mui/icons-material/Lock";
 
 import "../../css/tablas.css";
-import Overlay from "../organisms/Overlay";
-import { Button, Typography } from "@mui/material";
+
 
 import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 
-function Iconos({ state, datos, cell }) {
-  const navigate = useNavigate();
-
-  if (state == "INFO_PROFESOR") {
-    return (
-      <div
-        css={css`
-            width=100%;
-            display:flex;
-            justify-content:space-evenly;
-            align-items:center;
-            svg {
-              cursor:pointer;
-            }
-          `}
-      >
-        <SchoolIcon
-          onClick={() => {
-            navigate(`${cell.value}/clases`, { state: { profesores: datos } });
-          }}
-        />
-
-        <EditIcon
-          onClick={() => {
-            navigate(`${cell.row.original.id}/modificar`, {
-              state: cell.row.original,
-            });
-          }}
-        />
-
-        <LockIcon
-          onClick={() => {
-            setPasswordRow(cell.row.original.id);
-            setPasswordOverlay(true);
-          }}
-        />
-      </div>
-    );
-  }
-
-  if (state == "INFO_ESTUDIANTE") {
-    return (
-      <div
-        css={css`
-            width=100%;
-            display:flex;
-            justify-content:space-evenly;
-            align-items:center;
-          `}
-      >
-        <EditIcon
-          onClick={() => {
-            navigate(`${cell.row.original.id}/modificar`, {
-              state: {
-                nombre: cell.row.original.nombre,
-                apellido: cell.row.original.apellido,
-                id: cell.row.original.id,
-              },
-            });
-          }}
-        />
-      </div>
-    );
-  }
-}
 
 function TablaBusqueda({
   input,
@@ -88,11 +19,6 @@ function TablaBusqueda({
   nombre,
   acciones : Acciones = () => null,
 }) {
-  const [passwordRow, setPasswordRow] = useState(null);
-  const navigate = useNavigate();
-  //const dispatch = useDispatch();
-
-
 
   const filteredData = datos.filter((el) => {
     //if no input the return the original

@@ -1,13 +1,20 @@
 import React from "react";
 import { getEstudiantes } from "../../api/admin_estudiantes";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { Estudiantes_table } from "../../components/tables/EstudiantesTable";
 import TablaBusqueda from "../../components/tables/TABLAUNICA";
 
+import EditIcon from "@mui/icons-material/Edit";
+
 function SeccionEstudiantes() {
+
+
+
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const [text, setText] = useState("");
   const [estudiante, setEstudiante] = useState([]);
@@ -31,6 +38,24 @@ function SeccionEstudiantes() {
     fetchProfesores();
   }, []);
 
+  const Acciones = ({cell}) => {
+    return (
+      <>
+        <EditIcon
+          onClick={() => {
+            navigate(`${cell.row.original.id}/modificar`, {
+              state: {
+                nombre: cell.row.original.nombre,
+                apellido: cell.row.original.apellido,
+                id: cell.row.original.id,
+              },
+            });
+          }}
+        />
+      </>
+    );
+  };
+
   return (
     <>
       <br></br>
@@ -50,6 +75,7 @@ function SeccionEstudiantes() {
         input={text}
         datos={estudiante}
         nombre={"INFO_ESTUDIANTE"}
+        acciones={Acciones}
       />
     </>
   );
