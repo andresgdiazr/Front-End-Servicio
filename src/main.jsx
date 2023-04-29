@@ -52,9 +52,9 @@ import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
 
 axios.defaults.baseURL = "http://localhost:3333";
-/* TODO la url del backend debe ser la que esta comentada
+
 axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
-*/
+
 
 const router = createBrowserRouter([
 	{
