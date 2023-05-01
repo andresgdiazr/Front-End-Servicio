@@ -17,51 +17,33 @@ import CustomForm from "../../components/CustomForm";
 
 function ModificarEstudiante() {
   const { state } = useLocation();
-
-  const navigate = useNavigate();
-
+  
   const [nombre, setNombre] = useState(state.nombre);
   const [apellido, setApellido] = useState(state.apellido);
-  const [año, setAño] = useState("");
-  const [seccion, setSeccion] = useState("");
+  const [año, setAño] = useState(state.año);
+  const [seccion, setSeccion] = useState("A");
   const [open, setOpen] = useState(false);
-  const [secciones, setSecciones] = useState("");
+  const [secciones, setSecciones] = useState([]);
 
-  const handleChange = (e) => {
-    setAño(e.target.value);
-  };
-
-  const handleSeccion = (e) => {
-    console.log(e.target);
-    setSeccion(e.target.value);
-  };
-
+  // this fetches the secciones on first render
   useEffect(() => {
     const fetchSecciones = async () => {
-      const SeccionesRes = await getSecciones();
-      setSecciones(SeccionesRes);
-      console.log(SeccionesRes);
+      const seccionesRes = await getSecciones();
+      const sec = seccionesRes.filter((sec) => sec.id == state.seccionId);
+      setSeccion(sec[0].id);
+      setSecciones(seccionesRes);
     };
 
     fetchSecciones();
   }, []);
 
   const handleSubmit = async (e) => {
-    setOpen(true);
-
     e.preventDefault();
-
-    let seccion_id = "";
-    secciones.map((sec) => {
-      if (sec.codigo === seccion && sec.año === año) {
-        seccion_id = sec.id;
-      }
-    });
-
     let response = await updateEstudiante(state.id, {
       nombre,
       apellido,
-      seccion_id,
+      seccion_id: seccion,
+      año,
     });
     if (response.status == 200) {
       setOpen(true);
@@ -97,7 +79,15 @@ function ModificarEstudiante() {
             id="año"
             label="Año"
             value={año}
-            onChange={handleChange}
+            onChange={(e) => {
+              if( secciones.length > 0 ) {
+                
+                const seccionesByYear = secciones.filter((sec) => sec.año == e.target.value);
+                //TODO esto podria fallar si los años son incorrectos
+                setSeccion(seccionesByYear[0].id)
+              }
+              setAño(e.target.value)
+            }}
           >
             <MenuItem value={1}>1</MenuItem>
             <MenuItem value={2}>2</MenuItem>
@@ -114,12 +104,25 @@ function ModificarEstudiante() {
             id="seccion"
             label="Sección"
             value={seccion}
-            onChange={handleSeccion}
+            onChange={(e) => setSeccion(e.target.value)}
           >
-            <MenuItem value={"A"}>A</MenuItem>
-            <MenuItem value={"B"}>B</MenuItem>
-            <MenuItem value={"C"}>C</MenuItem>
-            <MenuItem value={"D"}>D</MenuItem>
+            {secciones.length > 0
+              ? secciones
+                  .sort((a, b) => (a.codigo < b.codigo ? -1 : 1))
+                  .map((sec) => {
+                    if (sec.año === año) {
+                      return (
+                        <MenuItem key={sec.id} value={sec.id}>
+                          {sec.codigo}
+                        </MenuItem>
+                      );
+                    }
+                  })
+              : ["A", "B", "C", "D"].map((sec) => (
+                  <MenuItem key={sec} value={sec}>
+                    {sec}
+                  </MenuItem>
+                ))}
           </Select>
         </FormControl>
 
