@@ -37,7 +37,7 @@ function SeccionDashboard() {
       const seccionesRes = await getSecciones();
       dispatch(setLoading(false));
 
-      seccionRes.sort((a, b) => (a.año > b.año ? 1 : -1));
+      seccionesRes.sort((a, b) => (a.año > b.año ? 1 : -1));
 
       const PrimerAño = seccionesRes.filter((seccion) => seccion.año == 1);
       const SegundoAño = seccionesRes.filter((seccion) => seccion.año == 2);

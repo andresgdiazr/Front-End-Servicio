@@ -7,6 +7,8 @@ import { Estudiantes_table } from "../../components/tables/EstudiantesTable";
 import TablaBusqueda from "../../components/tables/GenericSearchTable";
 
 import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../store/features/main";
 
 
 function SeccionEstudiantes() {
@@ -23,10 +25,14 @@ function SeccionEstudiantes() {
     setText(lowerCase);
   };
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
 
     const fetchProfesores = async () => {
+      dispatch(setLoading(true));
       let estudiantesRes = await getEstudiantes(id);
+      dispatch(setLoading(false));
 
 
       let estudianteRes = estudiantesRes.map((estudiante) => {
