@@ -23,7 +23,7 @@ function CuentaModificar({ tipo }) {
 		if (response.status == 200) {
 			setOpen(true);
 			dispatch(setLoading(false));
-			//navigate(-1); // Ir hacia atras, si se quita el comentario no se mostrara el snackbar
+			//; // Ir hacia atras, si se quita el comentario no se mostrara el snackbar
 		} else {
 			if (
 				response.data.errors.some(

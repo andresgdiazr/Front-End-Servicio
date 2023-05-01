@@ -13,113 +13,135 @@ import { getSecciones } from "../../api/secciones";
 import { useEffect } from "react";
 import CustomForm from "components/CustomForm";
 
-import TextInput from 'components/atoms/TextInput'
+import TextInput from "components/atoms/TextInput";
+import SelectInput from "components/atoms/SelectInput";
+
+import { Controller, useForm } from "react-hook-form";
 
 function CrearEstudiante() {
+  const { id: seccionId } = useParams();
 
-	console.log(TextInput)
-
-  const { id } = useParams();
-  const seccion_id = id;
+  const {
+    register,
+    handleSubmit,
+    setError,
+		clearErrors,
+    control,
+    formState: { errors },
+  } = useForm({
+		defaultValues:{
+			sexo: "M"
+		}
+	});
 
   const FormatoCrearEstudiante = () => {
-    const [cedula, setCedula] = useState("");
-    const [nombre, setNombres] = useState("");
-    const [apellido, setApellidos] = useState("");
-    const [egresado, setEgresado] = useState(false);
-    const [sexo, setSexo] = useState("");
-    const [año, setAño] = useState("1");
     const [secciones, setSecciones] = useState("");
 
     useEffect(() => {
       const fetchSecciones = async () => {
         const SeccionesRes = await getSecciones();
         setSecciones(SeccionesRes);
-        console.log(SeccionesRes);
       };
 
       fetchSecciones();
     }, []);
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+    const onSubmit = (data) => {
 
-      secciones.map((seccion) => {
-        if (seccion.id == id) {
-          setAño(seccion.año);
-        }
-      });
+      const año = secciones.filter((s) => s.id == seccionId)[0].año;
 
       axios
         .post(`/admin/estudiantes`, {
-          nombre,
-          sexo,
+          nombre: data.nombre,
+          apellido: data.apellido,
+          sexo: data.sexo,
           año,
-          egresado,
-          apellido,
-          cedula,
-          seccion_id,
+          egresado: false,
+          cedula: data.cedula,
+          seccion_id: parseInt( seccionId ),
         })
         .then((res) => {
-          console.log("hola");
+          console.log(res);
+          alert("Estudiante creado con exito");
         })
         .catch((error) => {
-          if (error.response) {
-            console.log(error.response);
-          }
+          if(error.response.data?.errors.some( e => e.rule === 'unique' && e.field == 'cedula' ) ) {
+						setError("cedula-duplicate-error", {
+							type: "custom",
+							message: "Ya existe un estudiante con esta cedula",
+						});
+					}
         });
+
     };
 
     return (
       <>
-        <CustomForm>
-          <TextField
-            id="outlined-basic"
+        <CustomForm onSubmit={handleSubmit(onSubmit)}>
+          <TextInput
             label="Nombres del estudiante"
-            variant="outlined"
-            onChange={(e) => setNombres(e.target.value)}
+            placeholder="Pedro"
+            id="student-name"
+            reactHookProps={register("nombre", {
+              validate: (value) =>
+                !value.trim() ? "este campo es requerido" : true,
+            })}
+            error={errors?.nombre?.message}
           />
 
-          <TextField
-            id="outlined-basic"
+          <TextInput
             label="Apellidos del estudiante"
-            variant="outlined"
-            onChange={(e) => setApellidos(e.target.value)}
+            placeholder="Perez"
+            id="student-apellido"
+            reactHookProps={register("apellido", {
+              validate: (value) =>
+                !value.trim() ? "este campo es requerido" : true,
+            })}
+            error={errors?.apellido?.message}
           />
 
-          <TextField
-            id="outlined-basic"
-            label="Cédula del estudiante"
-            variant="outlined"
-            onChange={(e) => setCedula(e.target.value)}
+          <TextInput
+            label="Cedula del estudiante"
+            placeholder="1234567"
+            id="student-cedula"
+            reactHookProps={register("cedula", {
+              validate: (value) => {
+                if (!value.trim()) {
+                  return "este campo es requerido";
+                } else if (!/^\d+$/.test(value)) {
+                  return "cedula invalida";
+                }
+
+                return true;
+              },
+							onChange:() => clearErrors("cedula-duplicate-error")
+            })}
+            error={errors?.cedula?.message || errors?.["cedula-duplicate-error"]?.message}
           />
 
-          <FormControl>
-            <InputLabel id="sexo-label"> Género </InputLabel>
-            <Select
-              labelId="sexo-label"
-              id="sexo"
-              label="Sexo"
-              onChange={(e) => {
-                setSexo(e.target.value);
-                console.log(e.target.value);
-              }}
-              value={sexo}
-            >
-              <MenuItem value={`M`} defaultValue="">
-                M
-              </MenuItem>
-              <MenuItem value={`F`} defaultValue="">
-                F
-              </MenuItem>
-            </Select>
-          </FormControl>
+          <Controller
+            control={control}
+            name="sexo"
+            render={({ field: { onChange, value, ref } }) => (
+              <SelectInput
+                label="Género"
+                id="student-sexo"
+                value={value}
+                inputRef={ref}
+                onChange={onChange}
+                options={[
+                  { value: "M", display: "Masculino" },
+                  { value: "F", display: "Femenino" },
+                ]}
+              />
+            )}
+          />
 
           <Button
             size="large"
             variant="contained"
             color="success"
-            onClick={handleSubmit}
+            type="submit"
           >
             Añadir estudiante
           </Button>
@@ -131,7 +153,6 @@ function CrearEstudiante() {
   return (
     <>
       <Typography>Administración de secciones</Typography>
-
       <Typography>Ingrese la información del nuevo estudiante</Typography>
 
       <FormatoCrearEstudiante />

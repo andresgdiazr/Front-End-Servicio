@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMaterias } from "../../store/features/materias";
 import { useSecciones } from "../../store/features/secciones";
-import SelectInput from "../atoms/SelectInput";
+import SelectInput from "components/atoms/SelectInput";
 import CustomForm from "../CustomForm";
 
 function ClaseForm({ defaultValues = {}, onSubmit = () => null }) {

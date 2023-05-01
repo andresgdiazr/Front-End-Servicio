@@ -21,6 +21,8 @@ function CuentaForm({
 
 	console.log(errors);
 
+	
+
 	return (
 		<CustomForm onSubmit={handleSubmit(onSubmit)}>
 				<TextInput
