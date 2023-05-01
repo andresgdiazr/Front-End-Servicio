@@ -16,6 +16,8 @@ import {
 	ExpandMore as ExpandMore,
 	ExpandLess as ExpandLess,
 } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../store/features/main";
 
 function SeccionDashboard() {
 	const navigate = useNavigate();
@@ -23,13 +25,20 @@ function SeccionDashboard() {
 	const { state } = useLocation();
 	const [años, setAños] = useState([]);
 
+	const dispatch = useDispatch();
+
 	const handleClick = () => {
 		navigate("crear", { state: state });
 	};
 
 	useEffect(() => {
 		const fetchClases = async () => {
+
+			dispatch(setLoading(true))
 			const SeccionesRes = await getSecciones();
+			dispatch(setLoading(false))
+
+
 
 			const PrimerAño = SeccionesRes.filter((el) => {
 				if (el.año === 1) {

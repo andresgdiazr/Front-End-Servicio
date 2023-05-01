@@ -8,10 +8,12 @@ import TablaBusqueda from "../../components/tables/GenericSearchTable";
 
 import EditIcon from "@mui/icons-material/Edit";
 
+
 function SeccionEstudiantes() {
   const { id } = useParams();
 
   const navigate = useNavigate();
+
 
   const [text, setText] = useState("");
   const [estudiante, setEstudiante] = useState([]);
@@ -22,8 +24,11 @@ function SeccionEstudiantes() {
   };
 
   useEffect(() => {
+
     const fetchProfesores = async () => {
       let estudiantesRes = await getEstudiantes(id);
+
+
       let estudianteRes = estudiantesRes.map((estudiante) => {
         return {
           ...estudiante,
