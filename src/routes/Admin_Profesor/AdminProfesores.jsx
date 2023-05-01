@@ -27,6 +27,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 
 import { setLoading } from "../../store/features/main";
+import SuccessSnackbar from "components/organisms/SuccessSnackbar";
 
 function AdminProfesores() {
   const [text, setText] = useState("");
@@ -56,9 +57,10 @@ function AdminProfesores() {
 
   return (
     <div>
-      <PasswordEmailSucess
-        successEmailSnackbar={successEmailSnackbar}
-        setSuccessEmailSnackbar={setSuccessEmailSnackbar}
+      <SuccessSnackbar
+        open={successEmailSnackbar}
+        setOpen={setSuccessEmailSnackbar}
+        message="Correo enviado correctamente"
       />
       <PasswordEmailDialog
         passwordEmailDialog={passwordEmailDialog}
@@ -166,34 +168,6 @@ function PasswordEmailDialog({
   );
 }
 
-function PasswordEmailSucess({
-  successEmailSnackbar,
-  setSuccessEmailSnackbar,
-}) {
-  return (
-    <Snackbar
-      open={successEmailSnackbar}
-      autoHideDuration={6000}
-      onClose={() => setSuccessEmailSnackbar(false)}
-    >
-      <Alert
-        css={css`
-          background-color: #04aa6d;
-          color: white;
-          font-size: 1.2rem;
-
-          svg {
-            color: white;
-          }
-        `}
-        onClose={() => setSuccessEmailSnackbar(false)}
-        severity="success"
-      >
-        El correo ha sido enviado correctamente
-      </Alert>
-    </Snackbar>
-  );
-}
 
 function createAcciones({
   profesores,
