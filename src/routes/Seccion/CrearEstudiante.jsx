@@ -1,9 +1,9 @@
 import {
-	Typography,
-	Select,
-	MenuItem,
-	InputLabel,
-	FormControl,
+  Typography,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
@@ -11,127 +11,132 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { getSecciones } from "../../api/secciones";
 import { useEffect } from "react";
-import CustomForm from "../../components/CustomForm";
+import CustomForm from "components/CustomForm";
+
+import TextInput from 'components/atoms/TextInput'
 
 function CrearEstudiante() {
-	const { id } = useParams();
-	const seccion_id = id;
 
-	const FormatoCrearEstudiante = () => {
-		const [cedula, setCedula] = useState("");
-		const [nombre, setNombres] = useState("");
-		const [apellido, setApellidos] = useState("");
-		const [egresado, setEgresado] = useState(false);
-		const [sexo, setSexo] = useState("");
-		const [año, setAño] = useState("1");
-		const [secciones, setSecciones] = useState("");
+	console.log(TextInput)
 
-		useEffect(() => {
-			const fetchSecciones = async () => {
-				const SeccionesRes = await getSecciones();
-				setSecciones(SeccionesRes);
-				console.log(SeccionesRes);
-			};
+  const { id } = useParams();
+  const seccion_id = id;
 
-			fetchSecciones();
-		}, []);
+  const FormatoCrearEstudiante = () => {
+    const [cedula, setCedula] = useState("");
+    const [nombre, setNombres] = useState("");
+    const [apellido, setApellidos] = useState("");
+    const [egresado, setEgresado] = useState(false);
+    const [sexo, setSexo] = useState("");
+    const [año, setAño] = useState("1");
+    const [secciones, setSecciones] = useState("");
 
-		const handleSubmit = (e) => {
-			e.preventDefault();
+    useEffect(() => {
+      const fetchSecciones = async () => {
+        const SeccionesRes = await getSecciones();
+        setSecciones(SeccionesRes);
+        console.log(SeccionesRes);
+      };
 
-			secciones.map((seccion) => {
-				if (seccion.id == id) {
-					setAño(seccion.año);
-				}
-			});
+      fetchSecciones();
+    }, []);
 
-			axios
-				.post(`/admin/estudiantes`, {
-					nombre,
-					sexo,
-					año,
-					egresado,
-					apellido,
-					cedula,
-					seccion_id,
-				})
-				.then((res) => {
-					console.log("hola");
-				})
-				.catch((error) => {
-					if (error.response) {
-						console.log(error.response);
-					}
-				});
-		};
+    const handleSubmit = (e) => {
+      e.preventDefault();
 
-		return (
-			<>
-				<CustomForm>
-					<TextField
-						id="outlined-basic"
-						label="Nombres del estudiante"
-						variant="outlined"
-						onChange={(e) => setNombres(e.target.value)}
-					/>
+      secciones.map((seccion) => {
+        if (seccion.id == id) {
+          setAño(seccion.año);
+        }
+      });
 
-					<TextField
-						id="outlined-basic"
-						label="Apellidos del estudiante"
-						variant="outlined"
-						onChange={(e) => setApellidos(e.target.value)}
-					/>
+      axios
+        .post(`/admin/estudiantes`, {
+          nombre,
+          sexo,
+          año,
+          egresado,
+          apellido,
+          cedula,
+          seccion_id,
+        })
+        .then((res) => {
+          console.log("hola");
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response);
+          }
+        });
+    };
 
-					<TextField
-						id="outlined-basic"
-						label="Cédula del estudiante"
-						variant="outlined"
-						onChange={(e) => setCedula(e.target.value)}
-					/>
+    return (
+      <>
+        <CustomForm>
+          <TextField
+            id="outlined-basic"
+            label="Nombres del estudiante"
+            variant="outlined"
+            onChange={(e) => setNombres(e.target.value)}
+          />
 
-					<FormControl>
-						<InputLabel id="sexo-label"> Género </InputLabel>
-						<Select
-							labelId="sexo-label"
-							id="sexo"
-							label="Sexo"
-							onChange={(e) => {
-								setSexo(e.target.value);
-								console.log(e.target.value);
-							}}
-							value={sexo}
-						>
-							<MenuItem value={`M`} defaultValue="">
-								M
-							</MenuItem>
-							<MenuItem value={`F`} defaultValue="">
-								F
-							</MenuItem>
-						</Select>
-					</FormControl>
+          <TextField
+            id="outlined-basic"
+            label="Apellidos del estudiante"
+            variant="outlined"
+            onChange={(e) => setApellidos(e.target.value)}
+          />
 
-					<Button
-						size="large"
-						variant="contained"
-						color="success"
-						onClick={handleSubmit}
-					>
-						Añadir estudiante
-					</Button>
-				</CustomForm>
-			</>
-		);
-	};
+          <TextField
+            id="outlined-basic"
+            label="Cédula del estudiante"
+            variant="outlined"
+            onChange={(e) => setCedula(e.target.value)}
+          />
 
-	return (
-		<>
-			<Typography>Administración de secciones</Typography>
+          <FormControl>
+            <InputLabel id="sexo-label"> Género </InputLabel>
+            <Select
+              labelId="sexo-label"
+              id="sexo"
+              label="Sexo"
+              onChange={(e) => {
+                setSexo(e.target.value);
+                console.log(e.target.value);
+              }}
+              value={sexo}
+            >
+              <MenuItem value={`M`} defaultValue="">
+                M
+              </MenuItem>
+              <MenuItem value={`F`} defaultValue="">
+                F
+              </MenuItem>
+            </Select>
+          </FormControl>
 
-			<Typography>Ingrese la información del nuevo estudiante</Typography>
+          <Button
+            size="large"
+            variant="contained"
+            color="success"
+            onClick={handleSubmit}
+          >
+            Añadir estudiante
+          </Button>
+        </CustomForm>
+      </>
+    );
+  };
 
-			<FormatoCrearEstudiante />
-		</>
-	);
+  return (
+    <>
+      <Typography>Administración de secciones</Typography>
+
+      <Typography>Ingrese la información del nuevo estudiante</Typography>
+
+      <FormatoCrearEstudiante />
+    </>
+  );
 }
 
 export default CrearEstudiante;
