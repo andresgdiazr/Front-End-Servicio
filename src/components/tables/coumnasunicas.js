@@ -43,7 +43,7 @@ const COLUMNAS = {
   INFO_ESTUDIANTE: [
     {
       Header: "Nombres y apellidos",
-      accessor: "nombre",
+      accessor: "fullname",
     },
     {
       Header: "Cédula",

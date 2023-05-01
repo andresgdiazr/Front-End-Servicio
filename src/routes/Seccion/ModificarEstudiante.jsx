@@ -17,7 +17,7 @@ import CustomForm from "../../components/CustomForm";
 
 function ModificarEstudiante() {
   const { state } = useLocation();
-  
+
   const [nombre, setNombre] = useState(state.nombre);
   const [apellido, setApellido] = useState(state.apellido);
   const [año, setAño] = useState(state.año);
@@ -140,7 +140,7 @@ function ModificarEstudiante() {
             id="apellido"
             label="Apellido"
             variant="outlined"
-            onChange={(e) => setNombre(e.target.value)}
+            onChange={(e) => setApellido(e.target.value)}
             value={apellido}
           />
         </FormControl>

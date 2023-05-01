@@ -27,7 +27,7 @@ function SeccionEstudiantes() {
       let estudianteRes = estudiantesRes.map((estudiante) => {
         return {
           ...estudiante,
-          nombre: `${estudiante.nombre} ${estudiante.apellido}`,
+          fullname: `${estudiante.nombre} ${estudiante.apellido}`,
         };
       });
       setEstudiante(estudianteRes);
