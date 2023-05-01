@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { getProfesores } from "../../api/profesores";
 import { useDispatch } from "react-redux";
-import TablaBusqueda from "../../components/tables/TABLAUNICA";
+import TablaBusqueda from "../../components/tables/GenericSearchTable";
 
 import { issueChangePasswordTokenEmail } from "../../api/issueChangePasswordTokenEmail";
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { Estudiantes_table } from "../../components/tables/EstudiantesTable";
-import TablaBusqueda from "../../components/tables/TABLAUNICA";
+import TablaBusqueda from "../../components/tables/GenericSearchTable";
 
 import EditIcon from "@mui/icons-material/Edit";
 
