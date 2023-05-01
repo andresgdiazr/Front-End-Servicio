@@ -35,43 +35,18 @@ function SeccionDashboard() {
 		const fetchClases = async () => {
 
 			dispatch(setLoading(true))
-			const SeccionesRes = await getSecciones();
+			const seccionesRes = await getSecciones();
 			dispatch(setLoading(false))
 
+			seccionRes.sort( (a,b) => a.año > b.año ? 1 : -1 )
 
-
-			const PrimerAño = SeccionesRes.filter((el) => {
-				if (el.año === 1) {
-					return el;
-				}
-			});
-
-			const SegundoAño = SeccionesRes.filter((el) => {
-				if (el.año === 2) {
-					return el;
-				}
-			});
-
-			const TerceroAño = SeccionesRes.filter((el) => {
-				if (el.año === 3) {
-					return el;
-				}
-			});
-
-			const CuartoAño = SeccionesRes.filter((el) => {
-				if (el.año === 4) {
-					return el;
-				}
-			});
-
-			const QuintoAño = SeccionesRes.filter((el) => {
-				if (el.año === 5) {
-					return el;
-				}
-			});
+			const PrimerAño = seccionesRes.filter((seccion) => seccion.año == 1);
+			const SegundoAño = seccionesRes.filter((seccion) => seccion.año == 2);
+			const TerceroAño = seccionesRes.filter((seccion) => seccion.año == 3);
+			const CuartoAño = seccionesRes.filter((seccion) => seccion.año == 4);
+			const QuintoAño = seccionesRes.filter((seccion) => seccion.año == 5);
 
 			setAños([
-				...años,
 				PrimerAño,
 				SegundoAño,
 				TerceroAño,
@@ -109,17 +84,6 @@ function SeccionDashboard() {
 
 	const AñoItem = ({ secciones }) => {
 		const [expanded, setExpanded] = useState(false);
-
-		secciones.sort(function (a, b) {
-			if (a.codigo < b.codigo) {
-				return -1;
-			}
-			if (a.codigo > b.codigo) {
-				return 1;
-			}
-			return 0;
-		});
-
 		return (
 			<>
 				<ListItem disablePadding onClick={() => setExpanded(!expanded)}>
