@@ -33,7 +33,7 @@ import store from "./store";
 
 import SeccionEstudiantes from "./routes/Seccion/SeccionEstudiantes";
 import SeccionMaterias from "./routes/Seccion/SeccionMaterias";
-import SeccionAñadir from "./routes/Seccion/SeccionAñadir";
+import CrearEstudiante from "./routes/Seccion/CrearEstudiante";
 import SeccionModificar from "./routes/Seccion/SeccionModificar";
 
 import Materias from "./routes/admin/Materias";
@@ -136,7 +136,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: "secciones/:id/añadir_estudiantes",
-								element: <SeccionAñadir />,
+								element: <CrearEstudiante />,
 							},
 							{
 								path: "secciones/:id/modificar",

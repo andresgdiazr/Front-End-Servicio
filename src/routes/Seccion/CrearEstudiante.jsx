@@ -13,7 +13,7 @@ import { getSecciones } from "../../api/secciones";
 import { useEffect } from "react";
 import CustomForm from "../../components/CustomForm";
 
-function SeccionAñadir() {
+function CrearEstudiante() {
 	const { id } = useParams();
 	const seccion_id = id;
 
@@ -134,4 +134,4 @@ function SeccionAñadir() {
 	);
 }
 
-export default SeccionAñadir;
+export default CrearEstudiante;
