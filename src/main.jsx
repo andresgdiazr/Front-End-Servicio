@@ -51,9 +51,8 @@ import ModificarEstudiante from "./routes/Seccion/ModificarEstudiante";
 import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
 
-axios.defaults.baseURL = "http://localhost:3333";
 
-axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "http://164.90.211.190";
+axios.defaults.baseURL = import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
 
 
 const router = createBrowserRouter([

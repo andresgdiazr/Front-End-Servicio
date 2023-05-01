@@ -9,9 +9,6 @@ import TablaBusqueda from "../../components/tables/GenericSearchTable";
 import EditIcon from "@mui/icons-material/Edit";
 
 function SeccionEstudiantes() {
-
-
-
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -38,21 +35,19 @@ function SeccionEstudiantes() {
     fetchProfesores();
   }, []);
 
-  const Acciones = ({cell}) => {
+  const Acciones = ({ cell }) => {
     return (
-      <>
-        <EditIcon
-          onClick={() => {
-            navigate(`${cell.row.original.id}/modificar`, {
-              state: {
-                nombre: cell.row.original.nombre,
-                apellido: cell.row.original.apellido,
-                id: cell.row.original.id,
-              },
-            });
-          }}
-        />
-      </>
+      <EditIcon
+        onClick={() => {
+          navigate(`${cell.row.original.id}/modificar`, {
+            state: {
+              nombre: cell.row.original.nombre,
+              apellido: cell.row.original.apellido,
+              id: cell.row.original.id,
+            },
+          });
+        }}
+      />
     );
   };
 
