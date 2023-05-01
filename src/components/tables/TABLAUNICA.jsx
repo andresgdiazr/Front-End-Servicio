@@ -41,7 +41,6 @@ function TablaBusqueda({
   //Referente a cada fila y su contenido
 
   const renderCell = (cell) => {
-    console.log(cell.column.id);
     if (cell.column.id === "acciones") {
       return (
         <td {...cell.getCellProps()}>

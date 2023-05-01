@@ -201,7 +201,12 @@ function createAcciones({
   setPasswordEmailDialog,
   setPasswordEmailProfesorId,
 }) {
+
+
+
   return ({ cell }) => {
+    const navigate = useNavigate()
+
     const profesorId = cell.row.original.id;
     return (
       <>
