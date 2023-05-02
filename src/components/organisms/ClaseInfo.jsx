@@ -1,8 +1,12 @@
 import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 
 function ClaseInfo({ materia, año, seccion }) {
+
+  const fullname = useSelector( (state) => state.main.name)
+
   return (
     <div
       css={css`
@@ -22,7 +26,7 @@ function ClaseInfo({ materia, año, seccion }) {
       </Typography>
       <Typography>Seccion: {seccion}</Typography>
       <Typography>
-        Profesores Carlos Duran y Alberto Pedro (CONSTANTE HAY QUE CAMBIAR)
+        Profesor: {fullname}   
       </Typography>
     </div>
   );
