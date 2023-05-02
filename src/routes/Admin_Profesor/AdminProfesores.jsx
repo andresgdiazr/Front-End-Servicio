@@ -187,7 +187,9 @@ function createAcciones({
         <EditIcon
           onClick={() => {
             navigate(`${cell.row.original.id}/modificar`, {
-              state: cell.row.original,
+              state: {
+                profesor: cell.row.original,
+              },
             });
           }}
         />

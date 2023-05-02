@@ -18,9 +18,7 @@ function AuthComponent() {
 
   const loadingBackdrop = useSelector((state) => state.main.loading);
   const success = useSelector((state) => state.main.success);
-
-  console.log(success, " JUST GET BHGOT");
-
+  
   if (sessionStorage.getItem("token")) {
     axios.defaults.headers.common[
       "Authorization"

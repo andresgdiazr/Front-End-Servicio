@@ -19,9 +19,6 @@ function CuentaForm({
 		defaultValues,
 	});
 
-	console.log(errors);
-
-	
 
 	return (
 		<CustomForm onSubmit={handleSubmit(onSubmit)}>
