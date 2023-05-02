@@ -26,7 +26,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 
-import { setLoading } from "../../store/features/main";
+import { setLoading, setSucess } from "../../store/features/main";
 import SuccessSnackbar from "components/organisms/SuccessSnackbar";
 
 function AdminProfesores() {
@@ -37,7 +37,6 @@ function AdminProfesores() {
   const navigate = useNavigate();
   const [passwordEmailDialog, setPasswordEmailDialog] = useState(false);
   const [passwordEmailProfesorId, setPasswordEmailProfesorId] = useState(null);
-  const [successEmailSnackbar, setSuccessEmailSnackbar] = useState(false);
 
   useEffect(() => {
     const fetchProfesores = async () => {
@@ -57,16 +56,10 @@ function AdminProfesores() {
 
   return (
     <div>
-      <SuccessSnackbar
-        open={successEmailSnackbar}
-        setOpen={setSuccessEmailSnackbar}
-        message="Correo enviado correctamente"
-      />
       <PasswordEmailDialog
         passwordEmailDialog={passwordEmailDialog}
         setPasswordEmailDialog={setPasswordEmailDialog}
         passwordEmailProfesorId={passwordEmailProfesorId}
-        setSuccessEmailSnackbar={setSuccessEmailSnackbar}
       />
 
       <h2>Administrador de Profesores</h2>
@@ -113,7 +106,6 @@ function PasswordEmailDialog({
   passwordEmailDialog,
   setPasswordEmailDialog,
   passwordEmailProfesorId,
-  setSuccessEmailSnackbar,
 }) {
 
   const dispatch = useDispatch()
@@ -151,12 +143,12 @@ function PasswordEmailDialog({
                 passwordEmailProfesorId
               );
               if (response.status === 200) {
-                setSuccessEmailSnackbar(true);
+                dispatch(setSucess('Correo enviado con exito'))
               }
             } finally {
               setPasswordEmailDialog(false);
               dispatch(setLoading(false))
-            }
+            } 
 
 
           }}
