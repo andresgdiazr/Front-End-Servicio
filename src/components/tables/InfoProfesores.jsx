@@ -33,7 +33,7 @@ function InfoProfesores({ input }) {
   }, [passwordOverlay]);
 
   const informacion = (id) => {
-    navigate(`${id}/clases`,{state:{profesores:datos}});
+    navigate(`${id}/clases`, { state: { profesores: datos } });
   };
   const modificar = (cell) => {
     const row = cell.row.original;
@@ -71,8 +71,7 @@ function InfoProfesores({ input }) {
   const renderCell = (cell) => {
     if (typeof cell.value !== "number") {
       return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-    }
-    else {
+    } else {
       return (
         <td {...cell.getCellProps()}>
           <div

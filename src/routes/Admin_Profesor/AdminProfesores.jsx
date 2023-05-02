@@ -107,8 +107,7 @@ function PasswordEmailDialog({
   setPasswordEmailDialog,
   passwordEmailProfesorId,
 }) {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <Dialog
@@ -136,21 +135,18 @@ function PasswordEmailDialog({
         </Button>
         <Button
           onClick={async () => {
-            dispatch(setLoading(true))
+            dispatch(setLoading(true));
             try {
-
               const response = await issueChangePasswordTokenEmail(
                 passwordEmailProfesorId
               );
               if (response.status === 200) {
-                dispatch(setSucess('Correo enviado con exito'))
+                dispatch(setSucess("Correo enviado con exito"));
               }
             } finally {
               setPasswordEmailDialog(false);
-              dispatch(setLoading(false))
-            } 
-
-
+              dispatch(setLoading(false));
+            }
           }}
         >
           Continuar
@@ -160,18 +156,14 @@ function PasswordEmailDialog({
   );
 }
 
-
 function createAcciones({
   profesores,
   passwordEmailDialog,
   setPasswordEmailDialog,
   setPasswordEmailProfesorId,
 }) {
-
-
-
   return ({ cell }) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const profesorId = cell.row.original.id;
     return (

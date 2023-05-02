@@ -10,44 +10,42 @@ function ControlDashboard() {
     <div
       css={css`
         h1 {
-					margin-top:0.6rem;
+          margin-top: 0.6rem;
           font-size: 1.8rem;
         }
 
         .link-group {
           display: flex;
-					align-items:flex-start;
+          align-items: flex-start;
           flex-direction: column;
-					margin-top:2rem;
+          margin-top: 2rem;
 
-					a p {
-						font-size:1.3rem;
-						margin:0.5rem 0;
-					}
-
-
+          a p {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+          }
         }
       `}
     >
       <Typography variant="h1"> Bienvenido administrador {name} </Typography>
       <Typography> ¿Qué desea hacer? </Typography>
       <div className="link-group">
-        <Link to="admin/profesores" >
-          <Typography> Administrar Profesores</Typography> 
+        <Link to="admin/profesores">
+          <Typography> Administrar Profesores</Typography>
         </Link>
-        <Link to="admin/secciones" >
+        <Link to="admin/secciones">
           <Typography> Administrar secciones</Typography>
         </Link>
-        <Link to="admin/materias" >
+        <Link to="admin/materias">
           <Typography> Administrar materias</Typography>
         </Link>
       </div>
 
       <div className="link-group">
-        <Link to="/" >
+        <Link to="/">
           <Typography> Administrar supervisores</Typography>
         </Link>
-        <Link to="/" >
+        <Link to="/">
           <Typography> Administrar administradores</Typography>
         </Link>
       </div>

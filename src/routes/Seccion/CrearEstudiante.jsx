@@ -24,7 +24,7 @@ function CrearEstudiante() {
   const { id: seccionId } = useParams();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -50,10 +50,7 @@ function CrearEstudiante() {
     fetchSecciones();
   }, []);
   const onSubmit = (data) => {
-
     const año = secciones.filter((s) => s.id == seccionId)[0].año;
-
-
 
     axios
       .post(`/admin/estudiantes`, {
@@ -66,8 +63,8 @@ function CrearEstudiante() {
         seccion_id: parseInt(seccionId),
       })
       .then((res) => {
-        dispatch(setSucess('Estudiante creado correctamente'))    
-        navigate(-1)
+        dispatch(setSucess("Estudiante creado correctamente"));
+        navigate(-1);
       })
       .catch((error) => {
         if (

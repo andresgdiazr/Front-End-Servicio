@@ -18,7 +18,7 @@ function AuthComponent() {
 
   const loadingBackdrop = useSelector((state) => state.main.loading);
   const success = useSelector((state) => state.main.success);
-  
+
   if (sessionStorage.getItem("token")) {
     axios.defaults.headers.common[
       "Authorization"
@@ -76,11 +76,11 @@ function AuthComponent() {
         />
       </Backdrop>
       <Snackbar
-        open={success.status === 'recent' }
+        open={success.status === "recent"}
         autoHideDuration={2000}
-        onClose={(_,reason) => {
-          if( reason !== 'clickaway'){
-            dispatch(setSucess(null))
+        onClose={(_, reason) => {
+          if (reason !== "clickaway") {
+            dispatch(setSucess(null));
           }
         }}
       >
@@ -97,7 +97,7 @@ function AuthComponent() {
           severity="success"
           onClose={() => dispatch(setSucess(null))}
         >
-          {success.message || 'Operación realizada correctamente'}
+          {success.message || "Operación realizada correctamente"}
         </Alert>
       </Snackbar>
       <Outlet />

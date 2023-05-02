@@ -11,94 +11,94 @@ import { setLoading, setName } from "../store/features/main";
 import CustomForm from "../components/CustomForm";
 
 function Login() {
-	const [email, setEmail] = useState("");
-	const [invalidCredentials, setInvalidCredentials] = useState(false);
-	const [password, setPassword] = useState("");
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		dispatch(setLoading(true));
-		axios
-			.post("/login", { email, password })
-			.then((response) => {
-				const token = response.data.token;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setLoading(true));
+    axios
+      .post("/login", { email, password })
+      .then((response) => {
+        const token = response.data.token;
 
-				sessionStorage.setItem("token", token);
-				sessionStorage.setItem("user-type", response.data.userType);
-				sessionStorage.setItem("name", response.data.name);
-				dispatch(setName(response.data.name));
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user-type", response.data.userType);
+        sessionStorage.setItem("name", response.data.name);
+        dispatch(setName(response.data.name));
 
-				axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-				if (response.data.userType == "Administrador") {
-					navigate("/dashboard-control");
-				} else if (response.data.userType == "Profesor") {
-					navigate("/dashboard-profesor");
-				}
-			})
-			.catch((err) => setInvalidCredentials(true))
-			.finally(() => dispatch(setLoading(false)));
-	};
+        if (response.data.userType == "Administrador") {
+          navigate("/dashboard-control");
+        } else if (response.data.userType == "Profesor") {
+          navigate("/dashboard-profesor");
+        }
+      })
+      .catch((err) => setInvalidCredentials(true))
+      .finally(() => dispatch(setLoading(false)));
+  };
 
-	return (
-		<Container
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				height: "100vh",
-			}}
-		>
-			<img
-				css={css`
-					margin-top: calc(7vh + 1rem);
-				`}
-				src={LogoImg}
-				alt="logo-img"
-				width="225px"
-			/>
+  return (
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <img
+        css={css`
+          margin-top: calc(7vh + 1rem);
+        `}
+        src={LogoImg}
+        alt="logo-img"
+        width="225px"
+      />
 
-			<CustomForm
-				action=""
-				id="login"
-				method="post"
-				onSubmit={handleSubmit}
-				sx={{
-					alignItems: "stretch",
-					margin: "1.5rem 0",
-					width: "400px",
-					color: "red",
-					"& Button": {
-						alignSelf: "stretch",
-					},
-				}}
-			>
-				{invalidCredentials && (
-					<Typography color="tomato">Credenciales Invalidas</Typography>
-				)}
+      <CustomForm
+        action=""
+        id="login"
+        method="post"
+        onSubmit={handleSubmit}
+        sx={{
+          alignItems: "stretch",
+          margin: "1.5rem 0",
+          width: "400px",
+          color: "red",
+          "& Button": {
+            alignSelf: "stretch",
+          },
+        }}
+      >
+        {invalidCredentials && (
+          <Typography color="tomato">Credenciales Invalidas</Typography>
+        )}
 
-				<TextField
-					value={email}
-					label="Email"
-					variant="outlined"
-					onChange={(ev) => setEmail(ev.target.value)}
-				/>
-				<TextField
-					value={password}
-					label="Contraseña"
-					variant="outlined"
-					onChange={(ev) => setPassword(ev.target.value)}
-					type="password"
-				/>
+        <TextField
+          value={email}
+          label="Email"
+          variant="outlined"
+          onChange={(ev) => setEmail(ev.target.value)}
+        />
+        <TextField
+          value={password}
+          label="Contraseña"
+          variant="outlined"
+          onChange={(ev) => setPassword(ev.target.value)}
+          type="password"
+        />
 
-				<Button type="submit" variant="contained">
-					Ingresar
-				</Button>
-			</CustomForm>
-		</Container>
-	);
+        <Button type="submit" variant="contained">
+          Ingresar
+        </Button>
+      </CustomForm>
+    </Container>
+  );
 }
 
 export default Login;

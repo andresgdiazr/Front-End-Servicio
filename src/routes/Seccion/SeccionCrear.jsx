@@ -4,14 +4,14 @@ import { Typography } from "@mui/material";
 import SeccionForm from "../../components/organisms/SeccionForm";
 
 function SeccionCrear() {
-	const { state } = useLocation();
-	return (
-		<div>
-			<Typography>Crear sección</Typography>
+  const { state } = useLocation();
+  return (
+    <div>
+      <Typography>Crear sección</Typography>
 
-			<SeccionForm />
-		</div>
-	);
+      <SeccionForm />
+    </div>
+  );
 }
 
 export default SeccionCrear;

@@ -8,18 +8,15 @@ import { css } from "@emotion/react";
 
 import "../../css/tablas.css";
 
-
 import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
-
 
 function TablaBusqueda({
   input,
   datos,
   nombre,
-  acciones : Acciones = () => null,
+  acciones: Acciones = () => null,
 }) {
-
   const filteredData = datos.filter((el) => {
     //if no input the return the original
     if (input === "") {
@@ -66,7 +63,6 @@ function TablaBusqueda({
 
   return (
     <div className="container">
-
       <table {...getTableProps()}>
         <THead headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>

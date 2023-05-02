@@ -10,12 +10,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../store/features/main";
 
-
 function SeccionEstudiantes() {
   const { id } = useParams();
 
   const navigate = useNavigate();
-
 
   const [text, setText] = useState("");
   const [estudiante, setEstudiante] = useState([]);
@@ -25,15 +23,13 @@ function SeccionEstudiantes() {
     setText(lowerCase);
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-
     const fetchProfesores = async () => {
       dispatch(setLoading(true));
       let estudiantesRes = await getEstudiantes(id);
       dispatch(setLoading(false));
-
 
       let estudianteRes = estudiantesRes.map((estudiante) => {
         return {

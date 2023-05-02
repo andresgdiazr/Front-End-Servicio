@@ -6,46 +6,31 @@ import { getClases } from "../../api/getClases";
 import SeccionClases from "../../components/tables/SeccionClases";
 
 function SeccionMaterias() {
-
-  const [materias,setMaterias]=useState([]);
-  const [clases,setClases]=useState([]);
-  const {id}= useParams();
-
+  const [materias, setMaterias] = useState([]);
+  const [clases, setClases] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-		const fetchProfesores = async () => {
+    const fetchProfesores = async () => {
+      const Res = await getClases(id);
+      setClases(Res);
+      Res.map(({ materia }) => {
+        setMaterias((materias) => [...materias, materia]);
+      });
+    };
 
-          
-		const Res= await getClases(id);
-  
-    setClases(Res);
-    console.log(Res)
-    Res.map( ({materia}) =>{
+    fetchProfesores();
+  }, []);
 
-      setMaterias(materias => [...materias,materia]);
-   
-    })
+  return (
+    <>
+      <Typography> Adminstración de secciones</Typography>
 
+      <Typography>Listado</Typography>
 
-		};
-
-		fetchProfesores();
-	}, []);
-
-  
-
-
-    return(
-        <>
-          <Typography> Adminstración de secciones</Typography>
-
-          <Typography>Listado</Typography>
-
-
-         <SeccionClases InfoMaterias={clases} />
-
-        </>
-    );
+      <SeccionClases InfoMaterias={clases} />
+    </>
+  );
 }
 
 export default SeccionMaterias;

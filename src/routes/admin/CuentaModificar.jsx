@@ -6,22 +6,21 @@ import CuentaForm from "../../components/organisms/CuentaForm";
 import { setLoading, setSucess } from "../../store/features/main";
 
 function CuentaModificar({ tipo }) {
-
-	const [usedEmails, setUsedEmails] = useState([]);
+  const [usedEmails, setUsedEmails] = useState([]);
   const [usedCedulas, setUsedCedulas] = useState([]);
-	
+
   const { state } = useLocation();
-  const {id : profesorId} = useParams();
+  const { id: profesorId } = useParams();
   const dispatch = useDispatch();
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-		dispatch(setLoading(false));
-		const response = await updateCuenta(tipo, profesorId, data);
-		dispatch(setLoading(false));
+    dispatch(setLoading(false));
+    const response = await updateCuenta(tipo, profesorId, data);
+    dispatch(setLoading(false));
     if (response.status == 200) {
-			dispatch(setSucess('Cuenta modificada satisfactoriamente'))
-			navigate('/dashboard-control/admin/profesores')
+      dispatch(setSucess("Cuenta modificada satisfactoriamente"));
+      navigate("/dashboard-control/admin/profesores");
     } else {
       if (
         response.data.errors.some(

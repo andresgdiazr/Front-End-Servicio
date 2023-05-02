@@ -80,13 +80,14 @@ function ModificarEstudiante() {
             label="Año"
             value={año}
             onChange={(e) => {
-              if( secciones.length > 0 ) {
-                
-                const seccionesByYear = secciones.filter((sec) => sec.año == e.target.value);
+              if (secciones.length > 0) {
+                const seccionesByYear = secciones.filter(
+                  (sec) => sec.año == e.target.value
+                );
                 //TODO esto podria fallar si los años son incorrectos
-                setSeccion(seccionesByYear[0].id)
+                setSeccion(seccionesByYear[0].id);
               }
-              setAño(e.target.value)
+              setAño(e.target.value);
             }}
           >
             <MenuItem value={1}>1</MenuItem>

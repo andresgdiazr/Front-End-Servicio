@@ -87,13 +87,11 @@ function MateriasAñoTable() {
         </div>
       );
     } else if (cell.column.id == "materia_padre_id") {
-
-      if( cell.value === null ) {
-        return <Typography>Ninguna</Typography>
+      if (cell.value === null) {
+        return <Typography>Ninguna</Typography>;
       } else {
-        return cell.render('Cell')
+        return cell.render("Cell");
       }
-
     } else {
       return cell.render("Cell");
     }
