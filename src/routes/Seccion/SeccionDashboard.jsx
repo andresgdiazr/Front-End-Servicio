@@ -21,8 +21,9 @@ import { setLoading } from "../../store/features/main";
 
 function SeccionDashboard() {
   const navigate = useNavigate();
-
+  // todo QUE ES ES ESTADO ?
   const { state } = useLocation();
+
   const [años, setAños] = useState([]);
 
   const dispatch = useDispatch();

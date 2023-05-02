@@ -9,6 +9,8 @@ function SeccionDetalles() {
 		state: { año, seccion },
 	} = useLocation();
 
+	console.log(año, seccion,'sas')
+
 	const { id } = useParams();
 
 	return (

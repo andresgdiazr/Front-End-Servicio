@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { getSecciones } from "../../api/secciones";
 import { useEffect } from "react";
@@ -17,9 +17,14 @@ import TextInput from "components/atoms/TextInput";
 import SelectInput from "components/atoms/SelectInput";
 
 import { Controller, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { setSucess } from "../../store/features/main";
 
 function CrearEstudiante() {
   const { id: seccionId } = useParams();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -45,7 +50,10 @@ function CrearEstudiante() {
     fetchSecciones();
   }, []);
   const onSubmit = (data) => {
+
     const año = secciones.filter((s) => s.id == seccionId)[0].año;
+
+
 
     axios
       .post(`/admin/estudiantes`, {
@@ -58,8 +66,8 @@ function CrearEstudiante() {
         seccion_id: parseInt(seccionId),
       })
       .then((res) => {
-        console.log(res);
-        alert("Estudiante creado con exito");
+        dispatch(setSucess('Estudiante creado correctamente'))    
+        navigate(-1)
       })
       .catch((error) => {
         if (
