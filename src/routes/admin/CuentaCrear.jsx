@@ -19,7 +19,7 @@ function CuentaCrear({ tipo }) {
     dispatch(setLoading(false));
     if (response.status == 200) {
       dispatch(setSucess("Profesor creado satisfactoriamente"));
-      navigate("/dashboard-control/admin/profesores");
+      navigate(-1,{replace:true});
     } else {
       if (
         response.data.errors.some(

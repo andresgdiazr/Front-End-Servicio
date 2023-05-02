@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import InfoProfesores from "../../components/tables/InfoProfesores";
 import TextField from "@mui/material/TextField";
 import { css } from "@emotion/react";
@@ -32,6 +32,7 @@ import SuccessSnackbar from "components/organisms/SuccessSnackbar";
 function AdminProfesores() {
   const [text, setText] = useState("");
   const [profesores, setProfesores] = useState([]);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
