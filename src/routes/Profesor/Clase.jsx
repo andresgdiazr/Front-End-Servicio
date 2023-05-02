@@ -1,6 +1,5 @@
-import { css, Typography } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ClaseInfo from "../../components/organisms/ClaseInfo";
 

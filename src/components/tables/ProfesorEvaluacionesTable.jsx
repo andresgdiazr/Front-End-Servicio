@@ -5,6 +5,7 @@ import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTable } from "react-table";
 import THead from "../molecules/THead";
+import EmptyTableRow from "../molecules/EmptyTableRow";
 
 function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
   const columns = useMemo(
@@ -80,6 +81,11 @@ function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
               </tr>
             );
           })}
+          <EmptyTableRow
+            headerGroups={headerGroups}
+            rows={rows}
+            message="No hay evaluaciones para este lapso"
+          />
         </tbody>
       </table>
     </div>
