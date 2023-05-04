@@ -10,7 +10,7 @@ function GoBackButton({ to }) {
 
   return (
     <a
-      onClick={ () => to == 'prev' ? navigate(-1) :  navigate(to) }
+      onClick={ () => to == 'prev' ? navigate(-1,{replace:true}) :  navigate(to) }
       css={css`
         display: flex;
         align-items: center;

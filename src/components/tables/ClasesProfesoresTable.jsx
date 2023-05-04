@@ -51,7 +51,10 @@ export function ClasesProfesoresTable({ datos, profesor = {} }) {
               `}
             >
               <VisibilityIcon />
-              <Link to={`${claseId}/editar`} state={{ profesor,clase:row.original }}>
+              <Link
+                to={`${claseId}/editar`}
+                state={{ profesor, clase: row.original }}
+              >
                 <EditIcon />
               </Link>
               <DeleteIcon

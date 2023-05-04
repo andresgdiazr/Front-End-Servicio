@@ -9,6 +9,27 @@ const theme = createTheme({
         secondary: {
             main: purple[900]
         }
+    },
+    components: {
+        MyCustomForm: {
+            styleOverrides: {
+                root: {
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: "1.5rem",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    '& Button': {
+                        alignSelf: "center",
+                        marginTop: "1rem",
+                    },
+                    '& > div': {
+                        minWidth: "230px",
+                        marginBottom: "1rem",
+                    }
+                },
+            },
+        },
     }
 })
 

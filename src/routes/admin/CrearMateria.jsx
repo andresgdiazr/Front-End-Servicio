@@ -16,6 +16,7 @@ import ErrorInput from "../../components/atoms/ErrorInput";
 import { setLoading } from "../../store/features/main";
 import { addMateria, useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
+import CustomForm from "../../components/CustomForm";
 
 function CrearMateria() {
   const { year: año } = useParams();
@@ -37,7 +38,7 @@ function CrearMateria() {
       setError(true);
       return;
     }
-    dispatch( setLoading(true) )
+    dispatch(setLoading(true));
     const res = await createMateria({
       nombre,
       materiaPadreId: materiaPadre,
@@ -48,10 +49,9 @@ function CrearMateria() {
       dispatch(addMateria({ newMateria: res.data }));
       navigate(-1);
     } else {
-      console.log(res.data)
+      // TODO handle this failure (or check that it is impossible to fail)
     }
-    dispatch( setLoading(false) )
-
+    dispatch(setLoading(false));
   };
 
   return (
@@ -72,14 +72,7 @@ function CrearMateria() {
           margin-top: 1.5rem;
         `}
       >
-        <form
-          onSubmit={onSubmit}
-          css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-          `}
-        >
+        <CustomForm onSubmit={onSubmit}>
           <ErrorInput
             show={error}
             message={"Se requiere el nombre de la materia"}
@@ -92,7 +85,7 @@ function CrearMateria() {
             label="nombre"
             value={nombre}
             onChange={(ev) => {
-              if( ev.target.value.trim().length > 0 ) {
+              if (ev.target.value.trim().length > 0) {
                 setError(false);
               }
               setNombre(ev.target.value);
@@ -131,7 +124,7 @@ function CrearMateria() {
           >
             Guardar Cambios
           </Button>
-        </form>
+        </CustomForm>
       </div>
     </div>
   );

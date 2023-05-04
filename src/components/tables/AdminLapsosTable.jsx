@@ -4,15 +4,8 @@ import { Link, useParams } from "react-router-dom";
 
 import { useTable } from "react-table";
 
-
-  
-
 function AdminLapsosTable() {
-
-
-  const {year,id} = useParams()
-
-
+  const { year, id } = useParams();
 
   const columns = useMemo(
     () => [
@@ -40,11 +33,12 @@ function AdminLapsosTable() {
     tableInstance;
 
   const renderCell = (cell) => {
-
     if (cell.column.id == "acciones") {
       return (
         <div>
-          <Link to={`/dashboard-control/admin/materias/${year}/${id}/lapsos/${cell.row.original.lapsoNumber}/evaluaciones`} >
+          <Link
+            to={`/dashboard-control/admin/materias/${year}/${id}/lapsos/${cell.row.original.lapsoNumber}/evaluaciones`}
+          >
             <Visibility />
           </Link>
           <Book />

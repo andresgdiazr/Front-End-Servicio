@@ -25,9 +25,9 @@ function Overlay({ children, show, onShowChange = () => null }) {
         right: 0;
         z-index: 1200;
         background-color: rgba(0, 0, 0, 0.5);
-        display:flex;
-        justify-content:center;
-        align-items:center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         ${!showInternal && "display:none;"}
       `}
     >

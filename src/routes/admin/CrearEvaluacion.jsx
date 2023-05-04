@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { crearEvaluacion } from "../../api/crearEvaluacion";
 import { addEvaluacion } from "../../store/features/evaluaciones";
 import { setLoading } from "../../store/features/main";
+import CustomForm from "../../components/CustomForm";
 
 function CrearEvaluacion() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function CrearEvaluacion() {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <CustomForm onSubmit={onSubmit}>
         <TextField
           value={titulo}
           onChange={(ev) => setTitulo(ev.target.value)}
@@ -47,7 +48,7 @@ function CrearEvaluacion() {
         <Button variant="contained" type="submit">
           Crear
         </Button>
-      </form>
+      </CustomForm>
     </div>
   );
 }

@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 
 import LogoImg from "../assets/logo.jpeg";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography, Container } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setLoading, setName } from "../store/features/main";
+import CustomForm from "../components/CustomForm";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -42,72 +43,48 @@ function Login() {
   };
 
   return (
-    <div
-      css={css`
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-
-        h1 {
-          margin: 0;
-        }
-
-        form {
-          width: 400px;
-          display: flex;
-          flex-direction: column;
-          align-items: stretch;
-          justify-content: center;
-          margin-top: calc(7vh + 1rem);
-        }
-
-        img {
-          width: 225px;
-        }
-      `}
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100vh",
+      }}
     >
-      <form action="" id="login" method="post" onSubmit={handleSubmit}>
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-          `}
-        >
-          <img src={LogoImg} alt="logo-img" />
-        </div>
+      <img
+        css={css`
+          margin-top: calc(7vh + 1rem);
+        `}
+        src={LogoImg}
+        alt="logo-img"
+        width="225px"
+      />
 
-        <div
-          css={css`
-            margin: 1.5rem 0 1.5rem;
-          `}
-        >
-          {invalidCredentials && (
-            <Typography
-              css={css`
-                color: tomato;
-              `}
-            >
-              Credenciales Invalidas
-            </Typography>
-          )}
+      <CustomForm
+        action=""
+        id="login"
+        method="post"
+        onSubmit={handleSubmit}
+        sx={{
+          alignItems: "stretch",
+          margin: "1.5rem 0",
+          width: "400px",
+          color: "red",
+          "& Button": {
+            alignSelf: "stretch",
+          },
+        }}
+      >
+        {invalidCredentials && (
+          <Typography color="tomato">Credenciales Invalidas</Typography>
+        )}
 
-          <TextField
-            css={css`
-              width: 100%;
-              margin-top: 0.8rem;
-            `}
-            value={email}
-            label="Email"
-            variant="outlined"
-            onChange={(ev) => setEmail(ev.target.value)}
-          />
-        </div>
+        <TextField
+          value={email}
+          label="Email"
+          variant="outlined"
+          onChange={(ev) => setEmail(ev.target.value)}
+        />
         <TextField
           value={password}
           label="Contraseña"
@@ -116,17 +93,11 @@ function Login() {
           type="password"
         />
 
-        <Button
-          css={css`
-            margin-top: 2rem;
-          `}
-          type="submit"
-          variant="contained"
-        >
+        <Button type="submit" variant="contained">
           Ingresar
         </Button>
-      </form>
-    </div>
+      </CustomForm>
+    </Container>
   );
 }
 
