@@ -1,5 +1,4 @@
 import React from "react";
-import { getTabla } from "./coumnasunicas";
 
 import { useTable } from "react-table";
 import { useState, useEffect, useMemo } from "react";
@@ -12,11 +11,13 @@ import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 
 function TablaBusqueda({
-  input,
+  input = '',
   datos,
-  nombre,
+  formato,
   acciones: Acciones = () => null,
-}) {
+})
+
+{
   const filteredData = datos.filter((el) => {
     //if no input the return the original
     if (input === "") {
@@ -30,7 +31,7 @@ function TablaBusqueda({
 
   //Informacion referente a la tabla
 
-  const columns = useMemo(() => getTabla(nombre));
+  const columns = useMemo(() => formato);
   const data = useMemo(() => filteredData);
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
