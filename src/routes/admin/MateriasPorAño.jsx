@@ -4,9 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import MateriasAñoTable from "../../components/tables/MateriasAñoTable";
 import añoToData from "../../utils/añoToData";
 
-function MateriasPorAño() {
-  const { year: año } = useParams();
 
+
+
+function MateriasPorAño() {
+
+  const { year: año } = useParams();
+ 
   return (
     <div
       css={css`
@@ -52,5 +56,6 @@ function MateriasPorAño() {
     </div>
   );
 }
+
 
 export default MateriasPorAño;
