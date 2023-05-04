@@ -78,11 +78,26 @@ function SeccionEstudiantes() {
       <TablaBusqueda
         input={text}
         datos={estudiante}
-        nombre={"INFO_ESTUDIANTE"}
+        formato={INFO_ESTUDIANTE}
         acciones={Acciones}
       />
     </>
   );
 }
+
+const INFO_ESTUDIANTE =  [
+  {
+    Header: "Nombres y apellidos",
+    accessor: "fullname",
+  },
+  {
+    Header: "Cédula",
+    accessor: "cedula",
+  },
+  {
+    Header: "Acción",
+    accessor: "acciones",
+  },
+]
 
 export default SeccionEstudiantes;

@@ -57,41 +57,36 @@ function AdminProfesores() {
 
   return (
     <div>
-      <PasswordEmailDialog
-        passwordEmailDialog={passwordEmailDialog}
-        setPasswordEmailDialog={setPasswordEmailDialog}
-        passwordEmailProfesorId={passwordEmailProfesorId}
-      />
+                <PasswordEmailDialog
+                  passwordEmailDialog={passwordEmailDialog}
+                  setPasswordEmailDialog={setPasswordEmailDialog}
+                  passwordEmailProfesorId={passwordEmailProfesorId}
+                />
 
-      <h2>Administrador de Profesores</h2>
-      <h3>Listado de profesores</h3>
+                <h2>Administrador de Profesores</h2>
+                <h3>Listado de profesores</h3>
 
-      <Link to="crear">
-        <Button
-          css={css`
-            margin-bottom: 1rem;
-          `}
-          variant="contained"
-        >
-          Crear Profesor
-        </Button>
-      </Link>
 
-      <TextField
-        css={css`
-          margin-bottom: 1.5rem;
-        `}
-        id="outlined-basic"
-        variant="outlined"
-        fullWidth
-        label="Buscar profesores"
-        onChange={inputHandler}
-      />
+                {/*Crea el profesor*/}
+            
+                <Link to="crear">
+                  <Button sx={{mb: '1rem'}} variant="contained">
+                      Crear Profesor
+                  </Button>
+                </Link>
+
+                <TextField sx={{mb:'1.5rem'}}
+                  id="outlined-basic"
+                  variant="outlined"
+                  fullWidth
+                  label="Buscar profesores"
+                  onChange={inputHandler}
+                />
 
       <TablaBusqueda
         input={text}
         datos={profesores}
-        nombre={"INFO_PROFESOR"}
+        formato={INFO_PROFESOR}
         acciones={createAcciones({
           profesores,
           passwordEmailDialog,
@@ -200,4 +195,30 @@ function createAcciones({
   };
 }
 
+
+const INFO_PROFESOR = [
+      {
+        Header: "Nombre",
+        accessor: "nombre",
+      },
+      {
+        Header: "Apellido",
+        accessor: "apellido",
+      },
+      {
+        Header: "Cedula",
+        accessor: "cedula",
+      },
+  
+      {
+        Header: "Correo",
+        accessor: "email",
+      },
+      {
+        Header: "Acciones",
+        accessor: "acciones",
+      },
+    ]
+
+    
 export default AdminProfesores;

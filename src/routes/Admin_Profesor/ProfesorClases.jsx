@@ -5,6 +5,7 @@ import { getClases } from "../../api/profesores_clases";
 
 import { ClasesProfesoresTable } from "../../components/tables/ClasesProfesoresTable";
 import { useProfesorClases } from "../../store/features/profesorClases";
+import TablaBusqueda from "../../components/tables/GenericSearchTable";
 
 function ProfesorClases() {
   const { state } = useLocation();
@@ -21,7 +22,9 @@ function ProfesorClases() {
         {profesor.nombre} {profesor.apellido}
       </Typography>
 
-      <ClasesProfesoresTable profesor={profesor} datos={clases} />
+      {/*<ClasesProfesoresTable profesor={profesor} datos={clases} />*/}
+
+     <TablaBusqueda datos={clases} formato={CLASES} />
 
       <Link
         to="crear"
@@ -41,5 +44,59 @@ function ProfesorClases() {
     </Container>
   );
 }
+
+
+const CLASES = [
+  {
+    Header: "Materia",
+    accessor: "materia.nombre",
+  },
+  {
+    Header: "Año",
+    accessor: "materia.año",
+  },
+  {
+    Header: "Sección",
+    accessor: "seccion.codigo",
+  },
+  {
+    Header: "Acciónes",
+    accessor: "acciones",
+    Cell: ({ row }) => {
+      const claseId = row.original.id;
+      return (
+        <div
+          css={css`
+            width=100%;
+            display:flex;
+            justify-content:space-evenly;
+            align-items:center;
+            svg {
+              cursor:pointer;
+            }
+          `}
+        >
+          <VisibilityIcon />
+          <Link
+            to={`${claseId}/editar`}
+            state={{ profesor, clase: row.original }}
+          >
+            <EditIcon />
+          </Link>
+          <DeleteIcon
+            onClick={async () => {
+              dispatch(setLoading(true));
+              const response = await deleteClase({ claseId });
+              if (response.status === 204) {
+                dispatch(removeClase({ claseId }));
+              }
+              dispatch(setLoading(false));
+            }}
+          />
+        </div>
+      );
+    },
+  },
+]
 
 export default ProfesorClases;
