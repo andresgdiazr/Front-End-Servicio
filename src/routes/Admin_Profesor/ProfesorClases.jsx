@@ -1,11 +1,13 @@
 import React from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button, Container, css, Typography } from "@mui/material";
-import { getClases } from "../../api/profesores_clases";
 
-import { ClasesProfesoresTable } from "../../components/tables/ClasesProfesoresTable";
 import { useProfesorClases } from "../../store/features/profesorClases";
 import TablaBusqueda from "../../components/tables/GenericSearchTable";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete"
 
 function ProfesorClases() {
   const { state } = useLocation();
@@ -24,10 +26,11 @@ function ProfesorClases() {
 
       {/*<ClasesProfesoresTable profesor={profesor} datos={clases} />*/}
 
-     <TablaBusqueda datos={clases} formato={CLASES} />
+     <TablaBusqueda datos={clases} formato={CLASES} acciones={createAcciones({
+        profesor
+     }) }/>
 
-      <Link
-        to="crear"
+      <Link to="crear"
         state={{
           profesor,
         }}
@@ -41,10 +44,42 @@ function ProfesorClases() {
           Añadir clase
         </Button>
       </Link>
+      
     </Container>
   );
 }
 
+
+function createAcciones({
+  profesor
+}){
+  return({cell}) => {
+
+    const claseId = cell.row.original.id;
+    return (
+      <> 
+        <VisibilityIcon />
+        <Link
+          to={`${claseId}/editar`}
+          state={{ profesor, clase: cell.row.original }}
+        >
+          <EditIcon />
+        </Link>
+        <DeleteIcon
+          onClick={async () => {
+            dispatch(setLoading(true));
+            const response = await deleteClase({ claseId });
+            if (response.status === 204) {
+              dispatch(removeClase({ claseId }));
+            }
+            dispatch(setLoading(false));
+          }}
+        />
+      </>
+    );
+  }
+
+}
 
 const CLASES = [
   {
@@ -62,40 +97,6 @@ const CLASES = [
   {
     Header: "Acciónes",
     accessor: "acciones",
-    Cell: ({ row }) => {
-      const claseId = row.original.id;
-      return (
-        <div
-          css={css`
-            width=100%;
-            display:flex;
-            justify-content:space-evenly;
-            align-items:center;
-            svg {
-              cursor:pointer;
-            }
-          `}
-        >
-          <VisibilityIcon />
-          <Link
-            to={`${claseId}/editar`}
-            state={{ profesor, clase: row.original }}
-          >
-            <EditIcon />
-          </Link>
-          <DeleteIcon
-            onClick={async () => {
-              dispatch(setLoading(true));
-              const response = await deleteClase({ claseId });
-              if (response.status === 204) {
-                dispatch(removeClase({ claseId }));
-              }
-              dispatch(setLoading(false));
-            }}
-          />
-        </div>
-      );
-    },
   },
 ]
 
