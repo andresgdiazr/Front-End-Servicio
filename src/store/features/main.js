@@ -5,23 +5,27 @@ const mainSlice = createSlice({
   initialState: {
     name:'',
     loading:false,
-    success : {
+    snackbar : {
       status: 'expired',
-      message: ''
+      message: '',
+      type: '', // error warning info success
+      // TODO aparte de los tipos, modificar en el tema el componente alert
     }
   },
   reducers: {
-    setSucess: (state,{payload}) => {
+    setSnackbar: (state, {payload}) => {
       if( payload === null ) {
-        state.success.status = 'expired'
+        state.snackbar.status = 'expired'
         return
       } else {
-        state.success.status = 'recent'
-        if ( typeof payload === 'string' ) {
-          state.success.message = payload
+        const [ message, type ] = payload
+        console.log(message,type);
+        state.snackbar.status = 'recent'
+        if ( typeof message === 'string' && typeof type === 'string' ) {
+          state.snackbar.message = message,
+          state.snackbar.type = type
         }
       }
-
     },
     setName: (state,{payload}) => {
       state.name = payload
@@ -33,7 +37,7 @@ const mainSlice = createSlice({
 })
 
 
-export const { setName ,setLoading,setSucess } = mainSlice.actions
+export const { setName ,setLoading,setSnackbar } = mainSlice.actions
 
 
 export default mainSlice.reducer

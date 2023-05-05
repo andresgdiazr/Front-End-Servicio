@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { updateCuenta } from "../../api/updateCuenta";
 import CuentaForm from "../../components/organisms/CuentaForm";
-import { setLoading, setSucess } from "../../store/features/main";
+import { setLoading, setSnackbar } from "../../store/features/main";
 
 function CuentaModificar({ tipo }) {
   const [usedEmails, setUsedEmails] = useState([]);
@@ -19,7 +19,7 @@ function CuentaModificar({ tipo }) {
     const response = await updateCuenta(tipo, profesorId, data);
     dispatch(setLoading(false));
     if (response.status == 200) {
-      dispatch(setSucess("Cuenta modificada satisfactoriamente"));
+      dispatch(setSnackbar(["Cuenta modificada satisfactoriamente", "success"]));
       navigate("/dashboard-control/admin/profesores");
     } else {
       if (

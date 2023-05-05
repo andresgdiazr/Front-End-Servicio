@@ -18,7 +18,7 @@ import SelectInput from "components/atoms/SelectInput";
 
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setSucess } from "../../store/features/main";
+import { setSnackbar } from "../../store/features/main";
 
 function CrearEstudiante() {
   const { id: seccionId } = useParams();
@@ -63,7 +63,7 @@ function CrearEstudiante() {
         seccion_id: parseInt(seccionId),
       })
       .then((res) => {
-        dispatch(setSucess("Estudiante creado correctamente"));
+        dispatch(setSnackbar(["Estudiante creado correctamente", "success"]));
         navigate(-1);
       })
       .catch((error) => {

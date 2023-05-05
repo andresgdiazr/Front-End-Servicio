@@ -26,8 +26,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 
-import { setLoading, setSucess } from "../../store/features/main";
-import SuccessSnackbar from "components/organisms/SuccessSnackbar";
+import { setLoading, setSnackbar } from "../../store/features/main";
 
 function AdminProfesores() {
   const [text, setText] = useState("");
@@ -137,7 +136,7 @@ function PasswordEmailDialog({
                 passwordEmailProfesorId
               );
               if (response.status === 200) {
-                dispatch(setSucess("Correo enviado con exito"));
+                dispatch(setSnackbar(["Correo enviado con exito", "success"]));
               }
             } finally {
               setPasswordEmailDialog(false);
