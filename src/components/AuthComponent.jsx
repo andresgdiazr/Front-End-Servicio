@@ -85,15 +85,6 @@ function AuthComponent() {
         }}
       >
         <Alert
-        /* background-color: #04aa6d; */
-          css={css`
-            color: white;
-            font-size: 1.2rem;
-
-            svg {
-              color: white;
-            }
-          `}
           severity={snackbar.type}
           variant="filled"
           onClose={() => dispatch(setSnackbar(null))}

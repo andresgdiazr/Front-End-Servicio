@@ -9,7 +9,6 @@ const mainSlice = createSlice({
       status: 'expired',
       message: '',
       type: '', // error warning info success
-      // TODO aparte de los tipos, modificar en el tema el componente alert
     }
   },
   reducers: {

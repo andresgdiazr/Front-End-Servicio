@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { createCuenta } from "../../api/createCuenta";
 import CuentaForm from "../../components/organisms/CuentaForm";
 import { setLoading, setSnackbar } from "../../store/features/main";
+import { Typography } from "@mui/material";
+
 function CuentaCrear({ tipo }) {
   const navigate = useNavigate();
 
@@ -38,16 +40,17 @@ function CuentaCrear({ tipo }) {
   };
 
   return (
-    <div>
-      <h2>Administración de {tipo}</h2>
-      <h3>Creacion de cuenta</h3>
+    <>
+      <Typography variant="h2">Administración de {tipo}</Typography>
+      <Typography variant="h3">Creacion de cuenta</Typography>
+      <Typography>pepe</Typography>
 
       <CuentaForm
         onSubmit={onSubmit}
         usedEmails={usedEmails}
         usedCedulas={usedCedulas}
       />
-    </div>
+    </>
   );
 }
 
