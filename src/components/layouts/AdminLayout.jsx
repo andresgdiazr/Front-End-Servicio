@@ -1,5 +1,4 @@
 import React from "react";
-import { css } from "@emotion/react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
 import { Box } from "@mui/material";

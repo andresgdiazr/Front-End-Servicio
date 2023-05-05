@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createCuenta } from "../../api/createCuenta";
 import CuentaForm from "../../components/organisms/CuentaForm";
-import { setLoading, setSucess } from "../../store/features/main";
-// TODO añadir snackbar
+import { setLoading, setSnackbar } from "../../store/features/main";
+import { Typography } from "@mui/material";
+
 function CuentaCrear({ tipo }) {
   const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ function CuentaCrear({ tipo }) {
     const response = await createCuenta(tipo, data);
     dispatch(setLoading(false));
     if (response.status == 200) {
-      dispatch(setSucess("Profesor creado satisfactoriamente"));
+      dispatch(setSnackbar(["Profesor creado satisfactoriamente", "success"]));
       navigate(-1,{replace:true});
     } else {
       if (
@@ -39,16 +40,17 @@ function CuentaCrear({ tipo }) {
   };
 
   return (
-    <div>
-      <h2>Administración de {tipo}</h2>
-      <h3>Creacion de cuenta</h3>
+    <>
+      <Typography variant="h2">Administración de {tipo}</Typography>
+      <Typography variant="h3">Creacion de cuenta</Typography>
+      <Typography>pepe</Typography>
 
       <CuentaForm
         onSubmit={onSubmit}
         usedEmails={usedEmails}
         usedCedulas={usedCedulas}
       />
-    </div>
+    </>
   );
 }
 

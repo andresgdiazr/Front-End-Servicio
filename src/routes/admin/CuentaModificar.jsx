@@ -3,61 +3,63 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { updateCuenta } from "../../api/updateCuenta";
 import CuentaForm from "../../components/organisms/CuentaForm";
-import { setLoading, setSucess } from "../../store/features/main";
+import { setLoading, setSnackbar } from "../../store/features/main";
+import { Typography } from "@mui/material";
 
 function CuentaModificar({ tipo }) {
-  const [usedEmails, setUsedEmails] = useState([]);
-  const [usedCedulas, setUsedCedulas] = useState([]);
+	const [usedEmails, setUsedEmails] = useState([]);
+	const [usedCedulas, setUsedCedulas] = useState([]);
 
-  const { state } = useLocation();
-  const { id: profesorId } = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const { state } = useLocation();
+	const { id: profesorId } = useParams();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
-    dispatch(setLoading(false));
-    const response = await updateCuenta(tipo, profesorId, data);
-    dispatch(setLoading(false));
-    if (response.status == 200) {
-      dispatch(setSucess("Cuenta modificada satisfactoriamente"));
-      navigate("/dashboard-control/admin/profesores");
-    } else {
-      if (
-        response.data.errors.some(
-          (error) => error.field === "email" && error.rule === "unique"
-        )
-      ) {
-        setUsedEmails([...usedEmails, data.email]);
-      }
-      if (
-        response.data.errors.some(
-          (error) => error.field === "cedula" && error.rule === "unique"
-        )
-      ) {
-        setUsedCedulas([...usedCedulas, data.cedula]);
-      }
-    }
-  };
+	const onSubmit = async (data) => {
+		dispatch(setLoading(false));
+		const response = await updateCuenta(tipo, profesorId, data);
+		dispatch(setLoading(false));
+		if (response.status == 200) {
+			dispatch(
+				setSnackbar(["Cuenta modificada satisfactoriamente", "success"])
+			);
+			navigate("/dashboard-control/admin/profesores");
+		} else {
+			if (
+				response.data.errors.some(
+					(error) => error.field === "email" && error.rule === "unique"
+				)
+			) {
+				setUsedEmails([...usedEmails, data.email]);
+			}
+			if (
+				response.data.errors.some(
+					(error) => error.field === "cedula" && error.rule === "unique"
+				)
+			) {
+				setUsedCedulas([...usedCedulas, data.cedula]);
+			}
+		}
+	};
 
-  let defaultValues = {};
+	let defaultValues = {};
 
-  if (state.profesor) {
-    defaultValues = state.profesor;
-  }
+	if (state.profesor) {
+		defaultValues = state.profesor;
+	}
 
-  return (
-    <div>
-      <h2>Administración de {tipo}</h2>
-      <h3>Modificando información de la cuenta</h3>
+	return (
+		<>
+			<Typography variant="h2">Administración de {tipo}</Typography>
+			<Typography variant="h3">Modificando información de la cuenta</Typography>
 
-      <CuentaForm
-        onSubmit={onSubmit}
-        usedEmails={usedEmails}
-        usedCedulas={usedCedulas}
-        defaultValues={defaultValues}
-      />
-    </div>
-  );
+			<CuentaForm
+				onSubmit={onSubmit}
+				usedEmails={usedEmails}
+				usedCedulas={usedCedulas}
+				defaultValues={defaultValues}
+			/>
+		</>
+	);
 }
-
 export default CuentaModificar;

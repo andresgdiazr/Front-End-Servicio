@@ -9,7 +9,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { setName, setSucess } from "../store/features/main";
+import { setName, setSnackbar } from "../store/features/main";
 
 function AuthComponent() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function AuthComponent() {
   const dispatch = useDispatch();
 
   const loadingBackdrop = useSelector((state) => state.main.loading);
-  const success = useSelector((state) => state.main.success);
+  const snackbar = useSelector((state) => state.main.snackbar);
 
   if (sessionStorage.getItem("token")) {
     axios.defaults.headers.common[
@@ -76,28 +76,20 @@ function AuthComponent() {
         />
       </Backdrop>
       <Snackbar
-        open={success.status === "recent"}
+        open={snackbar.status === "recent"}
         autoHideDuration={2000}
         onClose={(_, reason) => {
           if (reason !== "clickaway") {
-            dispatch(setSucess(null));
+            dispatch(setSnackbar(null));
           }
         }}
       >
         <Alert
-          css={css`
-            background-color: #04aa6d;
-            color: white;
-            font-size: 1.2rem;
-
-            svg {
-              color: white;
-            }
-          `}
-          severity="success"
-          onClose={() => dispatch(setSucess(null))}
+          severity={snackbar.type}
+          variant="filled"
+          onClose={() => dispatch(setSnackbar(null))}
         >
-          {success.message || "Operación realizada correctamente"}
+          {snackbar.message || "Operación realizada correctamente"}
         </Alert>
       </Snackbar>
       <Outlet />

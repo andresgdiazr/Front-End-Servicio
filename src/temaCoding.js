@@ -8,9 +8,56 @@ const theme = createTheme({
         },
         secondary: {
             main: purple[900]
-        }
+        },
+        // TODO descomentar y modificar colores aqui, ademas se pueden agregar mas
+        /*
+        success: {
+            main: "#04aa6d",
+        },
+        error: {
+            main: "#f44336",
+        },
+        warning: {
+            main: "#ff9800",
+        },
+        info: {
+            main: "#2196f3",
+        },
+        */
+    },
+    typography: {
+        fontSize: 16,
+        h1: {
+            fontSize: "1.8rem",
+        },
+        h2: {
+            fontSize: "1.5rem",
+        },
+        h3: {
+            fontSize: "1.3rem",
+        },
+        h4: {
+            fontSize: "1.2rem",
+        },
+        h5: {
+            fontSize: "1.1rem",
+        },
+        h6: {
+            fontSize: "1rem",
+        },
     },
     components: {
+        MuiAlert: {
+            styleOverrides: {
+                root: {
+                    color: "white",
+                    fontSize: "1.2rem",
+                    '& svg': {
+                        color: "white",
+                    },
+                },
+            },
+        },
         MyCustomForm: {
             styleOverrides: {
                 root: {
