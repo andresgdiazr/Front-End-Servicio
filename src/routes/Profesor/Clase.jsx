@@ -1,9 +1,12 @@
 
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ClaseInfo from "../../components/organisms/ClaseInfo";
 
 import EvaluacionLapsoTable from "../../components/tables/EvaluacionLapsoTable";
+import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import { Book, Visibility } from "@mui/icons-material";
+
 
 function Clase() {
 	const {
@@ -20,8 +23,42 @@ function Clase() {
 			/>
 
 			<EvaluacionLapsoTable claseId={claseId} materiaData={materiaData} />
+			<TablaBusqueda formato={LAPSO} datos={data}	acciones={createAcciones(materiaData)} />
+
 		</div>
 	);
 }
+
+function createAcciones (materiaData) {
+	return({cell}) => {
+		return(
+<>
+							<Link
+                                state={{ ...materiaData }}
+                                to={`lapsos/${cell.row.original.lapsoNumber}/evaluaciones`}
+                              >
+                                <Visibility />
+                              </Link>
+
+                              <Book />
+</>
+			
+		)
+	}
+
+}
+
+const LAPSO =  [
+	{ Header: "Lapso", accessor: "lapso" },
+	{ Header: "Acción", accessor: "acciones" },
+  ];
+
+const data = 
+	[
+		{ lapso: "Lapso 1", lapsoNumber: 1 },
+		{ lapso: "Lapso 2", lapsoNumber: 2 },
+		{ lapso: "Lapso 3", lapsoNumber: 3 },
+	  ]
+
 
 export default Clase;

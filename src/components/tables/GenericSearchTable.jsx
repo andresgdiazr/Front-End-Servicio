@@ -15,18 +15,35 @@ function TablaBusqueda({
   datos,
   formato,
   acciones: Acciones = () => null,
-})
+}){
 
-{
+  useEffect( () =>{
+
+    console.log(datos);
+  },[])
+
+
+
   const filteredData = datos.filter((el) => {
     //if no input the return the original
+    
+   console.log(datos);
+    
+    
     if (input === "") {
       return el;
     }
-    //return the item which contains the user input
+    else if(el.cedula.includes(input)){
+      return el.cedula.includes(input);
+    }
+    else if(el?.email && el.email.includes(input)){
+       return el.email.includes(input);
+    }
     else {
       return el.nombre.toLowerCase().includes(input);
     }
+    //return the item which contains the user input
+   
   });
 
   //Informacion referente a la tabla
@@ -64,7 +81,16 @@ function TablaBusqueda({
 
   return (
     <div className="container">
-      <table {...getTableProps()}>
+      <table 
+      css={css`
+      td,
+      th {
+        text-align: center;
+      }
+    `}
+    {...getTableProps()}
+      
+      {...getTableProps()}>
         <THead headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
