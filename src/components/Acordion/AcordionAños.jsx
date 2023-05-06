@@ -11,7 +11,7 @@ export default function AcordionAños({ años }) {
 	const navigate = useNavigate();
 
 	return (
-		<div>
+		<>
 			{años.map((el) => {
 				return (
 					<Accordion>
@@ -36,6 +36,6 @@ export default function AcordionAños({ años }) {
 					</Accordion>
 				);
 			})}
-		</div>
+		</>
 	);
 }

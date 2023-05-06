@@ -8,7 +8,7 @@ const mainSlice = createSlice({
     snackbar : {
       status: 'expired',
       message: '',
-      type: '', // error warning info success
+      type: 'info', // required not null for MUI snackbar
     }
   },
   reducers: {

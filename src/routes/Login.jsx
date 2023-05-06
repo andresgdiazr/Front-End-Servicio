@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 
-import LogoImg from "../assets/logo.jpeg";
+import LogoImg from "assets/logo.jpeg";
 import { Button, TextField, Typography, Container } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { setLoading, setName } from "../store/features/main";
-import CustomForm from "../components/CustomForm";
+import { setLoading, setName } from "store/features/main";
+import CustomForm from "components/CustomForm";
 
 function Login() {
   const [email, setEmail] = useState("");

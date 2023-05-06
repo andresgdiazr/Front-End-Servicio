@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { ArrowBack } from "@mui/icons-material";
 import { css, Typography } from "@mui/material";
@@ -9,7 +9,7 @@ function GoBackButton({ to }) {
   const navigate = useNavigate()
 
   return (
-    <a
+    <a // TODO editar MUI css?
       onClick={ () => to == 'prev' ? navigate(-1,{replace:true}) :  navigate(to) }
       css={css`
         display: flex;

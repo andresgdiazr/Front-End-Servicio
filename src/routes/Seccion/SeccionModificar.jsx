@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
-import { UpdateSeccion } from "../../api/updateSeccion";
-import CustomForm from "../../components/CustomForm";
+import { UpdateSeccion } from "api/updateSeccion";
+import CustomForm from "components/CustomForm";
 
 function SeccionModificar() {
   const [año, setAño] = useState("  ");

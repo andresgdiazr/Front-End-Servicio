@@ -12,12 +12,12 @@ function AdminLayout() {
   ];
 
   return (
-    <div>
+    <>
       <Navbar names={navbar} />
-      <Box sx={{ marginTop: "64px", padding: "1rem 2rem" }}>
+      <Box sx={{ padding: "1rem 2rem" }}>
         <Outlet />
       </Box>
-    </div>
+    </>
   );
 }
 

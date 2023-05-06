@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { Button, Container, css, Typography } from "@mui/material";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { Button, css, Typography } from "@mui/material";
 
-import { useProfesorClases } from "../../store/features/profesorClases";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import { useProfesorClases } from "store/features/profesorClases";
+import TablaBusqueda from "components/tables/GenericSearchTable";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";

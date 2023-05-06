@@ -1,49 +1,46 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { css, Typography } from "@mui/material";
-import Overlay from "../components/organisms/Overlay";
+import { Typography, List, ListItem, Link } from "@mui/material";
 
 function ControlDashboard() {
 	const name = useSelector((state) => state.main.name);
 	return (
-		<div
-			css={css`
-				.link-group {
-					display: flex;
-					align-items: flex-start;
-					flex-direction: column;
-					margin-top: 2rem;
-
-					a p {
-						margin: 0.5rem 0;
-					}
-				}
-			`}
-		>
+		<>
 			<Typography variant="h1"> Bienvenido administrador {name} </Typography>
 			<Typography> ¿Qué desea hacer? </Typography>
-			<div className="link-group">
-				<Link to="admin/profesores">
-					<Typography> Administrar Profesores</Typography>
-				</Link>
-				<Link to="admin/secciones">
-					<Typography> Administrar secciones</Typography>
-				</Link>
-				<Link to="admin/materias">
-					<Typography> Administrar materias</Typography>
-				</Link>
-			</div>
+			<List>
+				<ListItem>
+					<Link component={RouterLink} to="admin/profesores">
+						Administrar profesores
+					</Link>
+				</ListItem>
 
-			<div className="link-group">
-				<Link to="/">
-					<Typography> Administrar supervisores</Typography>
-				</Link>
-				<Link to="/">
-					<Typography> Administrar administradores</Typography>
-				</Link>
-			</div>
-		</div>
+				<ListItem>
+					<Link component={RouterLink} to="admin/secciones">
+						Administrar secciones
+					</Link>
+				</ListItem>
+
+				<ListItem>
+					<Link component={RouterLink} to="admin/materias">
+						Administrar materias
+					</Link>
+				</ListItem>
+
+				<ListItem>
+					<Link component={RouterLink} to="/">
+						Administrar supervisores
+					</Link>
+				</ListItem>
+
+				<ListItem>
+					<Link component={RouterLink} to="/">
+						Administrar administradores
+					</Link>
+				</ListItem>
+			</List>
+		</>
 	);
 }
 

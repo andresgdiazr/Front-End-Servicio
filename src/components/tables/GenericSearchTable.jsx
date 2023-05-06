@@ -11,56 +11,47 @@ import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 
 function TablaBusqueda({
-  input = '',
-  datos,
-  formato,
-  acciones: Acciones = () => null,
-}){
+	input = "",
+	datos,
+	formato,
+	acciones: Acciones = () => null,
+}) {
+	useEffect(() => {
+		console.log(datos);
+	}, []);
 
-  useEffect( () =>{
+	const filteredData = datos.filter((el) => {
+		//if no input the return the original
 
-    console.log(datos);
-  },[])
+		console.log(datos);
 
+		if (input === "") {
+			return el;
+		} else if (el.cedula.includes(input)) {
+			return el.cedula.includes(input);
+		} else if (el?.email && el.email.includes(input)) {
+			return el.email.includes(input);
+		} else {
+			return el.nombre.toLowerCase().includes(input);
+		}
+		//return the item which contains the user input
+	});
 
+	//Informacion referente a la tabla
 
-  const filteredData = datos.filter((el) => {
-    //if no input the return the original
-    
-   console.log(datos);
-    
-    
-    if (input === "") {
-      return el;
-    }
-    else if(el.cedula.includes(input)){
-      return el.cedula.includes(input);
-    }
-    else if(el?.email && el.email.includes(input)){
-       return el.email.includes(input);
-    }
-    else {
-      return el.nombre.toLowerCase().includes(input);
-    }
-    //return the item which contains the user input
-   
-  });
+	const columns = useMemo(() => formato);
+	const data = useMemo(() => filteredData);
+	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+		useTable({ columns, data });
 
-  //Informacion referente a la tabla
+	//Referente a cada fila y su contenido
 
-  const columns = useMemo(() => formato);
-  const data = useMemo(() => filteredData);
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
-
-  //Referente a cada fila y su contenido
-
-  const renderCell = (cell) => {
-    if (cell.column.id === "acciones") {
-      return (
-        <td {...cell.getCellProps()}>
-          <div
-            css={css`
+	const renderCell = (cell) => {
+		if (cell.column.id === "acciones") {
+			return (
+				<td {...cell.getCellProps()}>
+					<div
+						css={css`
               width=100%;
               display:flex;
               justify-content:space-evenly;
@@ -69,47 +60,47 @@ function TablaBusqueda({
                 cursor:pointer;
               }
             `}
-          >
-            <Acciones cell={cell} />
-          </div>
-        </td>
-      );
-    } else {
-      return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-    }
-  };
+					>
+						<Acciones cell={cell} />
+					</div>
+				</td>
+			);
+		} else {
+			return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+		}
+	};
 
-  return (
-    <div className="container">
-      <table 
-      css={css`
-      td,
-      th {
-        text-align: center;
-      }
-    `}
-    {...getTableProps()}
-      
-      {...getTableProps()}>
-        <THead headerGroups={headerGroups} />
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => renderCell(cell))}
-              </tr>
-            );
-          })}
-          <EmptyTableRow
-            message="Actualmente el sistema no cuenta con ningun profesor"
-            rows={rows}
-            headerGroups={headerGroups}
-          />
-        </tbody>
-      </table>
-    </div>
-  );
+	return (
+		<div className="container">
+			<table
+				css={css`
+					td,
+					th {
+						text-align: center;
+					}
+				`}
+				{...getTableProps()}
+				{...getTableProps()}
+			>
+				<THead headerGroups={headerGroups} />
+				<tbody {...getTableBodyProps()}>
+					{rows.map((row) => {
+						prepareRow(row);
+						return (
+							<tr {...row.getRowProps()}>
+								{row.cells.map((cell) => renderCell(cell))}
+							</tr>
+						);
+					})}
+					<EmptyTableRow
+						message="Actualmente el sistema no cuenta con ningun profesor"
+						rows={rows}
+						headerGroups={headerGroups}
+					/>
+				</tbody>
+			</table>
+		</div>
+	);
 }
 
 export default TablaBusqueda;

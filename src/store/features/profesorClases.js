@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getClases } from "../../api/profesores_clases";
+import { getClases } from "api/profesores_clases";
 import { setLoading } from "./main";
 
 const profesorClasesSlice = createSlice({

@@ -9,7 +9,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { setName, setSnackbar } from "../store/features/main";
+import { setName, setSnackbar } from "store/features/main";
 
 function AuthComponent() {
   const navigate = useNavigate();

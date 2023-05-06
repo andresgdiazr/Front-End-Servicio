@@ -1,15 +1,14 @@
-import { Delete, Edit, RepeatOneSharp } from "@mui/icons-material";
-import React, { useEffect, useMemo, useState } from "react";
+import { Delete, Edit } from "@mui/icons-material";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
-import { disableEvaluacion } from "../../api/disableEvaluacion";
-import { getEvaluaciones } from "../../api/getEvaluaciones";
+import { disableEvaluacion } from "api/disableEvaluacion";
 import {
   deleteEvaluacion,
   useEvaluaciones,
-} from "../../store/features/evaluaciones";
-import { setLoading } from "../../store/features/main";
+} from "store/features/evaluaciones";
+import { setLoading } from "store/features/main";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 import THead from "../molecules/THead";
 

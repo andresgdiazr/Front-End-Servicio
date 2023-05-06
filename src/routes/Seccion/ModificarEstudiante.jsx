@@ -9,10 +9,10 @@ import {
 	InputLabel,
 	Typography,
 } from "@mui/material";
-import { getSecciones } from "../../api/secciones";
-import { updateEstudiante } from "../../api/updateEstudiante";
-import CustomForm from "../../components/CustomForm";
-import { setLoading, setSnackbar } from "../../store/features/main";
+import { getSecciones } from "api/secciones";
+import { updateEstudiante } from "api/updateEstudiante";
+import CustomForm from "components/CustomForm";
+import { setLoading, setSnackbar } from "store/features/main";
 
 function ModificarEstudiante() {
 	const { state } = useLocation();

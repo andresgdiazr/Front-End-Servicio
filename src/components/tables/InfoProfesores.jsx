@@ -3,7 +3,7 @@ import { useTable } from "react-table";
 import { useState, useEffect, useMemo } from "react";
 import { INFO_PROFESOR } from "./columnas";
 import { useNavigate } from "react-router-dom";
-import { getProfesores } from "../../api/profesores";
+import { getProfesores } from "api/profesores";
 import { css } from "@emotion/react";
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,9 +12,9 @@ import LockIcon from "@mui/icons-material/Lock";
 import "../../css/tablas.css";
 import Overlay from "../organisms/Overlay";
 import { Button, Typography } from "@mui/material";
-import { issueChangePasswordTokenEmail } from "../../api/issueChangePasswordTokenEmail";
+import { issueChangePasswordTokenEmail } from "api/issueChangePasswordTokenEmail";
 import { useDispatch } from "react-redux";
-import { setLoading } from "../../store/features/main";
+import { setLoading } from "store/features/main";
 import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 
@@ -73,6 +73,7 @@ function InfoProfesores({ input }) {
       return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
     } else {
       return (
+        // TODO MUI y css?
         <td {...cell.getCellProps()}>
           <div
             css={css`
