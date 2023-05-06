@@ -16,6 +16,7 @@ function GoBackButton({ to }) {
 				textTransform: "none",
 				color: "black",
 				fontWeight: "bold",
+				marginBottom: "1rem",
 			}}
 		>
 			<ArrowBack sx={{ marginRight: "0.5rem" }} />
