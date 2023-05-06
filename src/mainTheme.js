@@ -59,6 +59,12 @@ const theme = createTheme({
             styleOverrides: {
                 underlineNone: {
                     color: "black",
+                    fontWeight: 500,
+                    "&:hover": {
+                        color: "#01579b",
+                    },
+                },
+                underlineHover: {
                 },
                 underlineAlways: {
                     color: "#000000",
