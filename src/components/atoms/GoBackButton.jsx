@@ -2,30 +2,26 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ArrowBack } from "@mui/icons-material";
-import { css, Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 
 function GoBackButton({ to }) {
-
-  const navigate = useNavigate()
-
-  return (
-    <a // TODO editar MUI css?
-      onClick={ () => to == 'prev' ? navigate(-1,{replace:true}) :  navigate(to) }
-      css={css`
-        display: flex;
-        align-items: center;
-
-        margin: 0.5rem 0 1rem;
-
-        svg {
-          margin-right: 0.5rem;
-        }
-      `}
-    >
-      <ArrowBack />
-      <Typography> Volver </Typography>
-    </a>
-  );
+	const navigate = useNavigate();
+	return (
+		<Button
+			onClick={() =>
+				to == "prev" ? navigate(-1, { replace: true }) : navigate(to)
+			}
+			component="a"
+			sx={{
+				textTransform: "none",
+				color: "black",
+				fontWeight: "bold",
+			}}
+		>
+			<ArrowBack sx={{ marginRight: "0.5rem" }} />
+			<Typography> Volver </Typography>
+		</Button>
+	);
 }
 
 export default GoBackButton;
