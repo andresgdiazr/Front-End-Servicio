@@ -26,7 +26,7 @@ const theme = createTheme({
         */
     },
     typography: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeightLight: 300,
         fontWeightRegular: 400,
         fontWeightMedium: 500,
@@ -41,17 +41,28 @@ const theme = createTheme({
             fontWeight: 400,
         },
         h3: {
-            fontSize: "1.3rem",
+            fontSize: "1.35rem",
             fontWeight: 400,
         },
         h4: {
-            fontSize: "1.2rem",
+            fontSize: "1.27rem",
+            fontWeight: 400,
         },
         h5: {
-            fontSize: "1.1rem",
+            fontSize: "1.15rem",
+            fontWeight: 400,
         },
         h6: {
-            fontSize: "1rem",
+            fontSize: "1.1rem",
+            fontWeight: 400,
+        },
+        subtitle1: {
+            fontSize: "1.1rem",
+            fontWeight: 400,
+        },
+        subtitle2: {
+            fontSize: "1.1rem",
+            fontWeight: 500,
         },
     },
     components: {
@@ -59,6 +70,12 @@ const theme = createTheme({
             styleOverrides: {
                 underlineNone: {
                     color: "black",
+                    fontWeight: 500,
+                    "&:hover": {
+                        color: "#01579b",
+                    },
+                },
+                underlineHover: {
                 },
                 underlineAlways: {
                     color: "#000000",
@@ -87,10 +104,12 @@ const theme = createTheme({
                     display: "flex",
                     flexDirection: "column",
                     marginTop: "1.5rem",
-                    alignItems: "center",
+                    alignItems: "start",
                     justifyContent: "space-between",
+                    '& > h6': {
+                        marginBottom: "1rem",
+                    },
                     '& Button': {
-                        alignSelf: "center",
                         marginTop: "1rem",
                     },
                     '& > div': {

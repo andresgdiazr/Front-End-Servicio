@@ -56,12 +56,10 @@ function AdminProfesores() {
 			/>
 
 			<Typography variant="h2">Administrador de Profesores</Typography>
-			<Typography variant="h3">Listado de profesores</Typography>
+			<Typography variant="subtitle1">Listado de profesores</Typography>
 
 			<Link to="crear">
-				<Button variant="contained">
-					Crear Profesor
-				</Button>
+				<Button variant="contained">Crear Profesor</Button>
 			</Link>
 
 			<TextField

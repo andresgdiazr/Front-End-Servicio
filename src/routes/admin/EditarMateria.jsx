@@ -63,7 +63,9 @@ function EditarMateria() {
 	return (
 		<>
 			<Typography variant="h2">Administracion de materias</Typography>
-			<Typography>Modificando la informacion de materia</Typography>
+			<Typography variant="subtitle1">
+				Modificando la informacion de materia
+			</Typography>
 			<CustomForm onSubmit={onUpload}>
 				<ErrorInput
 					show={error}
@@ -80,9 +82,7 @@ function EditarMateria() {
 						setNombre(ev.target.value);
 					}}
 				/>
-				<FormControl
-					variant="filled"
-				>
+				<FormControl variant="filled">
 					<InputLabel id="materia-padre"> Materia Padre </InputLabel>
 					<Select
 						labelId="materia-padre"

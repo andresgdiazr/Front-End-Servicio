@@ -51,7 +51,9 @@ function CuentaModificar({ tipo }) {
 	return (
 		<>
 			<Typography variant="h2">Administración de {tipo}</Typography>
-			<Typography variant="h3">Modificando información de la cuenta</Typography>
+			<Typography variant="subtitle1">
+				Modificando información de la cuenta
+			</Typography>
 
 			<CuentaForm
 				onSubmit={onSubmit}

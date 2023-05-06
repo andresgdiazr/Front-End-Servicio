@@ -13,10 +13,12 @@ function SeccionDetalles() {
 
 	return (
 		<>
-			<Typography>Administración de secciones</Typography>
-			<Typography>{`Año ${año}. Sección: ${seccion}`}</Typography>
-{/* 			TODO esta lista es inline, deberia ser en varias lineas.
+			<Typography variant="h2">Administración de secciones</Typography>
+			<Typography variant="subtitle1">{`Año ${año}. Sección: ${seccion}`}</Typography>
+
+			{/* 			TODO esta lista es inline, deberia ser en varias lineas.
 			Ademas discutir el estilo de los botones */}
+			
 			<Button
 				onClick={() => {
 					navigate(`/dashboard-control/admin/secciones/${id}/estudiantes`);

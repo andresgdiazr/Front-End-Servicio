@@ -47,8 +47,8 @@ function CrearClase() {
 	return (
 		<>
 			<Typography variant="h2">Administracion de clases</Typography>
-			<Typography>Creación de clase</Typography>
-			<Typography>
+			<Typography variant="subtitle1">Creación de clase</Typography>
+			<Typography variant="subtitle1">
 				Profesor: {state?.profesor?.nombre} {state?.profesor?.apellido}
 			</Typography>
 

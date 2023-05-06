@@ -20,7 +20,7 @@ function ProfesorClases() {
 		<>
 			<Typography variant="h2">Administración de profesores</Typography>
 
-			<Typography>
+			<Typography variant="subtitle1">
 				{profesor.nombre} {profesor.apellido}
 			</Typography>
 

@@ -12,7 +12,7 @@ import ProfesorDashboard from "./routes/ProfesorDashboard";
 import AdminProfesores from "./routes/Admin_Profesor/AdminProfesores";
 import ProfesorClases from "./routes/Admin_Profesor/ProfesorClases";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./temaCoding";
+import theme from "./mainTheme";
 
 import SeccionDashboard from "./routes/Seccion/SeccionDashboard";
 import SeccionCrear from "./routes/Seccion/SeccionCrear";

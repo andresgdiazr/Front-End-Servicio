@@ -7,8 +7,8 @@ function ControlDashboard() {
 	const name = useSelector((state) => state.main.name);
 	return (
 		<>
-			<Typography variant="h1"> Bienvenido administrador {name} </Typography>
-			<Typography> ¿Qué desea hacer? </Typography>
+			<Typography variant="h2"> Bienvenido administrador {name} </Typography>
+			<Typography variant="subtitle1"> ¿Qué desea hacer? </Typography>
 			<List>
 				<ListItem>
 					<Link component={RouterLink} to="admin/profesores">

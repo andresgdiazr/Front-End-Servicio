@@ -7,11 +7,11 @@ function ClaseInfo({ materia, año, seccion }) {
 
 	return (
 		<>
-			<Typography variant="h1">
-				{materia} , año: {año}
+			<Typography variant="h2">
+				{materia}, año: {año}
 			</Typography>
-			<Typography>Seccion: {seccion}</Typography>
-			<Typography>Profesor: {fullname}</Typography>
+			<Typography variant="subtitle1">Seccion: {seccion}</Typography>
+			<Typography variant="subtitle1">Profesor: {fullname}</Typography>
 		</>
 	);
 }
