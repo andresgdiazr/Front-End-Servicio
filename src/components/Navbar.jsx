@@ -41,7 +41,7 @@ const Navbar = ({ names = defaultNames }) => {
 
   return (
     <div>
-      <AppBar position="fixed" color="primary">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: "flex" }}>
             <IconButton color="inherit" aria-label="menu">
