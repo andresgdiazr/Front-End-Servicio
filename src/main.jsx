@@ -4,8 +4,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import axios from "axios";
 
+import AuthComponent from "components/AuthComponent";
 import MainLayout from "components/layouts/MainLayout";
+import NoRootLayout from "components/layouts/NoRootLayout";
 import { routesAdmin, routesProfesor } from "./RoutesLayout";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./mainTheme";
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store";
+
 import CuentaCrear from "./routes/admin/CuentaCrear";
 import CuentaModificar from "./routes/admin/CuentaModificar";
 import ControlDashboard from "./routes/ControlDashboard";
@@ -13,8 +21,6 @@ import Login from "./routes/Login";
 import ProfesorDashboard from "./routes/ProfesorDashboard";
 import AdminProfesores from "./routes/Admin_Profesor/AdminProfesores";
 import ProfesorClases from "./routes/Admin_Profesor/ProfesorClases";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./mainTheme";
 
 import SeccionDashboard from "./routes/Seccion/SeccionDashboard";
 import SeccionCrear from "./routes/Seccion/SeccionCrear";
@@ -22,14 +28,9 @@ import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
 import PaginaError from "./routes/PaginaError";
 import Clase from "./routes/Profesor/Clase";
 
-import NoRootLayout from "components/layouts/NoRootLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
-import AuthComponent from "components/AuthComponent";
 
-import "./index.css";
-import { Provider } from "react-redux";
-import store from "./store";
 
 import SeccionEstudiantes from "./routes/Seccion/SeccionEstudiantes";
 import SeccionMaterias from "./routes/Seccion/SeccionMaterias";

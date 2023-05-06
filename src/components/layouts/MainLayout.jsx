@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar";
 import { Box, Paper } from "@mui/material";
 
-function MainLayout({routes}) {
+function MainLayout({ routes }) {
 	return (
 		<>
 			<Navbar names={routes} />
