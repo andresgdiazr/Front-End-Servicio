@@ -44,7 +44,7 @@ function EditarClase() {
 	return (
 		<>
 			<Typography variant="h2">Administracion de clases</Typography>
-			<Typography>Edicion de Clase</Typography>
+			<Typography variant="subtitle1">Edicion de Clase</Typography>
 			<Typography>
 				Profesor: {state?.profesor?.nombre} {state?.profesor?.apellido}
 			</Typography>

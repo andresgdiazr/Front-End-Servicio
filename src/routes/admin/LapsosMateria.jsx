@@ -14,9 +14,9 @@ function LapsosMateria() {
 
   return (
     <>
-      <Typography variant="h1"> Admistracion de materias </Typography>
-      <Typography> Materias de {añoToData(año).display} </Typography>
-      <Typography> {currentMateria.nombre} </Typography>
+      <Typography variant="h2"> Admistracion de materias </Typography>
+      <Typography variant="subtitle1"> Materias de {añoToData(año).display} </Typography>
+      <Typography variant="subtitle1"> {currentMateria.nombre} </Typography>
 
       <AdminLapsosTable />
     </>

@@ -7,50 +7,50 @@ import { setLoading, setSnackbar } from "store/features/main";
 import { Typography } from "@mui/material";
 
 function CuentaCrear({ tipo }) {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const [usedEmails, setUsedEmails] = useState([]);
-  const [usedCedulas, setUsedCedulas] = useState([]);
+	const [usedEmails, setUsedEmails] = useState([]);
+	const [usedCedulas, setUsedCedulas] = useState([]);
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const onSubmit = async (data) => {
-    dispatch(setLoading(true));
-    const response = await createCuenta(tipo, data);
-    dispatch(setLoading(false));
-    if (response.status == 200) {
-      dispatch(setSnackbar(["Profesor creado satisfactoriamente", "success"]));
-      navigate(-1,{replace:true});
-    } else {
-      if (
-        response.data.errors.some(
-          (error) => error.field === "email" && error.rule === "unique"
-        )
-      ) {
-        setUsedEmails([...usedEmails, data.email]);
-      }
-      if (
-        response.data.errors.some(
-          (error) => error.field === "cedula" && error.rule === "unique"
-        )
-      ) {
-        setUsedCedulas([...usedCedulas, data.cedula]);
-      }
-    }
-  };
+	const onSubmit = async (data) => {
+		dispatch(setLoading(true));
+		const response = await createCuenta(tipo, data);
+		dispatch(setLoading(false));
+		if (response.status == 200) {
+			dispatch(setSnackbar(["Profesor creado satisfactoriamente", "success"]));
+			navigate(-1, { replace: true });
+		} else {
+			if (
+				response.data.errors.some(
+					(error) => error.field === "email" && error.rule === "unique"
+				)
+			) {
+				setUsedEmails([...usedEmails, data.email]);
+			}
+			if (
+				response.data.errors.some(
+					(error) => error.field === "cedula" && error.rule === "unique"
+				)
+			) {
+				setUsedCedulas([...usedCedulas, data.cedula]);
+			}
+		}
+	};
 
-  return (
-    <>
-      <Typography variant="h2">Administración de {tipo}</Typography>
-      <Typography variant="h3">Creacion de cuenta</Typography>
+	return (
+		<>
+			<Typography variant="h2">Administración de {tipo}</Typography>
+			<Typography variant="subtitle1">Creacion de cuenta</Typography>
 
-      <CuentaForm
-        onSubmit={onSubmit}
-        usedEmails={usedEmails}
-        usedCedulas={usedCedulas}
-      />
-    </>
-  );
+			<CuentaForm
+				onSubmit={onSubmit}
+				usedEmails={usedEmails}
+				usedCedulas={usedCedulas}
+			/>
+		</>
+	);
 }
 
 export default CuentaCrear;

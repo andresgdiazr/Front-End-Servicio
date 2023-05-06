@@ -57,8 +57,7 @@ function CrearMateria() {
 	return (
 		<>
 			<Typography variant="h2">Administracion de materias</Typography>
-
-			<Typography>Creación de materias</Typography>
+			<Typography variant="subtitle1">Creación de materias</Typography>
 
 			<CustomForm onSubmit={onSubmit}>
 				<ErrorInput

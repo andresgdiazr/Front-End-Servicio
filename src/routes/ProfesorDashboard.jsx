@@ -11,6 +11,7 @@ import {
 	ListItemText,
 	Typography,
 } from "@mui/material";
+import theme from "mainTheme";
 
 import {
 	ExpandMore as ExpandMore,
@@ -51,8 +52,19 @@ const MateriaItem = ({ materia }) => {
 
 	return (
 		<>
-			<ListItem onClick={() => setExpanded(!expanded)}>
-				<ListItemIcon style={{ minWidth: "32px" }}>
+			<ListItem
+				sx={{
+					minWidth: "32px",
+					"&:hover": {
+						color: theme.palette.primary.dark,
+						"& svg": {
+							color: theme.palette.primary.dark,
+						},
+					},
+				}}
+				onClick={() => setExpanded(!expanded)}
+			>
+				<ListItemIcon>
 					{expanded ? (
 						<ExpandLess fontSize="large" />
 					) : (
@@ -95,8 +107,8 @@ function ProfesorDashboard() {
 
 	return (
 		<>
-			<Typography variant="h1">Bienvenido {name}</Typography>
-			<Typography>Sus materias:</Typography>
+			<Typography variant="h2">Bienvenido {name}</Typography>
+			<Typography variant="subtitle1">Sus materias:</Typography>
 			<List component="ol">
 				{materias.map((materia) => (
 					<MateriaItem key={materia.id} materia={materia} />

@@ -11,7 +11,7 @@ function MateriasPorAño() {
 		<>
 			<Typography variant="h2">Administracion de materias</Typography>
 
-			<Typography>Materias por año</Typography>
+			<Typography variant="subtitle1">Materias por año</Typography>
 
 			<Button
 				css={css`

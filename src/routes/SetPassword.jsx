@@ -50,7 +50,7 @@ function SetPassword() {
           <Button onClick={() => navigate("/login")}>Continuar</Button>
         </DialogActions>
       </Dialog>
-      <Typography variant="h1">Ingrese La Contraseña para su cuenta</Typography>
+      <Typography variant="h2">Ingrese La Contraseña para su cuenta</Typography>
       <CustomForm onSubmit={onSubmit}>
         <TextField
           value={password}
