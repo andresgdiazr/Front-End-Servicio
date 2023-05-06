@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useMaterias } from "../../store/features/materias";
 import { useSecciones } from "../../store/features/secciones";
-import SelectInput from "../atoms/SelectInput";
+import SelectInput from "components/atoms/SelectInput";
+import CustomForm from "../CustomForm";
 
 function ClaseForm({ defaultValues = {}, onSubmit = () => null }) {
   const {
@@ -29,10 +30,9 @@ function ClaseForm({ defaultValues = {}, onSubmit = () => null }) {
   const seccion = parseInt(watch("seccion"));
   const materia = parseInt(watch("materia"));
 
-
-  useEffect(()=>{
-    clearErrors('dup-error')
-  },[año,materia,seccion])
+  useEffect(() => {
+    clearErrors("dup-error");
+  }, [año, materia, seccion]);
 
   useEffect(() => {
     register("seccionObj");
@@ -73,15 +73,7 @@ function ClaseForm({ defaultValues = {}, onSubmit = () => null }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(internalOnSubmit)}
-      css={css`
-        display: flex;
-        flex-align: center;
-        flex-direction: column;
-        justify-content: center;
-      `}
-    >
+    <CustomForm onSubmit={handleSubmit(internalOnSubmit)}>
       <Controller
         control={control}
         name="año"
@@ -172,7 +164,7 @@ function ClaseForm({ defaultValues = {}, onSubmit = () => null }) {
       >
         Guardar y Enviar
       </Button>
-    </form>
+    </CustomForm>
   );
 }
 

@@ -4,13 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import MateriasAñoTable from "../../components/tables/MateriasAñoTable";
 import añoToData from "../../utils/añoToData";
 
+
+
+
 function MateriasPorAño() {
-  const { year:año } = useParams();
 
+  const { year: año } = useParams();
  
-
-
-
   return (
     <div
       css={css`
@@ -26,11 +26,18 @@ function MateriasPorAño() {
       `}
     >
       <Typography variant="h2">Administracion de materias</Typography>
-      
+
       <Typography>Materias por año</Typography>
 
-      <Button css={css`margin-top:1rem;`} variant="contained">
-        <Link to={`/dashboard-control/admin/materias/${año}/crear`}>Crear Nueva Materia </Link>
+      <Button
+        css={css`
+          margin-top: 1rem;
+        `}
+        variant="contained"
+      >
+        <Link to={`/dashboard-control/admin/materias/${año}/crear`}>
+          Crear Nueva Materia
+        </Link>
       </Button>
 
       <div
@@ -46,9 +53,9 @@ function MateriasPorAño() {
 
         <MateriasAñoTable />
       </div>
-
     </div>
   );
 }
+
 
 export default MateriasPorAño;

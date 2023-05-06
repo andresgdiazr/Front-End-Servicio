@@ -1,68 +1,214 @@
 import React from "react";
-
-import {  useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import InfoProfesores from "../../components/tables/InfoProfesores";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import { css } from "@emotion/react";
-import { Button } from "@mui/material";
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Typography,
+} from "@mui/material";
 import { getProfesores } from "../../api/profesores";
 import { useDispatch } from "react-redux";
-import TablaBusqueda from "../../components/tables/TABLAUNICA";
+import TablaBusqueda from "../../components/tables/GenericSearchTable";
 
+import { issueChangePasswordTokenEmail } from "../../api/issueChangePasswordTokenEmail";
 
-import { setLoading } from "../../store/features/main";
+import SchoolIcon from "@mui/icons-material/School";
+import EditIcon from "@mui/icons-material/Edit";
+import Email from "@mui/icons-material/Email";
 
-
+import { setLoading, setSnackbar } from "../../store/features/main";
 
 function AdminProfesores() {
-  const [text, setText] = useState("");
-  const [profesores, setProfesores]= useState([]);
+	const [text, setText] = useState("");
+	const [profesores, setProfesores] = useState([]);
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const [passwordEmailDialog, setPasswordEmailDialog] = useState(false);
+	const [passwordEmailProfesorId, setPasswordEmailProfesorId] = useState(null);
 
-  useEffect(() => {
-    const fetchProfesores = async () => {
-      dispatch(setLoading(true));
-      const profesoresRes = await getProfesores();
-      setProfesores(profesoresRes);
-      dispatch(setLoading(false));
-      
-    };
+	useEffect(() => {
+		const fetchProfesores = async () => {
+			dispatch(setLoading(true));
+			const profesoresRes = await getProfesores();
+			setProfesores(profesoresRes);
+			dispatch(setLoading(false));
+		};
 
-    fetchProfesores();
-  }, []);
+		fetchProfesores();
+	}, []);
 
+	const inputHandler = ({ target }) => {
+		const lowerCase = target.value.toLowerCase();
+		setText(lowerCase);
+	};
 
-  const inputHandler = ({ target }) => {
-    const lowerCase = target.value.toLowerCase();
-    setText(lowerCase);
-  };
+	return (
+		<>
+			<PasswordEmailDialog
+				passwordEmailDialog={passwordEmailDialog}
+				setPasswordEmailDialog={setPasswordEmailDialog}
+				passwordEmailProfesorId={passwordEmailProfesorId}
+			/>
 
-  return (
-    <div>
-      <h2>Administrador de Profesores</h2>
-      <h3>Listado de profesores</h3>
+			<Typography variant="h2">Administrador de Profesores</Typography>
+			<Typography variant="h3">Listado de profesores</Typography>
 
-      <Link to="crear">
-        <Button css={css`margin-bottom:1rem;`} variant="contained">Crear Profesor</Button>
-      </Link>
+			{/*Crea el profesor*/}
 
-      <TextField
-        css={css`
-          margin-bottom: 1.5rem;
-        `}
-        id="outlined-basic"
-        variant="outlined"
-        fullWidth
-        label="Buscar profesores"
-        onChange={inputHandler}
-      />
+			<Link to="crear">
+				<Button sx={{ mb: "1rem" }} variant="contained">
+					Crear Profesor
+				</Button>
+			</Link>
 
-      <TablaBusqueda input={text} datos={profesores} nombre={"INFO_PROFESOR"} />
+			<TextField
+				sx={{ mb: "1.5rem" }}
+				id="outlined-basic"
+				variant="outlined"
+				fullWidth
+				label="Buscar profesores"
+				onChange={inputHandler}
+			/>
 
-    </div>
-  );
+			<TablaBusqueda
+				input={text}
+				datos={profesores}
+				formato={INFO_PROFESOR}
+				acciones={createAcciones({
+					profesores,
+					passwordEmailDialog,
+					setPasswordEmailDialog,
+					setPasswordEmailProfesorId,
+				})}
+			/>
+		</>
+	);
 }
 
-export default AdminProfesores; 
+function PasswordEmailDialog({
+	passwordEmailDialog,
+	setPasswordEmailDialog,
+	passwordEmailProfesorId,
+}) {
+	const dispatch = useDispatch();
+
+	return (
+		<Dialog
+			open={passwordEmailDialog}
+			onClose={() => setPasswordEmailDialog(false)}
+			aria-labelledby="alert-dialog-title"
+			aria-describedby="alert-dialog-description"
+		>
+			<DialogTitle id="alert-dialog-title">
+				Enviar correo para establezar contraseña?
+			</DialogTitle>
+			<DialogContent>
+				<DialogContentText id="alert-dialog-description">
+					Esta apunto de enviarle un correo al profesor para que establezca su
+					contraseña.
+				</DialogContentText>
+			</DialogContent>
+			<DialogActions>
+				<Button
+					onClick={() => {
+						setPasswordEmailDialog(false);
+					}}
+				>
+					Cancelar
+				</Button>
+				<Button
+					onClick={async () => {
+						dispatch(setLoading(true));
+						try {
+							const response = await issueChangePasswordTokenEmail(
+								passwordEmailProfesorId
+							);
+							if (response.status === 200) {
+								dispatch(setSnackbar(["Correo enviado con exito", "success"]));
+							}
+						} finally {
+							setPasswordEmailDialog(false);
+							dispatch(setLoading(false));
+						}
+					}}
+				>
+					Continuar
+				</Button>
+			</DialogActions>
+		</Dialog>
+	);
+}
+
+function createAcciones({
+	profesores,
+	passwordEmailDialog,
+	setPasswordEmailDialog,
+	setPasswordEmailProfesorId,
+}) {
+	return ({ cell }) => {
+		const navigate = useNavigate();
+
+		const profesorId = cell.row.original.id;
+		return (
+			<>
+				<SchoolIcon
+					onClick={() => {
+						navigate(`${profesorId}/clases`, {
+							state: { profesores },
+						});
+					}}
+				/>
+
+				<EditIcon
+					onClick={() => {
+						navigate(`${cell.row.original.id}/modificar`, {
+							state: {
+								profesor: cell.row.original,
+							},
+						});
+					}}
+				/>
+
+				<Email
+					onClick={() => {
+						if (!passwordEmailDialog) {
+							setPasswordEmailDialog(true);
+							setPasswordEmailProfesorId(profesorId);
+						}
+					}}
+				/>
+			</>
+		);
+	};
+}
+
+const INFO_PROFESOR = [
+	{
+		Header: "Nombre",
+		accessor: "nombre",
+	},
+	{
+		Header: "Apellido",
+		accessor: "apellido",
+	},
+	{
+		Header: "Cedula",
+		accessor: "cedula",
+	},
+
+	{
+		Header: "Correo",
+		accessor: "email",
+	},
+	{
+		Header: "Acciones",
+		accessor: "acciones",
+	},
+];
+
+export default AdminProfesores;

@@ -10,18 +10,14 @@ function GoBackButton({ to }) {
 
   return (
     <a
-      onClick={ () => to == 'prev' ? navigate(-1) :  navigate(to) }
+      onClick={ () => to == 'prev' ? navigate(-1,{replace:true}) :  navigate(to) }
       css={css`
         display: flex;
         align-items: center;
-        p {
-          font-size: 1.1rem;
-        }
 
         margin: 0.5rem 0 1rem;
 
         svg {
-          font-size: 1.7rem;
           margin-right: 0.5rem;
         }
       `}

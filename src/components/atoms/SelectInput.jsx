@@ -28,13 +28,11 @@ function SelectInput({
 
         label {
           justify-self: end;
-          font-size: 1.05rem;
           grid-area: label;
         }
 
         select {
           width: 350px;
-          font-size: 1.05rem;
           padding: 0.6rem 1rem;
           border-radius: 3px;
           border: 1px solid #333;
@@ -45,7 +43,6 @@ function SelectInput({
           display: flex;
           align-items: flex-end;
           height: 1rem;
-          font-size: 0.9rem;
           color: #cc0000;
           grid-area: error;
         }

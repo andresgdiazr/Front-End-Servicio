@@ -12,7 +12,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import "../../css/tablas.css";
 import Overlay from "../organisms/Overlay";
 import { Button, Typography } from "@mui/material";
-import { getChangePasswordToken } from "../../api/getChangePasswordToken";
+import { issueChangePasswordTokenEmail } from "../../api/issueChangePasswordTokenEmail";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../store/features/main";
 import THead from "../molecules/THead";
@@ -33,7 +33,7 @@ function InfoProfesores({ input }) {
   }, [passwordOverlay]);
 
   const informacion = (id) => {
-    navigate(`${id}/clases`,{state:{profesores:datos}});
+    navigate(`${id}/clases`, { state: { profesores: datos } });
   };
   const modificar = (cell) => {
     const row = cell.row.original;
@@ -71,8 +71,7 @@ function InfoProfesores({ input }) {
   const renderCell = (cell) => {
     if (typeof cell.value !== "number") {
       return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-    }
-    else {
+    } else {
       return (
         <td {...cell.getCellProps()}>
           <div
@@ -131,7 +130,7 @@ function InfoProfesores({ input }) {
               if (passwordLink) {
                 return;
               }
-              const response = await getChangePasswordToken(passwordRow);
+              const response = await issueChangePasswordTokenEmail(passwordRow);
               if (response.status === 200) {
                 const link = `${window.origin}/set-password?token=${response.data.token}`;
                 setPasswordLink(link);

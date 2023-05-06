@@ -6,21 +6,21 @@ import { useMaterias } from "../../store/features/materias";
 import añoToData from "../../utils/añoToData";
 
 function LapsosMateria() {
-	const { year: año, id } = useParams();
+  const { year: año, id } = useParams();
 
-	const materias = useMaterias(añoToData(año).value);
+  const materias = useMaterias(añoToData(año).value);
 
-	const currentMateria = materias.filter((mat) => mat.id == id)[0] || {};
+  const currentMateria = materias.filter((mat) => mat.id == id)[0] || {};
 
-	return (
-		<div>
-			<Typography> Admistracion de materias </Typography>
-			<Typography> Materias de {añoToData(año).display} </Typography>
-			<Typography> {currentMateria.nombre} </Typography>
+  return (
+    <div>
+      <Typography> Admistracion de materias </Typography>
+      <Typography> Materias de {añoToData(año).display} </Typography>
+      <Typography> {currentMateria.nombre} </Typography>
 
-			<AdminLapsosTable />
-		</div>
-	);
+      <AdminLapsosTable />
+    </div>
+  );
 }
 
 export default LapsosMateria;

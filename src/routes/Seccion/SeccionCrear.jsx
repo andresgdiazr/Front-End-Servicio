@@ -1,17 +1,17 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Typography } from "@mui/material";
-import SelectAño from "../../components/Select/SelectAño";
+import SeccionForm from "../../components/organisms/SeccionForm";
 
 function SeccionCrear() {
-	const { state } = useLocation();
-	return (
-		<div>
-			<Typography>Crear sección</Typography>
+  const { state } = useLocation();
+  return (
+    <div>
+      <Typography>Crear sección</Typography>
 
-			<SelectAño />
-		</div>
-	);
+      <SeccionForm />
+    </div>
+  );
 }
 
 export default SeccionCrear;

@@ -1,163 +1,142 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Alert, Button, css, MenuItem, Select, Snackbar, Typography } from "@mui/material";
-import GoBackButton from "../../components/atoms/GoBackButton";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+	Button,
+	FormControl,
+	MenuItem,
+	Select,
+	TextField,
+	InputLabel,
+	Typography,
+} from "@mui/material";
 import { getSecciones } from "../../api/secciones";
 import { updateEstudiante } from "../../api/updateEstudiante";
-
+import CustomForm from "../../components/CustomForm";
+import { setLoading, setSnackbar } from "../../store/features/main";
 
 function ModificarEstudiante() {
-  const { state } = useLocation();
- 
-  const navigate = useNavigate();
+	const { state } = useLocation();
 
-  const [nombre, setNombre] = useState(state.nombre);
-  const [apellido, setApellido] = useState(state.apellido);
-  const [año,setAño]= useState("");
-  const [seccion,setSeccion] =useState("");
-  const [open, setOpen] = useState(false);
-  const [secciones,setSecciones] = useState("");
+	const [nombre, setNombre] = useState(state.nombre);
+	const [apellido, setApellido] = useState(state.apellido);
+	const [año, setAño] = useState(state.año);
+	const [seccion, setSeccion] = useState("A");
+	const [secciones, setSecciones] = useState([]);
 
-  const handleChange = (e) => {
-		setAño(e.target.value);
+	// this fetches the secciones on first render
+	useEffect(() => {
+		const fetchSecciones = async () => {
+			const seccionesRes = await getSecciones();
+			const sec = seccionesRes.filter((sec) => sec.id == state.seccionId);
+			setSeccion(sec[0].id);
+			setSecciones(seccionesRes);
+		};
+
+		fetchSecciones();
+	}, []);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		let response = await updateEstudiante(state.id, {
+			nombre,
+			apellido,
+			seccion_id: seccion,
+			año,
+		});
+		if (response.status == 200) {
+			dispatch(
+				setSnackbar(["Cuenta modificada satisfactoriamente", "success"])
+			);
+		}
 	};
 
-  const handleSeccion = (e) =>{
-    console.log(e.target)
-    setSeccion(e.target.value);
-  }
+	return (
+		<>
+			<Typography variant="h2">Administración de estudiantes</Typography>
+			<Typography variant="h3">Modificando cuentas</Typography>
+			<Typography>Modificando información de la cuenta</Typography>
 
+			<CustomForm id="login" method="post" onSubmit={handleSubmit}>
+				<FormControl className="item">
+					<InputLabel id="label-año"> Año </InputLabel>
+					<Select
+						labelId="label-año"
+						id="año"
+						label="Año"
+						value={año}
+						onChange={(e) => {
+							if (secciones.length > 0) {
+								const seccionesByYear = secciones.filter(
+									(sec) => sec.año == e.target.value
+								);
+								//TODO esto podria fallar si los años son incorrectos
+								setSeccion(seccionesByYear[0].id);
+							}
+							setAño(e.target.value);
+						}}
+					>
+						<MenuItem value={1}>1</MenuItem>
+						<MenuItem value={2}>2</MenuItem>
+						<MenuItem value={3}>3</MenuItem>
+						<MenuItem value={4}>4</MenuItem>
+						<MenuItem value={5}>5</MenuItem>
+					</Select>
+				</FormControl>
 
-  useEffect(() => {
-    const fetchSecciones = async () => {
-      const SeccionesRes = await getSecciones();
-      setSecciones(SeccionesRes);
-      console.log(SeccionesRes);
-    };
+				<FormControl className="item">
+					<InputLabel id="label-seccion">Sección</InputLabel>
+					<Select
+						labelId="label-seccion"
+						id="seccion"
+						label="Sección"
+						value={seccion}
+						onChange={(e) => setSeccion(e.target.value)}
+					>
+						{secciones.length > 0
+							? secciones
+									.sort((a, b) => (a.codigo < b.codigo ? -1 : 1))
+									.map((sec) => {
+										if (sec.año === año) {
+											return (
+												<MenuItem key={sec.id} value={sec.id}>
+													{sec.codigo}
+												</MenuItem>
+											);
+										}
+									})
+							: ["A", "B", "C", "D"].map((sec) => (
+									<MenuItem key={sec} value={sec}>
+										{sec}
+									</MenuItem>
+							  ))}
+					</Select>
+				</FormControl>
 
-    fetchSecciones();
-  }, []);
+				<FormControl className="item">
+					<TextField
+						id="nombre"
+						label="Nombre"
+						variant="outlined"
+						value={nombre}
+						onChange={(e) => setNombre(e.target.value)}
+					/>
+				</FormControl>
+				<FormControl className="item">
+					<TextField
+						id="apellido"
+						label="Apellido"
+						variant="outlined"
+						onChange={(e) => setApellido(e.target.value)}
+						value={apellido}
+					/>
+				</FormControl>
 
-
- 
-  const handleSubmit = async (e) => {
-
-    setOpen(true);
-    
-    e.preventDefault();
-
-   
-    let seccion_id="";
-    secciones.map((sec) =>{
-      if( sec.codigo === seccion && sec.año === año){
-        seccion_id=sec.id;
-      }
-    })
-
-   
-    
-    let response = await updateEstudiante(state.id, { nombre, apellido, seccion_id });
-    if (response.status == 200) {
-      setOpen(true);
-    }
-
-  };
-
-  return (
-    <div>
-      <Snackbar
-        css={css`
-          svg {
-            color: white;
-          }
-        `}
-        open={open}
-        autoHideDuration={1000}
-        onClose={() => setOpen(false)}
-      >
-        <Alert variant="filled" severity="success">
-          Cuenta modificada satisfactoriamente
-        </Alert>
-
-      </Snackbar>
-
-
-      <GoBackButton to={"prev"} />
-      <h2>Administración de estudiantes</h2>
-      <h3>Modificando cuentas</h3>
-      <h3>Modificando información de la cuenta</h3>
-
-      <form id="login" method="post"  onSubmit={handleSubmit}>
-
-        <p className="item">
-        <label htmlFor="nombre"> Año </label>
-        <Select
-				labelId="demo-simple-select-label"
-				id="demo-simple-select"
-				label="año"
-        value={año}
-				onChange={handleChange}
-			  >
-				<MenuItem value={1}>1</MenuItem>
-				<MenuItem value={2}>2</MenuItem>
-				<MenuItem value={3}>3</MenuItem>
-				<MenuItem value={4}>4</MenuItem>
-				<MenuItem value={5}>5</MenuItem>
-			  </Select>
-
-
-        </p>
-
-        <p className="item">
-        <label htmlFor="nombre"> Sección </label>
-        <Select
-				labelId="demo-simple-select-label"
-				id="demo-simple-select"
-				label="año"
-        value={seccion}
-				onChange={handleSeccion}
-			  >
-				<MenuItem value={"A"}>A</MenuItem>
-				<MenuItem value={"B"}>B</MenuItem>
-				<MenuItem value={"C"}>C</MenuItem>
-				<MenuItem value={"D"}>D</MenuItem>
-			  </Select>
-
-
-        </p>
-
-        <p className="item">
-          <label htmlFor="nombre"> Nombre </label>
-          <input
-            name="nombre"
-            id="nombre"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-          />
-        </p>
-        <p className="item">
-          <label htmlFor="apellido"> Apellido </label>
-          <input
-            type="apellido"
-            name="apellido"
-            id="apellido"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-          />
-        </p>
-
-        
-
-        <p className="item">
-          <Button variant="contained" type="submit">
-            {" "}
-            Guardar y Enviar{" "}
-          </Button>
-        </p>
-      </form>
-    </div>
-  );
+				<Button variant="contained" type="submit">
+					Guardar y Enviar
+				</Button>
+			</CustomForm>
+		</>
+	);
 }
 
 export default ModificarEstudiante;
-

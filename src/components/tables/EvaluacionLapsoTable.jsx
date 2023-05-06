@@ -36,7 +36,6 @@ function EvaluacionLapsoTable({ claseId, materiaData = {} }) {
     <div
       css={css`
         h2 {
-          font-size: 1.6rem;
           margin-bottom: 1rem;
         }
         width: 50%;
