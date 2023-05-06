@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getSecciones } from "../../api/secciones";
+import { getSecciones } from "api/secciones";
 import {
   Box,
   Collapse,
@@ -17,7 +17,7 @@ import {
   ExpandLess as ExpandLess,
 } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { setLoading } from "../../store/features/main";
+import { setLoading } from "store/features/main";
 
 function SeccionDashboard() {
   const navigate = useNavigate();

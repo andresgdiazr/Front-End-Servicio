@@ -1,10 +1,10 @@
 
 import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import ClaseInfo from "../../components/organisms/ClaseInfo";
+import ClaseInfo from "components/organisms/ClaseInfo";
 
-import EvaluacionLapsoTable from "../../components/tables/EvaluacionLapsoTable";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import EvaluacionLapsoTable from "components/tables/EvaluacionLapsoTable";
+import TablaBusqueda from "components/tables/GenericSearchTable";
 import { Book, Visibility } from "@mui/icons-material";
 
 

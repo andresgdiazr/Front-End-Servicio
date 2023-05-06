@@ -1,8 +1,8 @@
 import { Button, css, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import MateriasAñoTable from "../../components/tables/MateriasAñoTable";
-import añoToData from "../../utils/añoToData";
+import MateriasAñoTable from "components/tables/MateriasAñoTable";
+import añoToData from "utils/añoToData";
 
 
 

@@ -1,14 +1,14 @@
 import React from "react";
-import { getEstudiantes } from "../../api/admin_estudiantes";
+import { getEstudiantes } from "api/admin_estudiantes";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
-import { Estudiantes_table } from "../../components/tables/EstudiantesTable";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import { Estudiantes_table } from "components/tables/EstudiantesTable";
+import TablaBusqueda from "components/tables/GenericSearchTable";
 
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch } from "react-redux";
-import { setLoading } from "../../store/features/main";
+import { setLoading } from "store/features/main";
 
 function SeccionEstudiantes() {
   const { id } = useParams();

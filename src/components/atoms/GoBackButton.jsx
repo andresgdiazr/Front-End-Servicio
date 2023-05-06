@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { ArrowBack } from "@mui/icons-material";
 import { css, Typography } from "@mui/material";

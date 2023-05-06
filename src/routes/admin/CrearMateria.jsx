@@ -11,12 +11,12 @@ import {
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { createMateria } from "../../api/createMateria";
-import ErrorInput from "../../components/atoms/ErrorInput";
-import { setLoading } from "../../store/features/main";
-import { addMateria, useMaterias } from "../../store/features/materias";
-import añoToData from "../../utils/añoToData";
-import CustomForm from "../../components/CustomForm";
+import { createMateria } from "api/createMateria";
+import ErrorInput from "components/atoms/ErrorInput";
+import { setLoading } from "store/features/main";
+import { addMateria, useMaterias } from "store/features/materias";
+import añoToData from "utils/añoToData";
+import CustomForm from "components/CustomForm";
 
 function CrearMateria() {
   const { year: año } = useParams();

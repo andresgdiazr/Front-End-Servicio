@@ -2,10 +2,10 @@ import { css, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { crearClase } from "../../api/creartClase";
-import ClaseForm from "../../components/organisms/ClaseForm";
-import { setLoading } from "../../store/features/main";
-import { addClase } from "../../store/features/profesorClases";
+import { crearClase } from "api/creartClase";
+import ClaseForm from "components/organisms/ClaseForm";
+import { setLoading } from "store/features/main";
+import { addClase } from "store/features/profesorClases";
 
 function CrearClase() {
   const { state } = useLocation();

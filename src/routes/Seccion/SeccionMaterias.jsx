@@ -2,9 +2,9 @@ import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getClases } from "../../api/getClases";
+import { getClases } from "api/getClases";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import TablaBusqueda from "components/tables/GenericSearchTable";
 
 function SeccionMaterias() {
   const [materias, setMaterias] = useState([]);

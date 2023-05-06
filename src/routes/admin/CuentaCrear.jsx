@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createCuenta } from "../../api/createCuenta";
-import CuentaForm from "../../components/organisms/CuentaForm";
-import { setLoading, setSnackbar } from "../../store/features/main";
+import { createCuenta } from "api/createCuenta";
+import CuentaForm from "components/organisms/CuentaForm";
+import { setLoading, setSnackbar } from "store/features/main";
 import { Typography } from "@mui/material";
 
 function CuentaCrear({ tipo }) {

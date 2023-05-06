@@ -3,13 +3,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
-import { disableEvaluacion } from "../../api/disableEvaluacion";
-import { getEvaluaciones } from "../../api/getEvaluaciones";
+import { disableEvaluacion } from "api/disableEvaluacion";
+import { getEvaluaciones } from "api/getEvaluaciones";
 import {
   deleteEvaluacion,
   useEvaluaciones,
-} from "../../store/features/evaluaciones";
-import { setLoading } from "../../store/features/main";
+} from "store/features/evaluaciones";
+import { setLoading } from "store/features/main";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 import THead from "../molecules/THead";
 

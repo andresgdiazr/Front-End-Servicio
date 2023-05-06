@@ -2,8 +2,8 @@ import { Button, css } from "@mui/material";
 import React, { useEffect } from "react";
 import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useMaterias } from "../../store/features/materias";
-import { useSecciones } from "../../store/features/secciones";
+import { useMaterias } from "store/features/materias";
+import { useSecciones } from "store/features/secciones";
 import SelectInput from "components/atoms/SelectInput";
 import CustomForm from "../CustomForm";
 

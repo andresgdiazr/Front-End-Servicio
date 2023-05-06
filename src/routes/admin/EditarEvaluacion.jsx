@@ -2,13 +2,13 @@ import { Button, FormControl, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { editarEvaluacion } from "../../api/editarEvaluacion";
+import { editarEvaluacion } from "api/editarEvaluacion";
 import {
   editEvaluacion,
   useEvaluaciones,
-} from "../../store/features/evaluaciones";
-import { setLoading } from "../../store/features/main";
-import CustomForm from "../../components/CustomForm";
+} from "store/features/evaluaciones";
+import { setLoading } from "store/features/main";
+import CustomForm from "components/CustomForm";
 
 function EditarEvaluacion() {
   const navigate = useNavigate();

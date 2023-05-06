@@ -20,12 +20,12 @@ import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
 import PaginaError from "./routes/PaginaError";
 import Clase from "./routes/Profesor/Clase";
 
-import NoRootLayout from "./components/layouts/NoRootLayout";
-import ProfesorLayout from "./components/layouts/ProfesorLayout";
+import NoRootLayout from "components/layouts/NoRootLayout";
+import ProfesorLayout from "components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
-import AdminLayout from "./components/layouts/AdminLayout";
-import AuthComponent from "./components/AuthComponent";
+import AdminLayout from "components/layouts/AdminLayout";
+import AuthComponent from "components/AuthComponent";
 
 import "./index.css";
 import { Provider } from "react-redux";

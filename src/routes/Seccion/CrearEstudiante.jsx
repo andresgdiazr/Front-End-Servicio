@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { getSecciones } from "../../api/secciones";
+import { getSecciones } from "api/secciones";
 import { useEffect } from "react";
 import CustomForm from "components/CustomForm";
 
@@ -18,7 +18,7 @@ import SelectInput from "components/atoms/SelectInput";
 
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setSnackbar } from "../../store/features/main";
+import { setSnackbar } from "store/features/main";
 
 function CrearEstudiante() {
   const { id: seccionId } = useParams();

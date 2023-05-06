@@ -1,10 +1,10 @@
 import { Alert, css, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { editarClase } from "../../api/editarClase";
-import ClaseForm from "../../components/organisms/ClaseForm";
-import { setLoading, setSnackbar } from "../../store/features/main";
-import { editClase } from "../../store/features/profesorClases";
+import { editarClase } from "api/editarClase";
+import ClaseForm from "components/organisms/ClaseForm";
+import { setLoading, setSnackbar } from "store/features/main";
+import { editClase } from "store/features/profesorClases";
 
 function EditarClase() {
 	const { state } = useLocation();

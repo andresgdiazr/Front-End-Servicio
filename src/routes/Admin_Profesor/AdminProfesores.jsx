@@ -11,17 +11,17 @@ import {
 	DialogTitle,
 	Typography,
 } from "@mui/material";
-import { getProfesores } from "../../api/profesores";
+import { getProfesores } from "api/profesores";
 import { useDispatch } from "react-redux";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import TablaBusqueda from "components/tables/GenericSearchTable";
 
-import { issueChangePasswordTokenEmail } from "../../api/issueChangePasswordTokenEmail";
+import { issueChangePasswordTokenEmail } from "api/issueChangePasswordTokenEmail";
 
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 
-import { setLoading, setSnackbar } from "../../store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
 
 function AdminProfesores() {
 	const [text, setText] = useState("");

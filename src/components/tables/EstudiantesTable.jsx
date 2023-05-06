@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import LockIcon from "@mui/icons-material/Lock";
 import "../../css/tablas.css";
 
-import { getEstudiantes } from "../../api/admin_estudiantes";
+import { getEstudiantes } from "api/admin_estudiantes";
 import { useNavigate } from "react-router-dom";
 
 export function Estudiantes_table({ input, id }) {

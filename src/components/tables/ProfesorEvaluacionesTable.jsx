@@ -7,7 +7,7 @@ import { useTable } from "react-table";
 import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 
-function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
+function ProfesorEvaluacionesTable({ clase, lapso, data, materia }) {
   const columns = useMemo(
     () => [
       { Header: "Evaluacion", accessor: "evaluacion" },
@@ -92,4 +92,4 @@ function ProfesorEvaluaciones({ clase, lapso, data, materia }) {
   );
 }
 
-export default ProfesorEvaluaciones;
+export default ProfesorEvaluacionesTable;

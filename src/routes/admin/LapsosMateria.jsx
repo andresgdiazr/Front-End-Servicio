@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
-import AdminLapsosTable from "../../components/tables/AdminLapsosTable";
-import { useMaterias } from "../../store/features/materias";
-import añoToData from "../../utils/añoToData";
+import AdminLapsosTable from "components/tables/AdminLapsosTable";
+import { useMaterias } from "store/features/materias";
+import añoToData from "utils/añoToData";
 
 function LapsosMateria() {
   const { year: año, id } = useParams();

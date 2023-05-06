@@ -17,9 +17,9 @@ import {
   ExpandLess as ExpandLess,
 } from "@mui/icons-material";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../store/features/main";
+import { setLoading } from "store/features/main";
 
 const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();

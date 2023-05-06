@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import {
   Button,
   Dialog,
@@ -8,8 +7,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { changePassword } from "../api/changePassword";
-import CustomForm from "../components/CustomForm";
+import { changePassword } from "api/changePassword";
+import CustomForm from "components/CustomForm";
 
 function SetPassword() {
   const navigate = useNavigate();
@@ -35,11 +34,7 @@ function SetPassword() {
   };
 
   return (
-    <div
-      css={css`
-        padding: 2rem;
-      `}
-    >
+    <>
       <Dialog open={failureDialog} onClose={() => navigate("/login")}>
         <Typography>
           El link que ha utilizado es incorrecto o expiro contacte con el
@@ -67,7 +62,7 @@ function SetPassword() {
           Confirmar
         </Button>
       </CustomForm>
-    </div>
+    </>
   );
 }
 

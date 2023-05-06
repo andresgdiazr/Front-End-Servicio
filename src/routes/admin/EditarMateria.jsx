@@ -11,12 +11,12 @@ import {
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { editarMateria } from "../../api/editarMateria";
-import ErrorInput from "../../components/atoms/ErrorInput";
-import { setLoading } from "../../store/features/main";
-import { updateMateria, useMaterias } from "../../store/features/materias";
-import añoToData from "../../utils/añoToData";
-import CustomForm from "../../components/CustomForm";
+import { editarMateria } from "api/editarMateria";
+import ErrorInput from "components/atoms/ErrorInput";
+import { setLoading } from "store/features/main";
+import { updateMateria, useMaterias } from "store/features/materias";
+import añoToData from "utils/añoToData";
+import CustomForm from "components/CustomForm";
 
 function EditarMateria() {
   const navigate = useNavigate();
