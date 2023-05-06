@@ -86,7 +86,7 @@ function SeccionDashboard() {
 						)}
 					</ListItemIcon>
 					<ListItemText
-						primaryTypographyProps={{ fontSize: 20, component: "h3" }}
+						primaryTypographyProps={{ component: "h3" }}
 						primary={`Año: ${secciones[0].año}`}
 					/>
 				</ListItem>

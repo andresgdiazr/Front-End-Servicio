@@ -43,7 +43,6 @@ function CuentaCrear({ tipo }) {
     <>
       <Typography variant="h2">Administración de {tipo}</Typography>
       <Typography variant="h3">Creacion de cuenta</Typography>
-      <Typography>pepe</Typography>
 
       <CuentaForm
         onSubmit={onSubmit}

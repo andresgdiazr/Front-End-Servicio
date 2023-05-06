@@ -12,7 +12,7 @@ function ControlDashboard() {
 			<List>
 				<ListItem>
 					<Link component={RouterLink} to="admin/profesores">
-						Administrar Profesores
+						Administrar profesores
 					</Link>
 				</ListItem>
 

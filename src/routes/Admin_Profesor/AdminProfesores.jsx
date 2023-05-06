@@ -58,16 +58,13 @@ function AdminProfesores() {
 			<Typography variant="h2">Administrador de Profesores</Typography>
 			<Typography variant="h3">Listado de profesores</Typography>
 
-			{/*Crea el profesor*/}
-
 			<Link to="crear">
-				<Button sx={{ mb: "1rem" }} variant="contained">
+				<Button variant="contained">
 					Crear Profesor
 				</Button>
 			</Link>
 
 			<TextField
-				sx={{ mb: "1.5rem" }}
 				id="outlined-basic"
 				variant="outlined"
 				fullWidth
