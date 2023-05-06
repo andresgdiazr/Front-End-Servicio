@@ -73,6 +73,7 @@ function InfoProfesores({ input }) {
       return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
     } else {
       return (
+        // TODO MUI y css?
         <td {...cell.getCellProps()}>
           <div
             css={css`

@@ -27,7 +27,7 @@ function ClaseEvaluaciones() {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<ClaseInfo
 				materia={materia.nombre}
 				año={materia.año}
@@ -39,7 +39,7 @@ function ClaseEvaluaciones() {
 				clase={clase}
 				data={evaluaciones.map((e) => ({ evaluacion: e.titulo, fulldata: e }))}
 			/>
-		</div>
+		</>
 	);
 }
 

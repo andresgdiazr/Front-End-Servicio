@@ -6,11 +6,11 @@ import SeccionForm from "components/organisms/SeccionForm";
 function SeccionCrear() {
   const { state } = useLocation();
   return (
-    <div>
+    <>
       <Typography>Crear sección</Typography>
 
       <SeccionForm />
-    </div>
+    </>
   );
 }
 

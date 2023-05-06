@@ -1,18 +1,18 @@
-import { Button } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import EvaluacionesTable from "components/tables/EvaluacionesTable";
 
 function MateriaEvaluaciones() {
-  return (
-    <div>
-      <Link to="crear">
-        <Button variant="contained"> Crear Evaluacion </Button>
-      </Link>
+	return (
+		<>
+			<Link component={RouterLink} to="crear">
+				<Button variant="contained"> Crear Evaluación </Button>
+			</Link>
 
-      <EvaluacionesTable />
-    </div>
-  );
+			<EvaluacionesTable />
+		</>
+	);
 }
 
 export default MateriaEvaluaciones;

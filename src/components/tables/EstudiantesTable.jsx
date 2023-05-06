@@ -52,6 +52,7 @@ export function Estudiantes_table({ input, id }) {
     useTable({ columns, data });
 
   return (
+    /* TODO editar css para que se use MUI? */
     <div className="container">
       <table {...getTableProps()}>
         <thead>

@@ -40,7 +40,7 @@ const Navbar = ({ names = defaultNames }) => {
   };
 
   return (
-    <div>
+    <>
       <AppBar position="static" color="primary">
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: "flex" }}>
@@ -69,7 +69,7 @@ const Navbar = ({ names = defaultNames }) => {
         </Toolbar>
       </AppBar>
       <Container></Container>
-    </div>
+    </>
   );
 };
 

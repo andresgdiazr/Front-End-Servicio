@@ -30,7 +30,7 @@ function Notas() {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<ClaseInfo
 				materia={materia.nombre}
 				año={materia.año}
@@ -47,7 +47,7 @@ function Notas() {
 					nota: n.puntaje === null ? "No Asignado" : n.puntaje,
 				}))}
 			/>
-		</div>
+		</>
 	);
 }
 

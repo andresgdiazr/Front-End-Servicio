@@ -8,63 +8,53 @@ import { setLoading } from "store/features/main";
 import { addClase } from "store/features/profesorClases";
 
 function CrearClase() {
-  const { state } = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+	const { state } = useLocation();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-  const onSubmit = async (data) => {
-    dispatch(setLoading(true));
-    const response = await crearClase({
-      profesorId: state.profesor.id,
-      materiaId: parseInt(data.materia),
-      seccionId: parseInt(data.seccion),
-    });
-    dispatch(setLoading(false));
+	const onSubmit = async (data) => {
+		dispatch(setLoading(true));
+		const response = await crearClase({
+			profesorId: state.profesor.id,
+			materiaId: parseInt(data.materia),
+			seccionId: parseInt(data.seccion),
+		});
+		dispatch(setLoading(false));
 
-    if (response.status == 200) {
-      dispatch(
-        addClase({
-          profesorId: state.profesor.id,
-          clase: {
-            ...response.data,
-            seccion: data.seccionObj,
-            materia: data.materiaObj,
-          },
-        })
-      );
-      navigate(-1);
-    } else {
-      if (
-        response.data.errors.some(
-          (error) => error.field === "all" && error.rule === "duplicate"
-        )
-      ) {
-        return "dup-error";
-      }
-    }
-  };
+		if (response.status == 200) {
+			dispatch(
+				addClase({
+					profesorId: state.profesor.id,
+					clase: {
+						...response.data,
+						seccion: data.seccionObj,
+						materia: data.materiaObj,
+					},
+				})
+			);
+			navigate(-1);
+		} else {
+			if (
+				response.data.errors.some(
+					(error) => error.field === "all" && error.rule === "duplicate"
+				)
+			) {
+				return "dup-error";
+			}
+		}
+	};
 
-  return (
-    <div
-      css={css`
-        h2 {
-          font-size: 1.6rem;
-          margin-bottom: 0.5rem;
-        }
-        p {
-          font-size: 1.1rem;
-        }
-      `}
-    >
-      <Typography variant="h2">Administracion de clases</Typography>
-      <Typography>Creación de clase</Typography>
-      <Typography>
-        Profesor: {state?.profesor?.nombre} {state?.profesor?.apellido}
-      </Typography>
+	return (
+		<>
+			<Typography variant="h2">Administracion de clases</Typography>
+			<Typography>Creación de clase</Typography>
+			<Typography>
+				Profesor: {state?.profesor?.nombre} {state?.profesor?.apellido}
+			</Typography>
 
-      <ClaseForm onSubmit={onSubmit} />
-    </div>
-  );
+			<ClaseForm onSubmit={onSubmit} />
+		</>
+	);
 }
 
 export default CrearClase;

@@ -66,7 +66,7 @@ function MateriasAñoTable() {
     if (cell.column.id === "acciones") {
       return (
         <div
-          css={css`
+          css={css` // TODO modificar css por MUI?
             svg {
               margin: 0 0.5rem;
               cursor: pointer;

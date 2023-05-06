@@ -71,7 +71,7 @@ const theme = createTheme({
                         marginTop: "1rem",
                     },
                     '& > div': {
-                        minWidth: "230px",
+                        minWidth: "400px",
                         marginBottom: "1rem",
                     }
                 },

@@ -1,4 +1,4 @@
-import { Alert, css, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { editarClase } from "api/editarClase";
@@ -29,9 +29,7 @@ function EditarClase() {
 					seccion: data.seccionObj,
 				})
 			);
-			dispatch(
-				setSnackbar(["Clase modificada satisfactoriamente", "success"])
-			);
+			dispatch(setSnackbar(["Clase modificada satisfactoriamente", "success"]));
 		} else {
 			if (
 				response.data.errors.some(

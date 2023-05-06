@@ -1,48 +1,41 @@
-import { css } from "@emotion/react";
+import { Typography, List, ListItem, Link } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 function Materias() {
   return (
-    <div
-      css={css`
-        ul li {
-          font-size: 1.5rem;
-          margin: 1rem 0rem;
-        }
-      `}
-    >
-      <h1>Administracion de materias</h1>
-      <h2>Materias por año</h2>
+    <>
+      <Typography variant="h1">Administracion de materias</Typography>
+      <Typography variant="h2">Materias por año</Typography>
 
-      <ul>
-        <li>
-          <Link to={`/dashboard-control/admin/materias/primero`}>
+      <List>
+        <ListItem>
+          <Link component={RouterLink} to={`/dashboard-control/admin/materias/primero`}>
             Primer año
           </Link>
-        </li>
-        <li>
-          <Link to={`/dashboard-control/admin/materias/segundo`}>
+        </ListItem>
+        <ListItem>
+          <Link component={RouterLink} to={`/dashboard-control/admin/materias/segundo`}>
             Segundo año
           </Link>
-        </li>
-        <li>
-          <Link to={`/dashboard-control/admin/materias/tercero`}>
+        </ListItem>
+        <ListItem>
+          <Link component={RouterLink} to={`/dashboard-control/admin/materias/tercero`}>
             Tercer año
           </Link>
-        </li>
-        <li>
-          <Link to={`/dashboard-control/admin/materias/cuarto`}>
+        </ListItem>
+        <ListItem>
+          <Link component={RouterLink} to={`/dashboard-control/admin/materias/cuarto`}>
             Cuarto año
           </Link>
-        </li>
-        <li>
-          <Link to={`/dashboard-control/admin/materias/quinto`}>
+        </ListItem>
+        <ListItem>
+          <Link component={RouterLink} to={`/dashboard-control/admin/materias/quinto`}>
             Quinto año
           </Link>
-        </li>
-      </ul>
-    </div>
+        </ListItem>
+      </List>
+    </>
   );
 }
 

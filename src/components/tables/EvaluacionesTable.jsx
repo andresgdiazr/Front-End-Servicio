@@ -1,10 +1,9 @@
-import { Delete, Edit, RepeatOneSharp } from "@mui/icons-material";
-import React, { useEffect, useMemo, useState } from "react";
+import { Delete, Edit } from "@mui/icons-material";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTable } from "react-table";
 import { disableEvaluacion } from "api/disableEvaluacion";
-import { getEvaluaciones } from "api/getEvaluaciones";
 import {
   deleteEvaluacion,
   useEvaluaciones,

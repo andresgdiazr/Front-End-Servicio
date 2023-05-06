@@ -13,13 +13,13 @@ function LapsosMateria() {
   const currentMateria = materias.filter((mat) => mat.id == id)[0] || {};
 
   return (
-    <div>
-      <Typography> Admistracion de materias </Typography>
+    <>
+      <Typography variant="h1"> Admistracion de materias </Typography>
       <Typography> Materias de {añoToData(año).display} </Typography>
       <Typography> {currentMateria.nombre} </Typography>
 
       <AdminLapsosTable />
-    </div>
+    </>
   );
 }
 
