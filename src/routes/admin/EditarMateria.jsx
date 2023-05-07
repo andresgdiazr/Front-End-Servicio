@@ -62,10 +62,13 @@ function EditarMateria() {
 
 	return (
 		<>
-			<Typography variant="h2">Administracion de materias</Typography>
-			<Typography variant="subtitle1">
-				Modificando la informacion de materia
-			</Typography>
+			<div>
+				<Typography variant="h2">Administracion de materias</Typography>
+				<Typography variant="subtitle1">
+					Modificando la informacion de materia
+				</Typography>
+			</div>
+			
 			<CustomForm onSubmit={onUpload}>
 				<ErrorInput
 					show={error}

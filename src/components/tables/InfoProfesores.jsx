@@ -18,6 +18,7 @@ import { setLoading } from "store/features/main";
 import THead from "../molecules/THead";
 import EmptyTableRow from "../molecules/EmptyTableRow";
 
+// TODO este archivo no esta siendo referenciado por nadie, se puede borrar?
 function InfoProfesores({ input }) {
   const [datos, setData] = useState([]);
   const [passwordOverlay, setPasswordOverlay] = useState(false);

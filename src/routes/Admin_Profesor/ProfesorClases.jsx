@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { Button, css, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { useProfesorClases } from "store/features/profesorClases";
 import TablaBusqueda from "components/tables/GenericSearchTable";
@@ -18,11 +18,13 @@ function ProfesorClases() {
 
 	return (
 		<>
-			<Typography variant="h2">Administración de profesores</Typography>
+			<div>
+				<Typography variant="h2">Administración de profesores</Typography>
 
-			<Typography variant="subtitle1">
-				{profesor.nombre} {profesor.apellido}
-			</Typography>
+				<Typography variant="subtitle1">
+					{profesor.nombre} {profesor.apellido}
+				</Typography>
+			</div>
 
 			{/*<ClasesProfesoresTable profesor={profesor} datos={clases} />*/}
 
@@ -34,21 +36,16 @@ function ProfesorClases() {
 				})}
 			/>
 
-			<Link
-				to="crear"
+			<Button
+				variant="contained"
+				component={Link}
+				to={`crear`}
 				state={{
 					profesor,
 				}}
 			>
-				<Button
-					css={css`
-						margin-top: 1rem;
-					`}
-					variant="contained"
-				>
-					Añadir clase
-				</Button>
-			</Link>
+				Añadir clase
+			</Button>
 		</>
 	);
 }

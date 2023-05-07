@@ -1,4 +1,4 @@
-import { Button, Container, css, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import MateriasAñoTable from "components/tables/MateriasAñoTable";
@@ -9,23 +9,21 @@ function MateriasPorAño() {
 
 	return (
 		<>
-			<Typography variant="h2">Administracion de materias</Typography>
-
-			<Typography variant="subtitle1">Materias por año</Typography>
+			<div>
+				<Typography variant="h2">Administración de materias</Typography>
+				<Typography variant="subtitle1">Materias por año</Typography>
+			</div>
 
 			<Button
-				css={css`
-					margin-top: 1rem;
-				`}
 				variant="contained"
+				component={Link}
+				to={`/dashboard-control/admin/materias/${año}/crear`}
 			>
-				<Link to={`/dashboard-control/admin/materias/${año}/crear`}>
-					Crear Nueva Materia
-				</Link>
+				Crear Nueva Materia
 			</Button>
 
-			<Container sx={{ width: "70%", marginTop: "1.2rem" }}>
-				<Typography variant="h3">
+			<Container>
+				<Typography variant="subtitle2">
 					Lista de materias de {añoToData(año).display}
 				</Typography>
 
