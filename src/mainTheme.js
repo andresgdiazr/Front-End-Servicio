@@ -103,8 +103,8 @@ const theme = createTheme({
                 root: {
                     display: "flex",
                     flexDirection: "column",
-                    marginTop: "1.5rem",
-                    alignItems: "start",
+                    marginTop: "1rem",
+                    alignItems: "flex-start",
                     justifyContent: "space-between",
                     '& > h6': {
                         marginBottom: "1rem",
