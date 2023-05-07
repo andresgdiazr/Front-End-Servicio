@@ -1,4 +1,4 @@
-import { Button, Typography, css } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -150,10 +150,6 @@ function ClaseForm({ defaultValues = {}, onSubmit = () => null }) {
 			)}
 
 			<Button
-				css={css`
-					align-self: center;
-					margin-top: 1rem;
-				`}
 				variant="contained"
 				type="submit"
 			>

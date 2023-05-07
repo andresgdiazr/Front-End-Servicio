@@ -1,6 +1,5 @@
 import {
 	Button,
-	css,
 	FormControl,
 	InputLabel,
 	MenuItem,
@@ -56,8 +55,10 @@ function CrearMateria() {
 
 	return (
 		<>
-			<Typography variant="h2">Administracion de materias</Typography>
-			<Typography variant="subtitle1">Creación de materias</Typography>
+			<div>
+				<Typography variant="h2">Administracion de materias</Typography>
+				<Typography variant="subtitle1">Creación de materias</Typography>
+			</div>
 
 			<CustomForm onSubmit={onSubmit}>
 				<ErrorInput
@@ -66,9 +67,6 @@ function CrearMateria() {
 				/>
 				<TextField
 					variant="filled"
-					css={css`
-						width: 300px;
-					`}
 					label="nombre"
 					value={nombre}
 					onChange={(ev) => {
@@ -78,13 +76,7 @@ function CrearMateria() {
 						setNombre(ev.target.value);
 					}}
 				/>
-				<FormControl
-					variant="filled"
-					css={css`
-						margin-top: 1rem;
-						width: 300px;
-					`}
-				>
+				<FormControl variant="filled">
 					<InputLabel id="materia-padre"> Materia Padre </InputLabel>
 					<Select
 						labelId="materia-padre"

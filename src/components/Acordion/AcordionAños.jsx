@@ -9,7 +9,7 @@ import { Button } from "@mui/material";
 
 export default function AcordionAños({ años }) {
 	const navigate = useNavigate();
-
+	// TODO otro archivo sin referencia, se puede borrar?
 	return (
 		<>
 			{años.map((el) => {
@@ -25,9 +25,9 @@ export default function AcordionAños({ años }) {
 						<AccordionDetails>
 							{el.map((seccion) => (
 								<Button
-									onClick={() => {
-										navigate(`/admin/secciones/${seccion.id}`);
-									}}
+									variant="contained"
+									component={Link}
+									to={`/admin/secciones/${seccion.id}`}
 								>
 									{`Sección: ${seccion.codigo}`}
 								</Button>

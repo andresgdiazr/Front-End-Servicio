@@ -76,8 +76,10 @@ function CrearEstudiante() {
 
 	return (
 		<>
-			<Typography>Administración de secciones</Typography>
-			<Typography>Ingrese la información del nuevo estudiante</Typography>
+			<div>
+				<Typography>Administración de secciones</Typography>
+				<Typography>Ingrese la información del nuevo estudiante</Typography>
+			</div>
 
 			<CustomForm onSubmit={handleSubmit(onSubmit)}>
 				<TextInput

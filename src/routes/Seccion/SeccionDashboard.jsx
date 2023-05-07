@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getSecciones } from "api/secciones";
 import {
 	Box,
@@ -21,16 +21,12 @@ import { setLoading } from "store/features/main";
 
 function SeccionDashboard() {
 	const navigate = useNavigate();
-  
+
 	const { state } = useLocation();
 
 	const [años, setAños] = useState([]);
 
 	const dispatch = useDispatch();
-
-	const handleClick = () => {
-		navigate("crear", { state: state });
-	};
 
 	useEffect(() => {
 		const fetchClases = async () => {
@@ -111,7 +107,14 @@ function SeccionDashboard() {
 				))}
 			</List>
 
-			<Button onClick={handleClick}> Crear Nueva sección</Button>
+			<Button
+				variant="text"
+				component={Link}
+				to={`crear`}
+				state={{ state: state}} // TODO por que pasamos el state en algo que a primera vista no necesita state?
+			>
+				 Crear nueva sección
+			</Button>
 		</>
 	);
 }

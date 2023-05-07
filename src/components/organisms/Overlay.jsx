@@ -7,7 +7,7 @@ function Overlay({ children, show, onShowChange = () => null }) {
   useEffect(() => {
     setShowInternal(show);
   }, [show]);
-
+ // TODO archivo llamado por un archivo que no se usa para nada, se puede borrar?
   return (
     <div
       className="overlay-root"

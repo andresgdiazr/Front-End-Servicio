@@ -55,12 +55,14 @@ function AdminProfesores() {
 				passwordEmailProfesorId={passwordEmailProfesorId}
 			/>
 
-			<Typography variant="h2">Administrador de Profesores</Typography>
-			<Typography variant="subtitle1">Listado de profesores</Typography>
+			<div>
+				<Typography variant="h2">Administrador de Profesores</Typography>
+				<Typography variant="subtitle1">Listado de profesores</Typography>
+			</div>
 
-			<Link to="crear">
-				<Button variant="contained">Crear Profesor</Button>
-			</Link>
+			<Button variant="contained" component={Link} to="crear">
+				Crear Profesor
+			</Button>
 
 			<TextField
 				id="outlined-basic"

@@ -56,8 +56,11 @@ function ModificarEstudiante() {
 
 	return (
 		<>
-			<Typography variant="h2">Administración de estudiantes</Typography>
-			<Typography variant="subtitle1">Modificando cuentas</Typography>
+			<div>
+				<Typography variant="h2">Administración de estudiantes</Typography>
+				<Typography variant="subtitle1">Modificando cuentas</Typography>
+			</div>
+			
 			<Typography variant="subtitle1">
 				Modificando información de la cuenta
 			</Typography>
@@ -138,7 +141,7 @@ function ModificarEstudiante() {
 				</FormControl>
 
 				<Button variant="contained" type="submit">
-					Guardar y Enviar
+					Guardar y enviar
 				</Button>
 			</CustomForm>
 		</>
