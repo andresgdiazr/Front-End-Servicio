@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const createCuenta = (tipo, payload) => {
+export const createCuenta = (type, payload) => {
 
   const { nombre, apellido, email, cedula } = payload
 
   return axios
-    .post(`/admin/${tipo}`, { nombre, apellido, email, cedula })
+    .post(`/admin/${type}`, { nombre, apellido, email, cedula })
     .then((res) => res)
     .catch((err) => err.response)
 };

@@ -4,6 +4,8 @@ import { useLocation, useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 function SeccionDetalles() {
 	const navigate = useNavigate();
+	const { state } = useLocation();
+
 
 	const {
 		state: { año, seccion },
@@ -47,6 +49,10 @@ function SeccionDetalles() {
 			<Button
 				variant="text"
 				component={Link}
+				state={{
+						año: año, /* TODO al volver de modificar esto no se actualiza hasta volver a entrar aqui desde dashboard */
+						seccion: seccion,
+				}}
 				to={`/dashboard-control/admin/secciones/${id}/modificar`}
 			>
 				Modificar año y sección

@@ -165,7 +165,7 @@ function createAcciones({
 					onClick={() => {
 						navigate(`${cell.row.original.id}/modificar`, {
 							state: {
-								profesor: cell.row.original,
+								cuenta: cell.row.original,
 							},
 						});
 					}}

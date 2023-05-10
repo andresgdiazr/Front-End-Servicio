@@ -1,75 +1,61 @@
-import {
-  Select,
-  MenuItem,
-  Button,
-  FormControl,
-  InputLabel,
-} from "@mui/material";
-import React, { useState } from "react";
-import { Form, useParams } from "react-router-dom";
-import { UpdateSeccion } from "api/updateSeccion";
-import CustomForm from "components/CustomForm";
+import { Typography } from "@mui/material";
+import React from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoading, setSnackbar } from "store/features/main";
+import { updateSeccion } from "api/updateSeccion";
+import SeccionForm from "components/organisms/SeccionForm";
 
 function SeccionModificar() {
-  const [año, setAño] = useState("  ");
-  const [codigo, setCodigo] = useState("   ");
+	const { id: seccionId } = useParams();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-  const { id } = useParams();
+	const onSubmit = async (data) => {
+		dispatch(setLoading(true));
+		const response = await updateSeccion(seccionId, data);
+		dispatch(setLoading(false));
+		if (response.status == 200) {
+			dispatch(
+				setSnackbar(["Sección modificada satisfactoriamente", "success"])
+			);
+			navigate(-1, { replace: true });
+		} else {
+			if (
+				response.data.errors.some(
+					(error) => error.field === "codigo" && error.rule === "unique"
+				)
+			) {
+				dispatch(setSnackbar(["Sección ya existente", "error"]));
+			} else {
+				dispatch(setSnackbar(["Error al modificar sección", "error"]));
+			}
+			/* TODO falta alguna otra validacion? Por ejemplo, que año y seccion sean validos, los campos (6to año seccion Z) */
+		}
+	};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+	const {
+		state: { año, seccion },
+	} = useLocation();
 
-    let response = await UpdateSeccion(id, { año, codigo });
-  };
+	let defaultValues = {};
+	if ((año, seccion)) {
+		defaultValues = { año, seccion };
+		console.log(defaultValues);
+	}
 
-  return (
-    <>
-      <h2>Administración de secciones</h2>
-      <h3>Área de modificación</h3>
+	return (
+		<>
+			<>
+				<div>
+					<Typography variant="h2">Administración de secciones</Typography>
+					<Typography variant="subtitle1">Modificar sección</Typography>
+				</div>
 
-      {/* TODO no entender que ocurre aqui, no se modifica nada
-				Aparte, los select no se muestran bien */}
-      {/* Igual esto se debe cambiar por SeccionForm */}
-      <CustomForm id="login" method="post" onSubmit={handleSubmit}>
-        <FormControl>
-          <InputLabel id="label-año">Año</InputLabel>
-          <Select
-            labelId="label-año"
-            id="año"
-            label="Año"
-            value={año}
-            onChange={(e) => setAño(e.target.value)}
-          >
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel id="label-seccion">Sección</InputLabel>
-          <Select
-            labelId="label-seccion"
-            id="seccion"
-            label="Seccion"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-          >
-            <MenuItem value={"A"}>A</MenuItem>
-            <MenuItem value={"B"}>B</MenuItem>
-            <MenuItem value={"C"}>C</MenuItem>
-            <MenuItem value={"D"}>D</MenuItem>
-          </Select>
-        </FormControl>
-
-        <Button variant="contained" type="submit">
-          Guardar y Enviar
-        </Button>
-      </CustomForm>
-    </>
-  );
+				<SeccionForm onSubmit={onSubmit} defaultValues={defaultValues} />
+			</>
+		</>
+	);
 }
 
 export default SeccionModificar;

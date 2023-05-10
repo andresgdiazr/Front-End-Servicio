@@ -7,3 +7,7 @@ body {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+
+svg {
+    color: #757575;
+}
