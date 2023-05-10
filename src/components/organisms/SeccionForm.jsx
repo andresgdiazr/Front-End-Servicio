@@ -11,7 +11,6 @@ function SeccionForm({ onSubmit = () => null, especial = false }) {
 
 	const handleSubmit = async (e) => {
     e.preventDefault();
-		console.log({ año, codigo });
 		onSubmit({ año, codigo });
 	};
 
@@ -26,7 +25,6 @@ function SeccionForm({ onSubmit = () => null, especial = false }) {
 					label="Año"
           onChange={(e) => {
             setAño(e.target.value);
-            console.log(e.target.value);
           }}
 				>
 					<MenuItem value={1}>1</MenuItem>
@@ -44,7 +42,6 @@ function SeccionForm({ onSubmit = () => null, especial = false }) {
 				value={codigo}
 				onChange={(e) => {
 					setCodigo(e.target.value);
-					console.log(e.target.value);
 				}}
 			/>
 

@@ -6,5 +6,5 @@ export const createSeccion = (payload) => {
   return axios
     .post(`/admin/secciones`, { codigo, año })
     .then((res) => res)
-    .catch((err) => console.log(err))
+    .catch((err) => err.response)
 };

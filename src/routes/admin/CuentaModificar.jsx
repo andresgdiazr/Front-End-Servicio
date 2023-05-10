@@ -44,8 +44,8 @@ function CuentaModificar({ type }) {
 
 	let defaultValues = {};
 
-	if (state.profesor) {
-		defaultValues = state.profesor;
+	if (state.cuenta) {
+		defaultValues = state.cuenta;
 	}
 
 	return (
