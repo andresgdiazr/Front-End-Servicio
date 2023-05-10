@@ -1,7 +1,7 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Typography, List, ListItem, Link } from "@mui/material";
+import { Typography, List, ListItem, Button } from "@mui/material";
 
 function ControlDashboard() {
 	const name = useSelector((state) => state.main.name);
@@ -11,33 +11,33 @@ function ControlDashboard() {
 			<Typography variant="subtitle1"> ¿Qué desea hacer? </Typography>
 			<List>
 				<ListItem>
-					<Link component={RouterLink} to="admin/profesores">
+					<Button component={Link} to="admin/profesores">
 						Administrar profesores
-					</Link>
+					</Button>
 				</ListItem>
 
 				<ListItem>
-					<Link component={RouterLink} to="admin/secciones">
+					<Button component={Link} to="admin/secciones">
 						Administrar secciones
-					</Link>
+					</Button>
 				</ListItem>
 
 				<ListItem>
-					<Link component={RouterLink} to="admin/materias">
+					<Button component={Link} to="admin/materias">
 						Administrar materias
-					</Link>
+					</Button>
 				</ListItem>
 
 				<ListItem>
-					<Link component={RouterLink} to="/">
+					<Button component={Link} to="/">
 						Administrar supervisores
-					</Link>
+					</Button>
 				</ListItem>
 
 				<ListItem>
-					<Link component={RouterLink} to="/">
+					<Button component={Link} to="/">
 						Administrar administradores
-					</Link>
+					</Button>
 				</ListItem>
 			</List>
 		</>

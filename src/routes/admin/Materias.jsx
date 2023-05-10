@@ -1,6 +1,6 @@
-import { Typography, List, ListItem, Link } from "@mui/material";
+import { Typography, List, ListItem, Button } from "@mui/material";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Materias() {
 	return (
@@ -10,44 +10,49 @@ function Materias() {
 
 			<List>
 				<ListItem>
-					<Link
-						component={RouterLink}
+					<Button
+						variant="text"
+						component={Link}
 						to={`/dashboard-control/admin/materias/primero`}
 					>
 						Primer año
-					</Link>
+					</Button>
 				</ListItem>
 				<ListItem>
-					<Link
-						component={RouterLink}
+					<Button
+						variant="text"
+						component={Link}
 						to={`/dashboard-control/admin/materias/segundo`}
 					>
 						Segundo año
-					</Link>
+					</Button>
 				</ListItem>
 				<ListItem>
-					<Link
-						component={RouterLink}
+					<Button
+						variant="text"
+						component={Link}
 						to={`/dashboard-control/admin/materias/tercero`}
 					>
 						Tercer año
-					</Link>
+					</Button>
 				</ListItem>
 				<ListItem>
-					<Link
-						component={RouterLink}
+					<Button
+						variant="text"
+						component={Link}
 						to={`/dashboard-control/admin/materias/cuarto`}
 					>
 						Cuarto año
-					</Link>
+					</Button>
 				</ListItem>
 				<ListItem>
-					<Link
+					<Button
+						variant="text"
 						component={RouterLink}
 						to={`/dashboard-control/admin/materias/quinto`}
 					>
 						Quinto año
-					</Link>
+					</Button>
 				</ListItem>
 			</List>
 		</>
