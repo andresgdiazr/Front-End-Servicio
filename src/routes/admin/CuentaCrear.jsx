@@ -6,7 +6,7 @@ import CuentaForm from "components/organisms/CuentaForm";
 import { setLoading, setSnackbar } from "store/features/main";
 import { Typography } from "@mui/material";
 
-function CuentaCrear({ tipo }) {
+function CuentaCrear({ type }) {
 	const navigate = useNavigate();
 
 	const [usedEmails, setUsedEmails] = useState([]);
@@ -16,7 +16,7 @@ function CuentaCrear({ tipo }) {
 
 	const onSubmit = async (data) => {
 		dispatch(setLoading(true));
-		const response = await createCuenta(tipo, data);
+		const response = await createCuenta(type, data);
 		dispatch(setLoading(false));
 		if (response.status == 200) {
 			dispatch(setSnackbar(["Profesor creado satisfactoriamente", "success"]));
@@ -41,7 +41,7 @@ function CuentaCrear({ tipo }) {
 
 	return (
 		<>
-			<Typography variant="h2">Administración de {tipo}</Typography>
+			<Typography variant="h2">Administración de {type}</Typography>
 			<Typography variant="subtitle1">Creacion de cuenta</Typography>
 
 			<CuentaForm
