@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 function SeccionCrear() {
 	const navigate = useNavigate();
-
 	const dispatch = useDispatch();
 
 	const onSubmit = async (data) => {
@@ -24,7 +23,9 @@ function SeccionCrear() {
 					(error) => error.field === "codigo" && error.rule === "unique"
 				)
 			) {
-				dispatch(setSnackbar(["Sección ya existente", "warning"]));
+				dispatch(setSnackbar(["Sección ya existente", "error"]));
+			} else {
+				dispatch(setSnackbar(["Error al crear sección", "error"]));
 			}
 			/* TODO falta alguna otra validacion? Por ejemplo, que año y seccion sean validos, los campos (6to año seccion Z) */
 		}

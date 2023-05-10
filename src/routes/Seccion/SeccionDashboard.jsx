@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getSecciones } from "api/secciones";
 import {
@@ -10,7 +10,6 @@ import {
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
-	Typography,
 } from "@mui/material";
 import {
 	ExpandMore as ExpandMore,
@@ -111,7 +110,6 @@ function SeccionDashboard() {
 				variant="text"
 				component={Link}
 				to={`crear`}
-				state={{ state: state}} // TODO por que pasamos el state en algo que a primera vista no necesita state?
 			>
 				 Crear nueva sección
 			</Button>
