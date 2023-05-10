@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Form, useParams } from "react-router-dom";
-import { UpdateSeccion } from "api/updateSeccion";
+import { updateSeccion } from "api/updateSeccion";
 import CustomForm from "components/CustomForm";
 
 function SeccionModificar() {
@@ -19,7 +19,7 @@ function SeccionModificar() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let response = await UpdateSeccion(id, { año, codigo });
+    let response = await updateSeccion(id, { año, codigo });
   };
 
   return (
