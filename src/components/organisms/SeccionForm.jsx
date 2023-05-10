@@ -5,51 +5,54 @@ import Select from "@mui/material/Select";
 import { TextField, Button, FormControl } from "@mui/material";
 import CustomForm from "../CustomForm";
 
-export default function SeccionForm({ especial = false }) {
-  const [año, setAño] = React.useState("");
-  const [habilitado, setHabilitado] = React.useState(true);
-  const handleChange = (e) => {
-    setAño(e.target.value);
-  };
+function SeccionForm({ onSubmit = () => null, especial = false }) {
+	const [año, setAño] = React.useState("");
+	const [codigo, setCodigo] = React.useState("");
 
-  const [codigo, setCodigo] = React.useState("");
-
-  const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
     e.preventDefault();
-    // llamar a la api
-  };
+		console.log({ año, codigo });
+		onSubmit({ año, codigo });
+	};
 
-  return (
-    /* TODO falta terminar */
-    <CustomForm onSubmit={handleSubmit}>
-      <FormControl>
-        <InputLabel id="select-label">Año</InputLabel>
-        <Select
-          labelId="select-label"
-          id="select"
-          value={año}
-          label="Año"
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-        </Select>
-      </FormControl>
+	return (
+		<CustomForm onSubmit={handleSubmit}>
+			<FormControl>
+				<InputLabel id="select-label">Año</InputLabel>
+				<Select
+					labelId="select-label"
+					id="select"
+					value={año}
+					label="Año"
+          onChange={(e) => {
+            setAño(e.target.value);
+            console.log(e.target.value);
+          }}
+				>
+					<MenuItem value={1}>1</MenuItem>
+					<MenuItem value={2}>2</MenuItem>
+					<MenuItem value={3}>3</MenuItem>
+					<MenuItem value={4}>4</MenuItem>
+					<MenuItem value={5}>5</MenuItem>
+				</Select>
+			</FormControl>
 
-      <TextField
-        id="outlined-basic"
-        label="Sección"
-        variant="outlined"
-        value={codigo}
-        onChange={(e) => setCodigo(e.target.value)}
-      />
+			<TextField
+				id="outlined-basic"
+				label="Sección"
+				variant="outlined"
+				value={codigo}
+				onChange={(e) => {
+					setCodigo(e.target.value);
+					console.log(e.target.value);
+				}}
+			/>
 
-      <Button size="large" variant="contained" color="success">
-        Crear sección
-      </Button>
-    </CustomForm>
-  );
+			<Button variant="contained" type="submit">
+				Crear sección
+			</Button>
+		</CustomForm>
+	);
 }
+
+export default SeccionForm;
