@@ -9,7 +9,7 @@ import MainLayout from "components/layouts/MainLayout";
 import NoRootLayout from "components/layouts/NoRootLayout";
 import { routesAdmin, routesProfesor } from "./RoutesLayout";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./mainTheme";
+import theme from "mainTheme";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store";
