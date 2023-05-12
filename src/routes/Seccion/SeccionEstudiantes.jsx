@@ -8,6 +8,7 @@ import TablaBusqueda from "components/tables/GenericSearchTable";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
+import { useDatos } from "../../hooks/useDatos";
 
 function SeccionEstudiantes() {
 	const { id } = useParams();
@@ -15,7 +16,11 @@ function SeccionEstudiantes() {
 	const navigate = useNavigate();
 
 	const [text, setText] = useState("");
-	const [estudiante, setEstudiante] = useState([]);
+
+	
+	const { state: estudiante, setState: setEstudiante} = useDatos(`/admin/secciones/${id}/estudiantes`);
+	
+
 
 	const inputHandler = ({ target }) => {
 		let lowerCase = target.value.toLowerCase();
@@ -24,22 +29,6 @@ function SeccionEstudiantes() {
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		const fetchProfesores = async () => {
-			dispatch(setLoading(true));
-			let estudiantesRes = await getEstudiantes(id);
-			dispatch(setLoading(false));
-
-			let estudianteRes = estudiantesRes.map((estudiante) => {
-				return {
-					...estudiante,
-					fullname: `${estudiante.nombre} ${estudiante.apellido}`,
-				};
-			});
-			setEstudiante(estudianteRes);
-		};
-		fetchProfesores();
-	}, []);
 
 	const Acciones = ({ cell }) => {
 		return (

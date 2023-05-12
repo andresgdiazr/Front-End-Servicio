@@ -114,6 +114,14 @@ const router = createBrowserRouter([
 								path: "profesores/:id/clases",
 								element: <ProfesorClases />,
 							},
+							{
+								path: "profesores/:profesorId/clases/:id",
+								element: <Clase />,
+							},
+							{
+								path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones",
+								element: <ClaseEvaluaciones />,
+							},
 							// Clases de profesores
 							{
 								path: "profesores/:profesorId/clases/crear",

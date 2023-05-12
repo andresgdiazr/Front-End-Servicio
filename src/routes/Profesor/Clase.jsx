@@ -7,8 +7,12 @@ import { Book, Visibility } from "@mui/icons-material";
 
 function Clase() {
 	const {
-		state: { materia, clase },
+		state: { materia = '', clase },
 	} = useLocation();
+
+	console.log(materia);
+	console.log(clase);
+	
 	const { id: claseId } = useParams();
 	const materiaData = { materia, clase };
 	return (

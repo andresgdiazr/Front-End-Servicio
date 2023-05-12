@@ -16,14 +16,12 @@ function TablaBusqueda({
 	formato,
 	acciones: Acciones = () => null,
 }) {
-	useEffect(() => {
-		console.log(datos);
-	}, []);
+	
 
 	const filteredData = datos.filter((el) => {
 		//if no input the return the original
 
-		console.log(datos);
+
 
 		if (input === "") {
 			return el;
