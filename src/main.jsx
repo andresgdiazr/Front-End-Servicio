@@ -104,11 +104,11 @@ const router = createBrowserRouter([
 							{ path: "profesores", element: <AdminProfesores /> },
 							{
 								path: "profesores/:id/modificar",
-								element: <CuentaModificar tipo="profesores" />,
+								element: <CuentaModificar type="profesores" />,
 							},
 							{
 								path: "profesores/crear",
-								element: <CuentaCrear tipo="profesores" />,
+								element: <CuentaCrear type="profesores" />,
 							},
 							{
 								path: "profesores/:id/clases",

@@ -48,7 +48,7 @@ function Materias() {
 				<ListItem>
 					<Button
 						variant="text"
-						component={RouterLink}
+						component={Link}
 						to={`/dashboard-control/admin/materias/quinto`}
 					>
 						Quinto año

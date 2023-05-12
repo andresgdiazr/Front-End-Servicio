@@ -6,24 +6,24 @@ import CuentaForm from "components/organisms/CuentaForm";
 import { setLoading, setSnackbar } from "store/features/main";
 import { Typography } from "@mui/material";
 
-function CuentaModificar({ tipo }) {
+function CuentaModificar({ type }) {
 	const [usedEmails, setUsedEmails] = useState([]);
 	const [usedCedulas, setUsedCedulas] = useState([]);
 
 	const { state } = useLocation();
-	const { id: profesorId } = useParams();
+	const { id: cuentaId } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const onSubmit = async (data) => {
 		dispatch(setLoading(false));
-		const response = await updateCuenta(tipo, profesorId, data);
+		const response = await updateCuenta(type, cuentaId, data);
 		dispatch(setLoading(false));
 		if (response.status == 200) {
 			dispatch(
 				setSnackbar(["Cuenta modificada satisfactoriamente", "success"])
 			);
-			navigate("/dashboard-control/admin/profesores");
+			navigate(-1, { replace: true });
 		} else {
 			if (
 				response.data.errors.some(
@@ -44,13 +44,13 @@ function CuentaModificar({ tipo }) {
 
 	let defaultValues = {};
 
-	if (state.profesor) {
-		defaultValues = state.profesor;
+	if (state.cuenta) {
+		defaultValues = state.cuenta;
 	}
 
 	return (
 		<>
-			<Typography variant="h2">Administración de {tipo}</Typography>
+			<Typography variant="h2">Administración de {type}</Typography>
 			<Typography variant="subtitle1">
 				Modificando información de la cuenta
 			</Typography>
