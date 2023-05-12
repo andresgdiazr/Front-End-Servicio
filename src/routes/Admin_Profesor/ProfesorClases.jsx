@@ -55,7 +55,12 @@ function createAcciones({ profesor }) {
 		const claseId = cell.row.original.id;
 		return (
 			<>
-				<VisibilityIcon />
+				<Link to={`${claseId}`}
+					state={{materia: cell.row.original.materia, clase: cell.row.original}}
+				>
+						<VisibilityIcon/>
+				</Link>
+				
 				<Link
 					to={`${claseId}/editar`}
 					state={{ profesor, clase: cell.row.original }}

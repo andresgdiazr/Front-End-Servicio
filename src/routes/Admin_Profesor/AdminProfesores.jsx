@@ -22,25 +22,21 @@ import EditIcon from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 
 import { setLoading, setSnackbar } from "store/features/main";
+import { useDatos } from "../../hooks/useDatos";
 
 function AdminProfesores() {
+
+	const { state: profesores, setState: setProfesores} = useDatos('/admin/profesores');
+
+	
+
 	const [text, setText] = useState("");
-	const [profesores, setProfesores] = useState([]);
 
 	const dispatch = useDispatch();
 	const [passwordEmailDialog, setPasswordEmailDialog] = useState(false);
 	const [passwordEmailProfesorId, setPasswordEmailProfesorId] = useState(null);
 
-	useEffect(() => {
-		const fetchProfesores = async () => {
-			dispatch(setLoading(true));
-			const profesoresRes = await getProfesores();
-			setProfesores(profesoresRes);
-			dispatch(setLoading(false));
-		};
-
-		fetchProfesores();
-	}, []);
+	
 
 	const inputHandler = ({ target }) => {
 		const lowerCase = target.value.toLowerCase();
