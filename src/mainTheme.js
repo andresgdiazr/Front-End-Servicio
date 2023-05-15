@@ -26,34 +26,34 @@ const theme = createTheme({
         */
     },
     typography: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeightLight: 300,
         fontWeightRegular: 400,
         fontWeightMedium: 500,
         fontWeightBold: 700,
         fontFamily: '"Roboto", "Helvetica", sans-serif',
         h1: {
-            fontSize: "1.8rem",
+            fontSize: 24,
             fontWeight: 400,
         },
         h2: {
-            fontSize: "1.5rem",
+            fontSize: 20,
             fontWeight: 400,
         },
         h3: {
-            fontSize: "1.35rem",
+            fontSize: 18,
             fontWeight: 400,
         },
         h4: {
-            fontSize: "1.27rem",
+            fontSize: 16,
             fontWeight: 400,
         },
         h5: {
-            fontSize: "1.15rem",
+            fontSize: 14,
             fontWeight: 400,
         },
         h6: {
-            fontSize: "1.1rem",
+            fontSize: 12,
             fontWeight: 400,
         },
         subtitle1: {
