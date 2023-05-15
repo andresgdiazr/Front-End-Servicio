@@ -5,34 +5,38 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getClases } from "api/getClases";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import TablaBusqueda from "components/tables/GenericSearchTable";
+import { useDispatch } from "react-redux";
+import { setLoading } from "store/features/main";
 
 function SeccionMaterias() {
-	const [materias, setMaterias] = useState([]);
 	const [clases, setClases] = useState([]);
 	const { id } = useParams();
 
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		const fetchProfesores = async () => {
-			const Res = await getClases(id);
-			setClases(Res);
-			Res.map(({ materia }) => {
-				setMaterias((materias) => [...materias, materia]);
-			});
+			dispatch(setLoading(true))
+			const clases = await getClases(id);
+			dispatch(setLoading(false))
+			setClases(clases);
 		};
 
-		fetchProfesores();
+		fetchProfesores(); 
 	}, []);
 
 	const navigate = useNavigate();
 
 	const Acciones = ({ cell }) => {
+		const clase = cell.row.original;
+
 		return (
 			<VisibilityIcon
 				onClick={() =>
-					navigate(`/dashboard-profesor/clases/${cell.value}`, {
+					navigate(`${clase.id}/lapsos-evaluaciones`, {
 						state: {
-							materia: cell.row.original.materia,
-							clase: cell.row.original,
+							materia: clase.materia,
+							clase: clase,
 						},
 					})
 				}
@@ -43,15 +47,14 @@ function SeccionMaterias() {
 	return (
 		<>
 			<Typography> Adminstración de secciones</Typography>
-
-			<Typography>Listado</Typography>
-
+			<Typography>Listado de las clases de la seccion </Typography>
 			<TablaBusqueda datos={clases} formato={MATERIAS} acciones={Acciones} />
 		</>
 	);
 }
 
 const MATERIAS = [
+	{ Header: "Id", accessor: "materia.id" },
 	{ Header: "Materias", accessor: "materia.nombre" },
 	{ Header: "Acción", accessor: "acciones" },
 ];
