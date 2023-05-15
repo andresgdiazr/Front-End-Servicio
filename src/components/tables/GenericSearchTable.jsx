@@ -78,7 +78,6 @@ function TablaBusqueda({
 					}
 				`}
 				{...getTableProps()}
-				{...getTableProps()}
 			>
 				<THead headerGroups={headerGroups} />
 				<tbody {...getTableBodyProps()}>
