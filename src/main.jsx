@@ -51,6 +51,8 @@ import ModificarEstudiante from "./routes/Seccion/ModificarEstudiante";
 
 import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
+import { Años } from "./routes/admin/Años";
+import { AñosModificar } from "./routes/admin/AñosModificar";
 
 axios.defaults.baseURL =
 	import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
@@ -182,6 +184,15 @@ const router = createBrowserRouter([
 								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
 								element: <EditarEvaluacion />,
 							},
+							//Años
+							{
+								path: "años",
+								element: <Años />,
+							},
+							{
+								path: "años/modificar",
+								element: <AñosModificar />
+							}
 						],
 					},
 				],
