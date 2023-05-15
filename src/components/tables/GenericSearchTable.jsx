@@ -14,6 +14,7 @@ function TablaBusqueda({
 	input = "",
 	datos,
 	formato,
+	emptyMessage = "No se encontraron resultados",
 	acciones: Acciones = () => null,
 }) {
 	
@@ -90,7 +91,7 @@ function TablaBusqueda({
 						);
 					})}
 					<EmptyTableRow
-						message="Actualmente el sistema no cuenta con ningun profesor"
+						message={emptyMessage}
 						rows={rows}
 						headerGroups={headerGroups}
 					/>

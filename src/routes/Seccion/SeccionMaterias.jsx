@@ -48,7 +48,7 @@ function SeccionMaterias() {
 		<>
 			<Typography> Adminstración de secciones</Typography>
 			<Typography>Listado de las clases de la seccion </Typography>
-			<TablaBusqueda datos={clases} formato={MATERIAS} acciones={Acciones} />
+			<TablaBusqueda datos={clases} formato={MATERIAS} acciones={Acciones} emptyMessage="No hay clases asignadas para esta seccion" />
 		</>
 	);
 }

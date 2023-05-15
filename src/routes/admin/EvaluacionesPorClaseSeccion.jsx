@@ -35,7 +35,7 @@ function EvaluacionesPorClaseSeccion() {
         {state?.clase?.seccion?.codigo} , lapso : {lapso}
       </Typography>
 
-      <TablaBusqueda datos={evaluaciones} formato={formato} />
+      <TablaBusqueda datos={evaluaciones} formato={formato} emptyMessage="No hay ninguna evaluaciones asignada a esta clase" />
     </>
   );
 }
