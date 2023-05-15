@@ -3,9 +3,6 @@ import { Typography, Button } from "@mui/material";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 function SeccionDetalles() {
-	const navigate = useNavigate();
-	const { state } = useLocation();
-
 
 	const {
 		state: { año, seccion },
@@ -26,6 +23,7 @@ function SeccionDetalles() {
 				variant="text"
 				component={Link}
 				to={`/dashboard-control/admin/secciones/${id}/estudiantes`}
+
 			>
 				Ver listado de estudiantes
 			</Button>
@@ -36,6 +34,16 @@ function SeccionDetalles() {
 				to={`/dashboard-control/admin/secciones/${id}/materias`}
 			>
 				Ver lista de clases
+			</Button>
+
+
+			<Button
+				variant="text"
+				component={Link}
+				to={`/dashboard-control/admin/secciones/${id}/notas`}
+				state={{año,seccion}}
+			>
+				Notas De Seccion
 			</Button>
 
 			<Button

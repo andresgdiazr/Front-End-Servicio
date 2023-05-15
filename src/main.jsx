@@ -52,6 +52,7 @@ import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
 import LapsosDeEvaluacionesPorClaseSeccion from "./routes/admin/LapsosDeEvaluacionesPorClaseSeccion";
 import EvaluacionesPorClaseSeccion from "./routes/admin/EvaluacionesPorClaseSeccion";
+import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
 
 axios.defaults.baseURL =
   import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
@@ -136,6 +137,8 @@ const router = createBrowserRouter([
               { path: "secciones", element: <SeccionDashboard /> },
               { path: "secciones/crear", element: <SeccionCrear /> },
               { path: "secciones/:id", element: <SeccionDetalles /> },
+              { path: "secciones/:seccionId/notas", element: <NotasDeSeccion /> },
+
               {
                 path: "secciones/:id/modificar",
                 element: <SeccionModificar />,
