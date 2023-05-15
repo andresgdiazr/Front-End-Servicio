@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getClases = (id) => {
+export const getClases = ({seccionId}) => {
   return axios
-    .get(`/admin/clases/${id}`)
+    .get(`/admin/secciones/${seccionId}/clases`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

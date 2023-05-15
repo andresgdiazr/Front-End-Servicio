@@ -17,7 +17,7 @@ function SeccionMaterias() {
 	useEffect(() => {
 		const fetchProfesores = async () => {
 			dispatch(setLoading(true))
-			const clases = await getClases(id);
+			const clases = await getClases({seccionId:id});
 			dispatch(setLoading(false))
 			setClases(clases);
 		};
