@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import ClaseInfo from "../../components/organisms/ClaseInfo";
-import ProfesorEvaluacionesTable from "../../components/tables/ProfesorEvaluacionesTable";
-import { setLoading } from "../../store/features/main";
+import ClaseInfo from "components/organisms/ClaseInfo";
+import ProfesorEvaluacionesTable from "components/tables/ProfesorEvaluacionesTable";
+import { setLoading } from "store/features/main";
 
 function ClaseEvaluaciones() {
 	const [evaluaciones, setEvaluaciones] = useState([]);
@@ -27,7 +27,7 @@ function ClaseEvaluaciones() {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<ClaseInfo
 				materia={materia.nombre}
 				año={materia.año}
@@ -39,7 +39,7 @@ function ClaseEvaluaciones() {
 				clase={clase}
 				data={evaluaciones.map((e) => ({ evaluacion: e.titulo, fulldata: e }))}
 			/>
-		</div>
+		</>
 	);
 }
 

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getSecciones } from "../../api/secciones";
+import { getSecciones } from "api/secciones";
 import { setLoading } from "./main";
 
 const mainSlice = createSlice({

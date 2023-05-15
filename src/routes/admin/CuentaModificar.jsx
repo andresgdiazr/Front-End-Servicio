@@ -1,63 +1,67 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { updateCuenta } from "../../api/updateCuenta";
-import CuentaForm from "../../components/organisms/CuentaForm";
-import { setLoading, setSucess } from "../../store/features/main";
+import { updateCuenta } from "api/updateCuenta";
+import CuentaForm from "components/organisms/CuentaForm";
+import { setLoading, setSnackbar } from "store/features/main";
+import { Typography } from "@mui/material";
 
-function CuentaModificar({ tipo }) {
-  const [usedEmails, setUsedEmails] = useState([]);
-  const [usedCedulas, setUsedCedulas] = useState([]);
+function CuentaModificar({ type }) {
+	const [usedEmails, setUsedEmails] = useState([]);
+	const [usedCedulas, setUsedCedulas] = useState([]);
 
-  const { state } = useLocation();
-  const { id: profesorId } = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const { state } = useLocation();
+	const { id: cuentaId } = useParams();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
-    dispatch(setLoading(false));
-    const response = await updateCuenta(tipo, profesorId, data);
-    dispatch(setLoading(false));
-    if (response.status == 200) {
-      dispatch(setSucess("Cuenta modificada satisfactoriamente"));
-      navigate("/dashboard-control/admin/profesores");
-    } else {
-      if (
-        response.data.errors.some(
-          (error) => error.field === "email" && error.rule === "unique"
-        )
-      ) {
-        setUsedEmails([...usedEmails, data.email]);
-      }
-      if (
-        response.data.errors.some(
-          (error) => error.field === "cedula" && error.rule === "unique"
-        )
-      ) {
-        setUsedCedulas([...usedCedulas, data.cedula]);
-      }
-    }
-  };
+	const onSubmit = async (data) => {
+		dispatch(setLoading(false));
+		const response = await updateCuenta(type, cuentaId, data);
+		dispatch(setLoading(false));
+		if (response.status == 200) {
+			dispatch(
+				setSnackbar(["Cuenta modificada satisfactoriamente", "success"])
+			);
+			navigate(-1, { replace: true });
+		} else {
+			if (
+				response.data.errors.some(
+					(error) => error.field === "email" && error.rule === "unique"
+				)
+			) {
+				setUsedEmails([...usedEmails, data.email]);
+			}
+			if (
+				response.data.errors.some(
+					(error) => error.field === "cedula" && error.rule === "unique"
+				)
+			) {
+				setUsedCedulas([...usedCedulas, data.cedula]);
+			}
+		}
+	};
 
-  let defaultValues = {};
+	let defaultValues = {};
 
-  if (state.profesor) {
-    defaultValues = state.profesor;
-  }
+	if (state.cuenta) {
+		defaultValues = state.cuenta;
+	}
 
-  return (
-    <div>
-      <h2>Administración de {tipo}</h2>
-      <h3>Modificando información de la cuenta</h3>
+	return (
+		<>
+			<Typography variant="h2">Administración de {type}</Typography>
+			<Typography variant="subtitle1">
+				Modificando información de la cuenta
+			</Typography>
 
-      <CuentaForm
-        onSubmit={onSubmit}
-        usedEmails={usedEmails}
-        usedCedulas={usedCedulas}
-        defaultValues={defaultValues}
-      />
-    </div>
-  );
+			<CuentaForm
+				onSubmit={onSubmit}
+				usedEmails={usedEmails}
+				usedCedulas={usedCedulas}
+				defaultValues={defaultValues}
+			/>
+		</>
+	);
 }
-
 export default CuentaModificar;

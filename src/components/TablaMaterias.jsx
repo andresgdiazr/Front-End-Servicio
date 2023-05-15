@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable } from "react-table";
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { COLUMNS } from "./columns";
 
 import "../css/tablas.css";

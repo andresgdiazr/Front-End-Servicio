@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const updateCuenta = (tipo, id, payload) => {
+export const updateCuenta = (type, id, payload) => {
   return axios
-    .patch(`admin/${tipo}/${id}`, payload)
+    .patch(`admin/${type}/${id}`, payload)
     .then((res) => res)
     .catch((err) => err.response);
 };

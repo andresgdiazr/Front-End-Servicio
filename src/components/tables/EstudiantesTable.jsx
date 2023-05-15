@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import LockIcon from "@mui/icons-material/Lock";
 import "../../css/tablas.css";
 
-import { getEstudiantes } from "../../api/admin_estudiantes";
+import { getEstudiantes } from "api/admin_estudiantes";
 import { useNavigate } from "react-router-dom";
 
 export function Estudiantes_table({ input, id }) {
@@ -52,6 +52,7 @@ export function Estudiantes_table({ input, id }) {
     useTable({ columns, data });
 
   return (
+    /* TODO editar css para que se use MUI? */
     <div className="container">
       <table {...getTableProps()}>
         <thead>

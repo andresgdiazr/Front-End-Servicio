@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import ClaseInfo from "../../components/organisms/ClaseInfo";
-import NotasTable from "../../components/tables/NotasTable";
-import { setLoading } from "../../store/features/main";
+import ClaseInfo from "components/organisms/ClaseInfo";
+import NotasTable from "components/tables/NotasTable";
+import { setLoading } from "store/features/main";
 
 function Notas() {
 	const [notas, setNotas] = useState([]);
@@ -30,7 +30,7 @@ function Notas() {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<ClaseInfo
 				materia={materia.nombre}
 				año={materia.año}
@@ -47,7 +47,7 @@ function Notas() {
 					nota: n.puntaje === null ? "No Asignado" : n.puntaje,
 				}))}
 			/>
-		</div>
+		</>
 	);
 }
 
