@@ -8,56 +8,71 @@ import { setLoading } from "store/features/main";
 import CustomForm from "components/CustomForm";
 
 function EditarEvaluacion() {
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const { evaluacionId, id, lapso } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { evaluacionId, id, lapso } = useParams();
+	const [error,setError] = useState(false)
 
-	const evaluacion = useEvaluaciones({ materiaId: id, lapso }).find(
-		(ev) => ev.id == parseInt(evaluacionId)
-	);
+  const evaluacion = useEvaluaciones({ materiaId: id, lapso }).find(
+    (ev) => ev.id == parseInt(evaluacionId)
+  );
 
-	const [titulo, setTitulo] = useState("");
+  const [titulo, setTitulo] = useState("");
 
-	useEffect(() => {
-		if (evaluacion?.titulo) {
-			setTitulo(evaluacion?.titulo);
+  useEffect(() => {
+    if (evaluacion?.titulo) {
+      setTitulo(evaluacion?.titulo);
+    }
+  }, [evaluacion?.titulo]);
+
+  const onSubmit = async (ev) => {
+
+
+    ev.preventDefault();
+		if (titulo.trim() === '') {
+			setError(true)
+			return
 		}
-	}, [evaluacion?.titulo]);
 
-	const onSubmit = async (ev) => {
-		ev.preventDefault();
-		dispatch(setLoading(true));
-		const res = await editarEvaluacion({ id: evaluacionId, titulo });
-		if (res.status == 200) {
-			navigate(-1);
-			dispatch(
-				editEvaluacion({
-					materiaId: id,
-					evaluacionId,
-					evaluacion: res.data,
-				})
-			);
-			dispatch(setLoading(false));
-		} else {
-			dispatch(setLoading(false));
-		}
-	};
+    dispatch(setLoading(true));
+    const res = await editarEvaluacion({ id: evaluacionId, titulo });
+    if (res.status == 200) {
+      navigate(-1);
+      dispatch(
+        editEvaluacion({
+          materiaId: id,
+          evaluacionId,
+          evaluacion: res.data,
+        })
+      );
+      dispatch(setLoading(false));
+    } else {
+      dispatch(setLoading(false));
+    }
+  };
 
-	return (
-		<>
-			<Typography> Editar Evaluacion </Typography>
-			<CustomForm onSubmit={onSubmit}>
-				<TextField
-					value={titulo}
-					onChange={(ev) => setTitulo(ev.target.value)}
-					label="Titulo de Evaluacion"
-				/>
-				<Button variant="contained" type="submit">
-					Editar
-				</Button>
-			</CustomForm>
-		</>
-	);
+	const onChangeTitulo = (ev) => {
+		setTitulo(ev.target.value)
+		setError(false)
+	}
+
+  return (
+    <>
+      <Typography> Editar Evaluacion </Typography>
+      <CustomForm onSubmit={onSubmit}>
+        <TextField
+          error={error}
+          helperText={error && 'El titulo de la evaluacion no puede estar vacio'}
+          value={titulo}
+          onChange={onChangeTitulo}
+          label="Titulo de Evaluacion"
+        />
+        <Button variant="contained" type="submit">
+          Editar
+        </Button>
+      </CustomForm>
+    </>
+  );
 }
 
 export default EditarEvaluacion;
