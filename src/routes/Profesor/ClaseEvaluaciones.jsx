@@ -18,8 +18,6 @@ function ClaseEvaluaciones() {
 
   const { lapso } = useParams();
 
-  console.log(lapso)
-
   useEffect(() => {
     dispatch(setLoading(true));
     getEvaluaciones({ materiaId: materia.id, lapso })

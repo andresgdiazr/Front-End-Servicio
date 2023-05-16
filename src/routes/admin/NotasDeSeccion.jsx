@@ -22,8 +22,6 @@ function NotasDeSeccion() {
     dispatch(setLoading(true))
     const data = await getNotasOfSeccion({lapso,seccionId:seccionId})
 
-    console.log('ready for wa')
-    
 
     const workbook = new ExcelJS.Workbook();
     const sheet = workbook.addWorksheet("Notas");
