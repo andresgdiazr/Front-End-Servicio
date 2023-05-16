@@ -65,11 +65,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthComponent />,
+    errorElement: <PaginaError />,
     children: [
       {
         path: "/login",
         element: <Login />,
-        errorElement: <PaginaError />,
+
       },
       {
         path: "/dashboard-profesor",
