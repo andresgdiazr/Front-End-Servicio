@@ -21,7 +21,6 @@ function ClaseEvaluaciones() {
   console.log(lapso)
 
   useEffect(() => {
-    return
     dispatch(setLoading(true));
     getEvaluaciones({ materiaId: materia.id, lapso })
       .then((evs) => setEvaluaciones(evs))
