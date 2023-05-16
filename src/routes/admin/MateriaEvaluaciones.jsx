@@ -1,5 +1,12 @@
-import { Button } from "@mui/material";
-import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import EvaluacionesTable from "components/tables/EvaluacionesTable";
 import TablaBusqueda from "components/tables/GenericSearchTable";
@@ -8,35 +15,44 @@ import { Delete, Edit } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
 import { disableEvaluacion } from "api/disableEvaluacion";
+import { set } from "react-hook-form";
 
 function MateriaEvaluaciones() {
   const { lapso, id } = useParams();
 
   const evaluaciones = useEvaluaciones({ materiaId: id, lapso });
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const [evaluacionToDelete, setEvaluacionToDelete] = useState(null);
+  const [confirmDeleteDialog, setConfirmDeleteDialog] = useState(false);
+
+  const onConfirmDelete = async () => {
+    dispatch(setLoading(true));
+    const response = await disableEvaluacion(evaluacionToDelete);
+    if (response.status == 200) {
+      dispatch(
+        deleteEvaluacion({
+          materiaId: id,
+          evaluacionId: evaluacionToDelete,
+        })
+      );
+    }
+    dispatch(setLoading(false));
+    setConfirmDeleteDialog(false);
+  };
 
   const Acciones = ({ cell }) => {
+    const evaluacionId = cell.row.original.id;
     return (
       <>
         <Delete
           onClick={async () => {
-            dispatch(setLoading(true));
-            const response = await disableEvaluacion(cell.row.original.id);
-            if (response.status == 200) {
-              dispatch(
-                deleteEvaluacion({
-                  materiaId: id,
-                  evaluacionId: cell.row.original.id,
-                })
-              );
-              dispatch(setLoading(false));
-            } else {
-              dispatch(setLoading(false));
-            }
+            setEvaluacionToDelete(evaluacionId);
+            setConfirmDeleteDialog(true)
           }}
         />
-        <Link to={`${cell.row.original.id}/editar`}>
+        <Link to={`${evaluacionId}/editar`}>
           <Edit />
         </Link>
       </>
@@ -45,6 +61,27 @@ function MateriaEvaluaciones() {
 
   return (
     <>
+      <Dialog
+        open={confirmDeleteDialog}
+        onClose={() => setConfirmDeleteDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ¿Estas seguro que deseas eliminar esta evaluacion?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmDeleteDialog(false)} >
+            Cancelar
+          </Button>
+          <Button onClick={onConfirmDelete} color="error">
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Button variant="contained" component={Link} to={`crear`}>
         Crear evaluación
       </Button>

@@ -4,14 +4,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarEvaluacion } from "api/editarEvaluacion";
 import { editEvaluacion, useEvaluaciones } from "store/features/evaluaciones";
-import { setLoading } from "store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
 import CustomForm from "components/CustomForm";
 
 function EditarEvaluacion() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { evaluacionId, id, lapso } = useParams();
-	const [error,setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const evaluacion = useEvaluaciones({ materiaId: id, lapso }).find(
     (ev) => ev.id == parseInt(evaluacionId)
@@ -26,13 +26,11 @@ function EditarEvaluacion() {
   }, [evaluacion?.titulo]);
 
   const onSubmit = async (ev) => {
-
-
     ev.preventDefault();
-		if (titulo.trim() === '') {
-			setError(true)
-			return
-		}
+    if (titulo.trim() === "") {
+      setError(true);
+      return;
+    }
 
     dispatch(setLoading(true));
     const res = await editarEvaluacion({ id: evaluacionId, titulo });
@@ -45,16 +43,15 @@ function EditarEvaluacion() {
           evaluacion: res.data,
         })
       );
-      dispatch(setLoading(false));
-    } else {
-      dispatch(setLoading(false));
+      dispatch(setSnackbar(["Evaluacion editada con exito", "success"]));
     }
+    dispatch(setLoading(false));
   };
 
-	const onChangeTitulo = (ev) => {
-		setTitulo(ev.target.value)
-		setError(false)
-	}
+  const onChangeTitulo = (ev) => {
+    setTitulo(ev.target.value);
+    setError(false);
+  };
 
   return (
     <>
@@ -62,7 +59,9 @@ function EditarEvaluacion() {
       <CustomForm onSubmit={onSubmit}>
         <TextField
           error={error}
-          helperText={error && 'El titulo de la evaluacion no puede estar vacio'}
+          helperText={
+            error && "El titulo de la evaluacion no puede estar vacio"
+          }
           value={titulo}
           onChange={onChangeTitulo}
           label="Titulo de Evaluacion"
