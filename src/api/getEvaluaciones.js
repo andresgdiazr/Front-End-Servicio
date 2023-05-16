@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getEvaluaciones = ({materiaId}) => {
+export const getEvaluaciones = ({materiaId,lapso}) => {
   return axios
-    .get(`/admin/materias/${materiaId}/evaluaciones`)
+    .get(`/materias/${materiaId}/evaluaciones?lapso=${lapso}`)
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };

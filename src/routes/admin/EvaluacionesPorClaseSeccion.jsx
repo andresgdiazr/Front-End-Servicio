@@ -21,8 +21,8 @@ function EvaluacionesPorClaseSeccion() {
 
   useEffect(() => {
     setLoading(true);
-    getEvaluaciones({ materiaId: state?.materia?.id })
-      .then((evs) => setEvaluaciones(evs.filter( ev => ev.lapso == lapso) ))
+    getEvaluaciones({ materiaId: state?.materia?.id,lapso })
+      .then((evs) => setEvaluaciones(evs))
       .finally(() => dispatch(setLoading(false)));
   });
 

@@ -18,10 +18,13 @@ function ClaseEvaluaciones() {
 
   const { lapso } = useParams();
 
+  console.log(lapso)
+
   useEffect(() => {
+    return
     dispatch(setLoading(true));
-    getEvaluaciones({ materiaId: materia.id })
-      .then((evs) => setEvaluaciones(evs.filter((ev) => ev.lapso == lapso)))
+    getEvaluaciones({ materiaId: materia.id, lapso })
+      .then((evs) => setEvaluaciones(evs))
       .finally(() => dispatch(setLoading(false)));
   }, []);
 

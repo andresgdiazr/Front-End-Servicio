@@ -10,9 +10,6 @@ function Clase() {
 		state: { materia = '', clase },
 	} = useLocation();
 
-	console.log(materia);
-	console.log(clase);
-	
 	const { id: claseId } = useParams();
 	const materiaData = { materia, clase };
 	return (
@@ -42,7 +39,6 @@ function createAcciones(materiaData) {
 				>
 					<Visibility />
 				</Link>
-
 				<Book />
 			</>
 		);
