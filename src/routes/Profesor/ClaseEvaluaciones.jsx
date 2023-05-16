@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ClaseInfo from "components/organisms/ClaseInfo";
-import ProfesorEvaluacionesTable from "components/tables/ProfesorEvaluacionesTable";
+
 import { setLoading } from "store/features/main";
 import { getEvaluaciones } from "api/getEvaluaciones";
+import TablaBusqueda from "components/tables/GenericSearchTable";
+import { Upload } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 function ClaseEvaluaciones() {
   const [evaluaciones, setEvaluaciones] = useState([]);
@@ -25,6 +28,21 @@ function ClaseEvaluaciones() {
       .finally(() => dispatch(setLoading(false)));
   }, []);
 
+  const Acciones = ({ cell }) => {
+    return (
+      <Link
+        to={`${cell.row.original.fulldata.id}/notas`}
+        state={{
+          clase,
+          materia,
+          evaluacion: cell.row.original.fulldata,
+        }}
+      >
+        <Upload />
+      </Link>
+    );
+  };
+
   return (
     <>
       <ClaseInfo
@@ -32,14 +50,25 @@ function ClaseEvaluaciones() {
         año={materia.año}
         seccion={clase.seccion.codigo}
       />
-      <ProfesorEvaluacionesTable
-        lapso={lapso}
-        materia={materia}
-        clase={clase}
-        data={evaluaciones.map((e) => ({ evaluacion: e.titulo, fulldata: e }))}
+      <Typography sx={{marginTop:'1rem'}} variant="h2">
+				Plan de evaluacion para Lapso {lapso}
+			</Typography>
+
+      <TablaBusqueda
+        datos={evaluaciones.map((e) => ({ evaluacion: e.titulo, fulldata: e }))}
+        formato={formato}
+        acciones={Acciones}
+        emptyMessage="No hay evaluaciones para este lapso"
       />
+
+
     </>
   );
 }
+
+const formato = [
+  { Header: "Evaluacion", accessor: "evaluacion" },
+  { Header: "Acciones", accessor: "acciones" },
+];
 
 export default ClaseEvaluaciones;
