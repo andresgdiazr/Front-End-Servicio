@@ -28,7 +28,7 @@ function AdminProfesores() {
 
 	const { state: profesores, setState: setProfesores} = useDatos('/admin/profesores');
 
-	
+
 
 	const [text, setText] = useState("");
 
