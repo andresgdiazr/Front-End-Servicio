@@ -24,13 +24,14 @@ function ProfesorClases() {
 				<Typography variant="subtitle1">
 					{profesor.nombre} {profesor.apellido}
 				</Typography>
+				
 			</div>
 
-			{/*<ClasesProfesoresTable profesor={profesor} datos={clases} />*/}
 
 			<TablaBusqueda
 				datos={clases}
 				formato={CLASES}
+				emptyMessage="No hay clases asignadas a este profesor"
 				acciones={createAcciones({
 					profesor,
 				})}
