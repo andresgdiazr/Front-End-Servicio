@@ -50,7 +50,7 @@ function ClaseEvaluaciones() {
         año={materia.año}
         seccion={clase.seccion.codigo}
       />
-      <Typography sx={{marginTop:'1rem'}} variant="h2">
+      <Typography variant="h2">
 				Plan de evaluacion para Lapso {lapso}
 			</Typography>
 

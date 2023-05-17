@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createCuenta } from "api/createCuenta";
 import CuentaForm from "components/organisms/CuentaForm";
 import { setLoading, setSnackbar } from "store/features/main";
-import { Typography } from "@mui/material";
+import GenericTitles from "components/GenericTitles";
 
 function CuentaCrear({ type }) {
 	const navigate = useNavigate();
@@ -41,8 +41,10 @@ function CuentaCrear({ type }) {
 
 	return (
 		<>
-			<Typography variant="h2">Administración de {type}</Typography>
-			<Typography variant="subtitle1">Creacion de cuenta</Typography>
+			<GenericTitles
+				title={`Administración de ${type}`}
+				newSubtitle="Creación de cuenta"
+			/>
 
 			<CuentaForm
 				onSubmit={onSubmit}
