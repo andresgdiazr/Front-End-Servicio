@@ -1,18 +1,12 @@
 import React from "react";
-import { Typography } from "@mui/material";
-import { useLocation, useParams } from "react-router-dom";
 import GenericTitles from "components/GenericTitles";
+import { useProfesorData } from "store/features/navigationData";
 
 function ProfesorTitleAdmin({ title = "", prevSubtitles = [], newSubtitle }) {
-	// TODO hacerlo con REDUX
-
-	const { state } = useLocation();
-	const params = useParams();
-	const profesor = state.profesores
-		? state.profesores.find((p) => p.id === parseInt(params.id))
-		: state.profesor;
-
-	prevSubtitles.unshift(`Profesor: ${profesor.nombre} ${profesor.apellido}`);
+	const profesor = useProfesorData();
+	if (profesor) { // TODO no hay una mejor solucion?
+		prevSubtitles.unshift(`Profesor: ${profesor.nombre} ${profesor.apellido}`);
+	}
 
 	return (
 		<GenericTitles

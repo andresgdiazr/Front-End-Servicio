@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import ProfesorTitleAdmin from "components/ProfesorTitleAdmin";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -7,11 +8,7 @@ function ClaseInfo({ materia, año, seccion }) {
 
 	return (
 		<>
-			<Typography variant="h2">
-				{materia}, año: {año}
-			</Typography>
-			<Typography variant="subtitle1">Seccion: {seccion}</Typography>
-			<Typography variant="subtitle1">Profesor: {fullname}</Typography>
+			<ProfesorTitleAdmin prevSubtitles={[`${materia} año: ${año}`, `Sección: ${seccion}`]} />
 		</>
 	);
 }

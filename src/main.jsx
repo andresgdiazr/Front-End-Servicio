@@ -103,7 +103,7 @@ const router = createBrowserRouter([
 							// Profesores
 							{ path: "profesores", element: <AdminProfesores /> },
 							{
-								path: "profesores/:id/modificar",
+								path: "profesores/:profesorId/modificar",
 								element: <CuentaModificar type="profesores" />,
 							},
 							{
@@ -111,15 +111,15 @@ const router = createBrowserRouter([
 								element: <CuentaCrear type="profesores" />,
 							},
 							{
-								path: "profesores/:id/clases",
+								path: "profesores/:profesorId/clases",
 								element: <ProfesorClases />,
 							},
 							{
-								path: "profesores/:profesorId/clases/:id",
+								path: "profesores/:profesorId/clases/:claseId",
 								element: <Clase />,
 							},
 							{
-								path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones",
+								path: "profesores/:profesorId/clases/:claseId/lapsos/:lapso/evaluaciones",
 								element: <ClaseEvaluaciones />,
 							},
 							// Clases de profesores
