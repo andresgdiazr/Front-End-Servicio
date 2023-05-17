@@ -7,7 +7,7 @@ function MainLayout({ routes }) {
 	return (
 		<>
 			<Navbar names={routes} />
-			<Box sx={{ padding: "1rem 2rem", maxWidth: "900px", m: "0 auto" }}>
+			<Box sx={{ padding: "1rem 2rem", maxWidth: "900px", m: "1.2rem auto 0" }}>
 				<Paper
 					elevation={5}
 					sx={{

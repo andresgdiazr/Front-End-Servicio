@@ -5,6 +5,7 @@ import { Typography, List, ListItem, Button } from "@mui/material";
 
 function ControlDashboard() {
 	const name = useSelector((state) => state.main.name);
+
 	return (
 		<>
 			<Typography variant="h2"> Bienvenido administrador {name} </Typography>

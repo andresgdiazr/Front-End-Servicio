@@ -41,7 +41,6 @@ function SeccionModificar() {
 	let defaultValues = {};
 	if ((año, seccion)) {
 		defaultValues = { año, seccion };
-		console.log(defaultValues);
 	}
 
 	return (

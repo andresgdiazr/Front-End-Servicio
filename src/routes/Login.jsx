@@ -36,10 +36,22 @@ function Login() {
           navigate("/dashboard-control");
         } else if (response.data.userType == "Profesor") {
           navigate("/dashboard-profesor");
+        } else {
+          setInvalidCredentials(true);
         }
       })
       .catch((err) => setInvalidCredentials(true))
       .finally(() => dispatch(setLoading(false)));
+  };
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+    setInvalidCredentials(false);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+    setInvalidCredentials(false);
   };
 
   return (
@@ -75,21 +87,20 @@ function Login() {
           },
         }}
       >
-        {invalidCredentials && (
-          <Typography color="tomato">Credenciales Invalidas</Typography>
-        )}
-
+        <Typography sx={{ marginBottom: "0.5rem",visibility: invalidCredentials ? 'initial': 'hidden'   }} color="tomato">
+          Credenciales Invalidas
+        </Typography>
         <TextField
           value={email}
           label="Email"
           variant="outlined"
-          onChange={(ev) => setEmail(ev.target.value)}
+          onChange={onChangeEmail}
         />
         <TextField
           value={password}
           label="Contraseña"
           variant="outlined"
-          onChange={(ev) => setPassword(ev.target.value)}
+          onChange={onChangePassword}
           type="password"
         />
 

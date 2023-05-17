@@ -21,11 +21,10 @@ function ProfesorClases() {
 		<>
 			<ProfesorTitleAdmin newSubtitle={"Clases"}/>
 
-			{/*<ClasesProfesoresTable profesor={profesor} datos={clases} />*/}
-
 			<TablaBusqueda
 				datos={clases}
 				formato={CLASES}
+				emptyMessage="No hay clases asignadas a este profesor"
 				acciones={createAcciones({
 					profesor,
 				})}
