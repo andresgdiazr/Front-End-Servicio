@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button,  } from "@mui/material";
 
-import { useProfesorClases } from "store/features/profesorClases";
+import { removeClase, useProfesorClases } from "store/features/profesorClases";
 import TablaBusqueda from "components/tables/GenericSearchTable";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -10,6 +10,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ProfesorTitleAdmin from "components/ProfesorTitleAdmin";
 import { useProfesorData } from "store/features/navigationData";
+import { useDispatch } from "react-redux";
+import { setLoading } from "store/features/main";
+import { deleteClase } from "api/deleteClase";
 
 function ProfesorClases() {
 	const { state } = useLocation();
@@ -42,6 +45,8 @@ function ProfesorClases() {
 }
 
 function createAcciones({ profesor }) {
+	const dispatch = useDispatch();
+
 	return ({ cell }) => {
 		const claseId = cell.row.original.id;
 		return (
