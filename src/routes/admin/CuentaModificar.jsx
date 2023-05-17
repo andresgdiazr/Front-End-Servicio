@@ -4,7 +4,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { updateCuenta } from "api/updateCuenta";
 import CuentaForm from "components/organisms/CuentaForm";
 import { setLoading, setSnackbar } from "store/features/main";
-import { Typography } from "@mui/material";
+import GenericTitles from "components/GenericTitles";
 
 function CuentaModificar({ type }) {
 	const [usedEmails, setUsedEmails] = useState([]);
@@ -50,10 +50,10 @@ function CuentaModificar({ type }) {
 
 	return (
 		<>
-			<Typography variant="h2">Administración de {type}</Typography>
-			<Typography variant="subtitle1">
-				Modificando información de la cuenta
-			</Typography>
+			<GenericTitles
+				title={`Administración de ${type}`}
+				newSubtitle="Modificando información de la cuenta"
+			/>
 
 			<CuentaForm
 				onSubmit={onSubmit}
