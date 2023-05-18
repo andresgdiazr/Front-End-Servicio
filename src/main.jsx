@@ -53,167 +53,213 @@ import EditarClase from "./routes/admin/EditarClase";
 import LapsosDeEvaluacionesPorClaseSeccion from "./routes/admin/LapsosDeEvaluacionesPorClaseSeccion";
 import EvaluacionesPorClaseSeccion from "./routes/admin/EvaluacionesPorClaseSeccion";
 import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
+import SystemFailure from "./routes/SystemFailure";
 
 axios.defaults.baseURL =
-	import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
+  import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
+
+// intercept response with axios
+
+axios.interceptors.request.use(
+  function (config) {
+    const token = sessionStorage.getItem("token");
+
+
+    if (
+      token &&
+      !location.href.includes("/login") &&
+      !location.href.includes("/set-password")
+    ) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error?.response?.status === 401) {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user-type");
+      sessionStorage.removeItem("name");
+      window.location.href = "/login";
+    } else if (
+      error?.response?.status === 500 ||
+      error?.code === "ERR_NETWORK"
+    ) {
+      window.location.href = "/fallo-de-servicio";
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 const router = createBrowserRouter([
-	{
-		path: "/set-password",
-		element: <SetPassword />,
-	},
-	{
-		path: "/",
-		element: <AuthComponent />,
-		errorElement: <PaginaError />,
-		children: [
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/dashboard-profesor",
-				element: <MainLayout routes={routesProfesor} />,
-				children: [
-					{ index: true, element: <ProfesorDashboard /> },
-					{
-						path: "clases/:id",
-						element: <NoRootLayout />,
-						children: [
-							{ index: true, element: <Clase /> },
-							{
-								path: "lapsos/:lapso/evaluaciones",
-								element: <ClaseEvaluaciones />,
-							},
-							{
-								path: "lapsos/:lapso/evaluaciones/:evaluacionId/notas",
-								element: <Notas />,
-							},
-						],
-					},
-				],
-			},
-			{
-				path: "/dashboard-control",
-				element: <MainLayout routes={routesAdmin} />,
-				children: [
-					{ index: true, element: <ControlDashboard /> },
-					{
-						path: "admin",
-						element: <NoRootLayout />,
-						children: [
-							// Profesores
-							{ path: "profesores", element: <AdminProfesores /> },
-							{
-								path: "profesores/:profesorId/modificar",
-								element: <CuentaModificar type="profesores" />,
-							},
-							{
-								path: "profesores/crear",
-								element: <CuentaCrear type="profesores" />,
-							},
-							{
-								path: "profesores/:profesorId/clases",
-								element: <ProfesorClases />,
-							},
-							{
-								path: "profesores/:profesorId/clases/:id",
-								element: <Clase />,
-							},
-							// Clases de profesores
-							{
-								path: "profesores/:profesorId/clases/crear",
-								element: <CrearClase />,
-							},
-							{
-								path: "profesores/:profesorId/clases/:claseId/editar",
-								element: <EditarClase />,
-							},
-							{
-								path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones",
-								element: <ClaseEvaluaciones />,
-							},
-							{
-								path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas",
-								element: <Notas />,
-							},
-							// TODO falta ruta de notas de clase
-							// Secciones
-							{ path: "secciones", element: <SeccionDashboard /> },
-							{ path: "secciones/crear", element: <SeccionCrear /> },
-							{ path: "secciones/:id", element: <SeccionDetalles /> },
-							{
-								path: "secciones/:seccionId/notas",
-								element: <NotasDeSeccion />,
-							},
+  {
+    path: "/set-password",
+    element: <SetPassword />,
+  },
+  {
+    path: "/fallo-de-servicio",
+    element: <SystemFailure />,
+  },
+  {
+    path: "/",
+    element: <AuthComponent />,
+    errorElement: <PaginaError />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/dashboard-profesor",
+        element: <MainLayout routes={routesProfesor} />,
+        children: [
+          { index: true, element: <ProfesorDashboard /> },
+          {
+            path: "clases/:id",
+            element: <NoRootLayout />,
+            children: [
+              { index: true, element: <Clase /> },
+              {
+                path: "lapsos/:lapso/evaluaciones",
+                element: <ClaseEvaluaciones />,
+              },
+              {
+                path: "lapsos/:lapso/evaluaciones/:evaluacionId/notas",
+                element: <Notas />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: "/dashboard-control",
+        element: <MainLayout routes={routesAdmin} />,
+        children: [
+          { index: true, element: <ControlDashboard /> },
+          {
+            path: "admin",
+            element: <NoRootLayout />,
+            children: [
+              // Profesores
+              { path: "profesores", element: <AdminProfesores /> },
+              {
+                path: "profesores/:profesorId/modificar",
+                element: <CuentaModificar type="profesores" />,
+              },
+              {
+                path: "profesores/crear",
+                element: <CuentaCrear type="profesores" />,
+              },
+              {
+                path: "profesores/:profesorId/clases",
+                element: <ProfesorClases />,
+              },
+              {
+                path: "profesores/:profesorId/clases/:id",
+                element: <Clase />,
+              },
+              // Clases de profesores
+              {
+                path: "profesores/:profesorId/clases/crear",
+                element: <CrearClase />,
+              },
+              {
+                path: "profesores/:profesorId/clases/:claseId/editar",
+                element: <EditarClase />,
+              },
+              {
+                path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones",
+                element: <ClaseEvaluaciones />,
+              },
+              {
+                path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas",
+                element: <Notas />,
+              },
+              // TODO falta ruta de notas de clase
+              // Secciones
+              { path: "secciones", element: <SeccionDashboard /> },
+              { path: "secciones/crear", element: <SeccionCrear /> },
+              { path: "secciones/:id", element: <SeccionDetalles /> },
+              {
+                path: "secciones/:seccionId/notas",
+                element: <NotasDeSeccion />,
+              },
 
-							{
-								path: "secciones/:id/modificar",
-								element: <SeccionModificar />,
-							},
-							// Estudiante de seccion
-							{
-								path: "secciones/:id/estudiantes",
-								element: <SeccionEstudiantes />,
-							},
-							{
-								path: "secciones/:id/estudiantes/:id/modificar",
-								element: <ModificarEstudiante />,
-							},
-							{
-								path: "secciones/:id/añadir_estudiantes",
-								element: <CrearEstudiante />,
-							},
-							// Materias de seccion
-							{
-								path: "secciones/:id/materias",
-								element: <SeccionMaterias />,
-							},
-							{
-								path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones",
-								element: <LapsosDeEvaluacionesPorClaseSeccion />,
-							},
-							{
-								path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
-								element: <EvaluacionesPorClaseSeccion />,
-							},
+              {
+                path: "secciones/:id/modificar",
+                element: <SeccionModificar />,
+              },
+              // Estudiante de seccion
+              {
+                path: "secciones/:id/estudiantes",
+                element: <SeccionEstudiantes />,
+              },
+              {
+                path: "secciones/:id/estudiantes/:id/modificar",
+                element: <ModificarEstudiante />,
+              },
+              {
+                path: "secciones/:id/añadir_estudiantes",
+                element: <CrearEstudiante />,
+              },
+              // Materias de seccion
+              {
+                path: "secciones/:id/materias",
+                element: <SeccionMaterias />,
+              },
+              {
+                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones",
+                element: <LapsosDeEvaluacionesPorClaseSeccion />,
+              },
+              {
+                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
+                element: <EvaluacionesPorClaseSeccion />,
+              },
 
-							{ path: "materias", element: <Materias /> },
-							{ path: "materias/:year", element: <MateriasPorAño /> },
-							{
-								path: "materias/:year/:id/editar",
-								element: <EditarMaterias />,
-							},
-							{ path: "materias/:year/crear", element: <CrearMateria /> },
+              { path: "materias", element: <Materias /> },
+              { path: "materias/:year", element: <MateriasPorAño /> },
+              {
+                path: "materias/:year/:id/editar",
+                element: <EditarMaterias />,
+              },
+              { path: "materias/:year/crear", element: <CrearMateria /> },
 
-							{
-								path: "materias/:year/:id/lapsos",
-								element: <LapsosMateria />,
-							},
-							{
-								path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
-								element: <MateriaEvaluaciones />,
-							},
-							{
-								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
-								element: <CrearEvaluacion />,
-							},
-							{
-								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
-								element: <EditarEvaluacion />,
-							},
-						],
-					},
-				],
-			},
-		],
-	},
+              {
+                path: "materias/:year/:id/lapsos",
+                element: <LapsosMateria />,
+              },
+              {
+                path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
+                element: <MateriaEvaluaciones />,
+              },
+              {
+                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
+                element: <CrearEvaluacion />,
+              },
+              {
+                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
+                element: <EditarEvaluacion />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<Provider store={store}>
-		<ThemeProvider theme={theme}>
-			<RouterProvider router={router} />
-		</ThemeProvider>
-	</Provider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </Provider>
 );
