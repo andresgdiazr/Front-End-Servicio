@@ -8,9 +8,9 @@ import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTable, useSortBy } from "react-table";
-import { disableMateria } from "../../api/disableMateria";
-import { deleteMateria, useMaterias } from "../../store/features/materias";
-import añoToData from "../../utils/añoToData";
+import { disableMateria } from "api/disableMateria";
+import { deleteMateria, useMaterias } from "store/features/materias";
+import añoToData from "utils/añoToData";
 
 function MateriasAñoTable() {
   const { year: año } = useParams();
@@ -66,7 +66,7 @@ function MateriasAñoTable() {
     if (cell.column.id === "acciones") {
       return (
         <div
-          css={css`
+          css={css` // TODO modificar css por MUI?
             svg {
               margin: 0 0.5rem;
               cursor: pointer;

@@ -1,17 +1,26 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import GoBackButton from "../atoms/GoBackButton";
-import { Paper } from "@mui/material";
 
-function AdminLayout() {
-  return (
-    <>
-      <GoBackButton to="prev" />
-      <Paper elevation={5} sx={{ padding: "1rem 2rem", flexGrow: "1" }}>
-        <Outlet />
-      </Paper>
-    </>
-  );
+function NoRootLayout() {
+
+	const location = useLocation()
+	const navigate = useNavigate()
+
+
+	useEffect(()=>{
+		if(location.pathname == '/dashboard-control/admin') {
+			navigate('/dashboard-control')
+		}
+	},[location])
+
+
+	return (
+		<>
+			<GoBackButton to="prev" />
+			<Outlet></Outlet>
+		</>
+	);
 }
 
-export default AdminLayout;
+export default NoRootLayout;

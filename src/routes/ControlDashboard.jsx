@@ -1,49 +1,47 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { css, Typography } from "@mui/material";
-import Overlay from "../components/organisms/Overlay";
+import { Typography, List, ListItem, Button } from "@mui/material";
 
 function ControlDashboard() {
 	const name = useSelector((state) => state.main.name);
+
 	return (
-		<div
-			css={css`
-				.link-group {
-					display: flex;
-					align-items: flex-start;
-					flex-direction: column;
-					margin-top: 2rem;
+		<>
+			<Typography variant="h2"> Bienvenido administrador {name} </Typography>
+			<Typography variant="subtitle1"> ¿Qué desea hacer? </Typography>
+			<List>
+				<ListItem>
+					<Button component={Link} to="admin/profesores">
+						Administrar profesores
+					</Button>
+				</ListItem>
 
-					a p {
-						margin: 0.5rem 0;
-					}
-				}
-			`}
-		>
-			<Typography variant="h1"> Bienvenido administrador {name} </Typography>
-			<Typography> ¿Qué desea hacer? </Typography>
-			<div className="link-group">
-				<Link to="admin/profesores">
-					<Typography> Administrar Profesores</Typography>
-				</Link>
-				<Link to="admin/secciones">
-					<Typography> Administrar secciones</Typography>
-				</Link>
-				<Link to="admin/materias">
-					<Typography> Administrar materias</Typography>
-				</Link>
-			</div>
+				<ListItem>
+					<Button component={Link} to="admin/secciones">
+						Administrar secciones
+					</Button>
+				</ListItem>
 
-			<div className="link-group">
-				<Link to="/">
-					<Typography> Administrar supervisores</Typography>
-				</Link>
-				<Link to="/">
-					<Typography> Administrar administradores</Typography>
-				</Link>
-			</div>
-		</div>
+				<ListItem>
+					<Button component={Link} to="admin/materias">
+						Administrar materias
+					</Button>
+				</ListItem>
+
+				<ListItem>
+					<Button component={Link} to="/">
+						Administrar supervisores
+					</Button>
+				</ListItem>
+
+				<ListItem>
+					<Button component={Link} to="/">
+						Administrar administradores
+					</Button>
+				</ListItem>
+			</List>
+		</>
 	);
 }
 

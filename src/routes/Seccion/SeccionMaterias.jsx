@@ -2,64 +2,61 @@ import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getClases } from "../../api/getClases";
+import { getClases } from "api/getClases";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import TablaBusqueda from "components/tables/GenericSearchTable";
+import { useDispatch } from "react-redux";
+import { setLoading } from "store/features/main";
 
 function SeccionMaterias() {
-  const [materias, setMaterias] = useState([]);
-  const [clases, setClases] = useState([]);
-  const { id } = useParams();
+	const [clases, setClases] = useState([]);
+	const { id } = useParams();
 
-  useEffect(() => {
-    const fetchProfesores = async () => {
-      const Res = await getClases(id);
-      setClases(Res);
-      Res.map(({ materia }) => {
-        setMaterias((materias) => [...materias, materia]);
-      });
-    };
+	const dispatch = useDispatch();
 
-    fetchProfesores();
-  }, []);
+	useEffect(() => {
+		const fetchProfesores = async () => {
+			dispatch(setLoading(true))
+			const clases = await getClases({seccionId:id});
+			dispatch(setLoading(false))
+			setClases(clases);
+		};
 
-  const navigate = useNavigate();
+		fetchProfesores(); 
+	}, []);
 
-  const Acciones = ({ cell}) =>{
-    return(
-      <VisibilityIcon
-    onClick={() =>
-      navigate(
-        `/dashboard-profesor/clases/${cell.value}`,
-        {
-          state: {
-            materia: cell.row.original.materia,
-            clase: cell.row.original,
-          },
-        }
-      )
-    }
-  />
-    )
-  }
+	const navigate = useNavigate();
 
-  return (
-    <>
-      <Typography> Adminstración de secciones</Typography>
+	const Acciones = ({ cell }) => {
+		const clase = cell.row.original;
 
-      <Typography>Listado</Typography>
+		return (
+			<VisibilityIcon
+				onClick={() =>
+					navigate(`${clase.id}/lapsos-evaluaciones`, {
+						state: {
+							materia: clase.materia,
+							clase: clase,
+						},
+					})
+				}
+			/>
+		);
+	};
 
-      <TablaBusqueda datos={clases} formato={MATERIAS} acciones={Acciones} />
-
-      </>
-  );
+	return (
+		<>
+			<Typography> Adminstración de secciones</Typography>
+			<Typography>Listado de las clases de la seccion </Typography>
+			<TablaBusqueda datos={clases} formato={MATERIAS} acciones={Acciones} emptyMessage="No hay clases asignadas para esta seccion" />
+		</>
+	);
 }
 
-
-
 const MATERIAS = [
-  { Header: "Materias", accessor: "materia.nombre" },
-  { Header: "Acción", accessor: "acciones" },
+	{ Header: "Id", accessor: "materia.id" },
+	{ Header: "Materias", accessor: "materia.nombre" },
+	{ Header: "Acción", accessor: "acciones" },
 ];
 
 export default SeccionMaterias;

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 
-import LogoImg from "../assets/logo.jpeg";
+import LogoImg from "assets/logo.jpeg";
 import { Button, TextField, Typography, Container } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { setLoading, setName } from "../store/features/main";
-import CustomForm from "../components/CustomForm";
+import { setLoading, setName } from "store/features/main";
+import CustomForm from "components/CustomForm";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,6 +16,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,10 +38,22 @@ function Login() {
           navigate("/dashboard-control");
         } else if (response.data.userType == "Profesor") {
           navigate("/dashboard-profesor");
+        } else {
+          setInvalidCredentials(true);
         }
       })
       .catch((err) => setInvalidCredentials(true))
       .finally(() => dispatch(setLoading(false)));
+  };
+
+  const onChangeEmail = (e) => {
+    setEmail(e.target.value);
+    setInvalidCredentials(false);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+    setInvalidCredentials(false);
   };
 
   return (
@@ -75,21 +89,20 @@ function Login() {
           },
         }}
       >
-        {invalidCredentials && (
-          <Typography color="tomato">Credenciales Invalidas</Typography>
-        )}
-
+        <Typography sx={{ marginBottom: "0.5rem",visibility: invalidCredentials ? 'initial': 'hidden'   }} color="tomato">
+          Credenciales Invalidas
+        </Typography>
         <TextField
           value={email}
           label="Email"
           variant="outlined"
-          onChange={(ev) => setEmail(ev.target.value)}
+          onChange={onChangeEmail}
         />
         <TextField
           value={password}
           label="Contraseña"
           variant="outlined"
-          onChange={(ev) => setPassword(ev.target.value)}
+          onChange={onChangePassword}
           type="password"
         />
 

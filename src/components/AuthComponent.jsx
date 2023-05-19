@@ -9,7 +9,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { setName, setSnackbar } from "../store/features/main";
+import { setName, setSnackbar } from "store/features/main";
 
 function AuthComponent() {
   const navigate = useNavigate();
@@ -18,12 +18,6 @@ function AuthComponent() {
 
   const loadingBackdrop = useSelector((state) => state.main.loading);
   const snackbar = useSelector((state) => state.main.snackbar);
-
-  if (sessionStorage.getItem("token")) {
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${sessionStorage.getItem("token")}`;
-  }
 
   const token = sessionStorage.getItem("token");
   const userType = sessionStorage.getItem("user-type");

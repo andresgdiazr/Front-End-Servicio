@@ -11,36 +11,34 @@ import {
 	DialogTitle,
 	Typography,
 } from "@mui/material";
-import { getProfesores } from "../../api/profesores";
+import { getProfesores } from "api/profesores";
 import { useDispatch } from "react-redux";
-import TablaBusqueda from "../../components/tables/GenericSearchTable";
+import TablaBusqueda from "components/tables/GenericSearchTable";
 
-import { issueChangePasswordTokenEmail } from "../../api/issueChangePasswordTokenEmail";
+import { issueChangePasswordTokenEmail } from "api/issueChangePasswordTokenEmail";
 
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import Email from "@mui/icons-material/Email";
 
-import { setLoading, setSnackbar } from "../../store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
+import { useDatos } from "../../hooks/useDatos";
+import GenericTitles from "components/GenericTitles";
+import { setProfesorData } from "store/features/navigationData";
 
 function AdminProfesores() {
+
+	const { state: profesores, setState: setProfesores} = useDatos('/admin/profesores');
+
+
+
 	const [text, setText] = useState("");
-	const [profesores, setProfesores] = useState([]);
 
 	const dispatch = useDispatch();
 	const [passwordEmailDialog, setPasswordEmailDialog] = useState(false);
 	const [passwordEmailProfesorId, setPasswordEmailProfesorId] = useState(null);
 
-	useEffect(() => {
-		const fetchProfesores = async () => {
-			dispatch(setLoading(true));
-			const profesoresRes = await getProfesores();
-			setProfesores(profesoresRes);
-			dispatch(setLoading(false));
-		};
-
-		fetchProfesores();
-	}, []);
+	
 
 	const inputHandler = ({ target }) => {
 		const lowerCase = target.value.toLowerCase();
@@ -55,19 +53,16 @@ function AdminProfesores() {
 				passwordEmailProfesorId={passwordEmailProfesorId}
 			/>
 
-			<Typography variant="h2">Administrador de Profesores</Typography>
-			<Typography variant="h3">Listado de profesores</Typography>
+			<GenericTitles
+				title="Administración de profesores"
+				newSubtitle={["Listado de profesores"]}
+			></GenericTitles>
 
-			{/*Crea el profesor*/}
-
-			<Link to="crear">
-				<Button sx={{ mb: "1rem" }} variant="contained">
-					Crear Profesor
-				</Button>
-			</Link>
+			<Button variant="contained" component={Link} to="crear">
+				Crear Profesor
+			</Button>
 
 			<TextField
-				sx={{ mb: "1.5rem" }}
 				id="outlined-basic"
 				variant="outlined"
 				fullWidth
@@ -152,12 +147,15 @@ function createAcciones({
 }) {
 	return ({ cell }) => {
 		const navigate = useNavigate();
+		const dispatch = useDispatch();
 
 		const profesorId = cell.row.original.id;
 		return (
 			<>
 				<SchoolIcon
 					onClick={() => {
+						const profesor = profesores.find((p) => p.id === profesorId);
+						dispatch(setProfesorData(profesor));
 						navigate(`${profesorId}/clases`, {
 							state: { profesores },
 						});
@@ -168,7 +166,7 @@ function createAcciones({
 					onClick={() => {
 						navigate(`${cell.row.original.id}/modificar`, {
 							state: {
-								profesor: cell.row.original,
+								cuenta: cell.row.original,
 							},
 						});
 					}}

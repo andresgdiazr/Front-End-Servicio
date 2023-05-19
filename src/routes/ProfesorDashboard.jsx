@@ -11,15 +11,16 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import theme from "mainTheme";
 
 import {
   ExpandMore as ExpandMore,
   ExpandLess as ExpandLess,
 } from "@mui/icons-material";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../store/features/main";
+import { setLoading } from "store/features/main";
 
 const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ const SeccionItem = ({ clase, materia }) => {
   return (
     <Box pl={4}>
       <ListItemButton onClick={handleOnClick}>
-        <ListItemText primary={` Seccion ${clase.seccion.codigo}  `} />
+        <ListItemText
+          primary={` Sección ${clase.seccion.codigo}`}
+          primaryTypographyProps={{ component: "a" }}
+        />
       </ListItemButton>
     </Box>
   );
@@ -48,8 +52,19 @@ const MateriaItem = ({ materia }) => {
 
   return (
     <>
-      <ListItem disablePadding onClick={() => setExpanded(!expanded)}>
-        <ListItemIcon style={{ minWidth: "32px" }}>
+      <ListItem
+        sx={{
+          minWidth: "32px",
+          "&:hover": {
+            color: theme.palette.primary.dark,
+            "& svg": {
+              color: theme.palette.primary.dark,
+            },
+          },
+        }}
+        onClick={() => setExpanded(!expanded)}
+      >
+        <ListItemIcon>
           {expanded ? (
             <ExpandLess fontSize="large" />
           ) : (
@@ -57,12 +72,12 @@ const MateriaItem = ({ materia }) => {
           )}
         </ListItemIcon>
         <ListItemText
-          primaryTypographyProps={{ fontSize: 20, component: "h3" }}
+          primaryTypographyProps={{ component: "h2" }}
           primary={`${nombre} , año : ${año} `}
         />
       </ListItem>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
+        <List component="ol">
           {clases.map((clase) => (
             <SeccionItem
               key={clase.seccion.id}
@@ -91,19 +106,22 @@ function ProfesorDashboard() {
   }, []);
 
   return (
-    <div>
-      <Typography variant="h5" fontWeight="normal" mt={1.5}>
-        Bienvenido {name}
-      </Typography>
-      <Typography fontWeight="normal" mt={1} fontSize={16}>
-        sus materias :
-      </Typography>
-      <List>
-        {materias.map((materia) => (
-          <MateriaItem key={materia.id} materia={materia} />
-        ))}
-      </List>
-    </div>
+    <>
+      <Typography variant="h2">Bienvenido {name}</Typography>
+      <Typography variant="subtitle1">Sus materias:</Typography>
+
+      {materias.length > 0 ? (
+        <List component="ol">
+          {materias.map((materia) => (
+            <MateriaItem key={materia.id} materia={materia} />
+          ))}
+        </List>
+      ) : (
+        <Typography sx={{ textAlign: "center", mt : 2,mb :1.5 , color: "grey" }} variant="h3">
+          Actualmente no posee ninguna clase asignada para ninguna materia
+        </Typography>
+      )}
+    </>
   );
 }
 

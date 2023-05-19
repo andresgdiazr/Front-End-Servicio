@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const UpdateSeccion = (id, payload) => {
+export const updateSeccion = (id, payload) => {
   return axios
     .patch(`admin/secciones/${id}`, payload)
     .then((res) => res)
-    .catch((err) => console.log(err));
+    .catch((err) => err.response);
 };

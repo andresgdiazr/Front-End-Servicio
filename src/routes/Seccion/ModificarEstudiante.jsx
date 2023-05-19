@@ -9,10 +9,11 @@ import {
 	InputLabel,
 	Typography,
 } from "@mui/material";
-import { getSecciones } from "../../api/secciones";
-import { updateEstudiante } from "../../api/updateEstudiante";
-import CustomForm from "../../components/CustomForm";
-import { setLoading, setSnackbar } from "../../store/features/main";
+import { getSecciones } from "api/secciones";
+import { updateEstudiante } from "api/updateEstudiante";
+import CustomForm from "components/CustomForm";
+import { useDispatch } from "react-redux";
+import { setLoading, setSnackbar } from "store/features/main";
 
 function ModificarEstudiante() {
 	const { state } = useLocation();
@@ -22,6 +23,8 @@ function ModificarEstudiante() {
 	const [año, setAño] = useState(state.año);
 	const [seccion, setSeccion] = useState("A");
 	const [secciones, setSecciones] = useState([]);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	// this fetches the secciones on first render
 	useEffect(() => {
@@ -47,14 +50,20 @@ function ModificarEstudiante() {
 			dispatch(
 				setSnackbar(["Cuenta modificada satisfactoriamente", "success"])
 			);
+			navigate(-1);
 		}
 	};
 
 	return (
 		<>
-			<Typography variant="h2">Administración de estudiantes</Typography>
-			<Typography variant="h3">Modificando cuentas</Typography>
-			<Typography>Modificando información de la cuenta</Typography>
+			<div>
+				<Typography variant="h2">Administración de estudiantes</Typography>
+				<Typography variant="subtitle1">Modificando cuentas</Typography>
+			</div>
+			
+			<Typography variant="subtitle1">
+				Modificando información de la cuenta
+			</Typography>
 
 			<CustomForm id="login" method="post" onSubmit={handleSubmit}>
 				<FormControl className="item">
@@ -132,7 +141,7 @@ function ModificarEstudiante() {
 				</FormControl>
 
 				<Button variant="contained" type="submit">
-					Guardar y Enviar
+					Guardar y enviar
 				</Button>
 			</CustomForm>
 		</>

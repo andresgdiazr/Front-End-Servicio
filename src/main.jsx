@@ -4,6 +4,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import axios from "axios";
 
+import AuthComponent from "components/AuthComponent";
+import MainLayout from "components/layouts/MainLayout";
+import NoRootLayout from "components/layouts/NoRootLayout";
+import { routesAdmin, routesProfesor } from "./RoutesLayout";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "mainTheme";
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store";
+
 import CuentaCrear from "./routes/admin/CuentaCrear";
 import CuentaModificar from "./routes/admin/CuentaModificar";
 import ControlDashboard from "./routes/ControlDashboard";
@@ -11,8 +21,6 @@ import Login from "./routes/Login";
 import ProfesorDashboard from "./routes/ProfesorDashboard";
 import AdminProfesores from "./routes/Admin_Profesor/AdminProfesores";
 import ProfesorClases from "./routes/Admin_Profesor/ProfesorClases";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./temaCoding";
 
 import SeccionDashboard from "./routes/Seccion/SeccionDashboard";
 import SeccionCrear from "./routes/Seccion/SeccionCrear";
@@ -20,16 +28,8 @@ import SeccionDetalles from "./routes/Seccion/SeccionDetalles";
 import PaginaError from "./routes/PaginaError";
 import Clase from "./routes/Profesor/Clase";
 
-import NoRootLayout from "./components/layouts/NoRootLayout";
-import ProfesorLayout from "./components/layouts/ProfesorLayout";
 import ClaseEvaluaciones from "./routes/Profesor/ClaseEvaluaciones";
 import Notas from "./routes/Profesor/Notas";
-import AdminLayout from "./components/layouts/AdminLayout";
-import AuthComponent from "./components/AuthComponent";
-
-import "./index.css";
-import { Provider } from "react-redux";
-import store from "./store";
 
 import SeccionEstudiantes from "./routes/Seccion/SeccionEstudiantes";
 import SeccionMaterias from "./routes/Seccion/SeccionMaterias";
@@ -50,9 +50,54 @@ import ModificarEstudiante from "./routes/Seccion/ModificarEstudiante";
 
 import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
+import LapsosDeEvaluacionesPorClaseSeccion from "./routes/admin/LapsosDeEvaluacionesPorClaseSeccion";
+import EvaluacionesPorClaseSeccion from "./routes/admin/EvaluacionesPorClaseSeccion";
+import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
+import SystemFailure from "./routes/SystemFailure";
 
 axios.defaults.baseURL =
   import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
+
+// intercept response with axios
+
+axios.interceptors.request.use(
+  function (config) {
+    const token = sessionStorage.getItem("token");
+
+
+    if (
+      token &&
+      !location.href.includes("/login") &&
+      !location.href.includes("/set-password")
+    ) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error?.response?.status === 401) {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user-type");
+      sessionStorage.removeItem("name");
+      window.location.href = "/login";
+    } else if (
+      error?.response?.status === 500 ||
+      error?.code === "ERR_NETWORK"
+    ) {
+      window.location.href = "/fallo-de-servicio";
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 const router = createBrowserRouter([
   {
@@ -60,17 +105,21 @@ const router = createBrowserRouter([
     element: <SetPassword />,
   },
   {
+    path: "/fallo-de-servicio",
+    element: <SystemFailure />,
+  },
+  {
     path: "/",
     element: <AuthComponent />,
+    errorElement: <PaginaError />,
     children: [
       {
         path: "/login",
         element: <Login />,
-        errorElement: <PaginaError />,
       },
       {
         path: "/dashboard-profesor",
-        element: <ProfesorLayout />,
+        element: <MainLayout routes={routesProfesor} />,
         children: [
           { index: true, element: <ProfesorDashboard /> },
           {
@@ -92,7 +141,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard-control",
-        element: <AdminLayout />,
+        element: <MainLayout routes={routesAdmin} />,
         children: [
           { index: true, element: <ControlDashboard /> },
           {
@@ -102,16 +151,20 @@ const router = createBrowserRouter([
               // Profesores
               { path: "profesores", element: <AdminProfesores /> },
               {
-                path: "profesores/:id/modificar",
-                element: <CuentaModificar tipo="profesores" />,
+                path: "profesores/:profesorId/modificar",
+                element: <CuentaModificar type="profesores" />,
               },
               {
                 path: "profesores/crear",
-                element: <CuentaCrear tipo="profesores" />,
+                element: <CuentaCrear type="profesores" />,
               },
               {
-                path: "profesores/:id/clases",
+                path: "profesores/:profesorId/clases",
                 element: <ProfesorClases />,
+              },
+              {
+                path: "profesores/:profesorId/clases/:id",
+                element: <Clase />,
               },
               // Clases de profesores
               {
@@ -122,10 +175,24 @@ const router = createBrowserRouter([
                 path: "profesores/:profesorId/clases/:claseId/editar",
                 element: <EditarClase />,
               },
+              {
+                path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones",
+                element: <ClaseEvaluaciones />,
+              },
+              {
+                path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas",
+                element: <Notas />,
+              },
+              // TODO falta ruta de notas de clase
               // Secciones
               { path: "secciones", element: <SeccionDashboard /> },
               { path: "secciones/crear", element: <SeccionCrear /> },
               { path: "secciones/:id", element: <SeccionDetalles /> },
+              {
+                path: "secciones/:seccionId/notas",
+                element: <NotasDeSeccion />,
+              },
+
               {
                 path: "secciones/:id/modificar",
                 element: <SeccionModificar />,
@@ -147,6 +214,14 @@ const router = createBrowserRouter([
               {
                 path: "secciones/:id/materias",
                 element: <SeccionMaterias />,
+              },
+              {
+                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones",
+                element: <LapsosDeEvaluacionesPorClaseSeccion />,
+              },
+              {
+                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
+                element: <EvaluacionesPorClaseSeccion />,
               },
 
               { path: "materias", element: <Materias /> },

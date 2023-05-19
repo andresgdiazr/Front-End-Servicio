@@ -8,7 +8,7 @@ const mainSlice = createSlice({
     snackbar : {
       status: 'expired',
       message: '',
-      type: '', // error warning info success
+      type: 'info', // required not null for MUI snackbar
     }
   },
   reducers: {
@@ -18,7 +18,6 @@ const mainSlice = createSlice({
         return
       } else {
         const [ message, type ] = payload
-        console.log(message,type);
         state.snackbar.status = 'recent'
         if ( typeof message === 'string' && typeof type === 'string' ) {
           state.snackbar.message = message,
