@@ -89,8 +89,9 @@ axios.interceptors.response.use(
       sessionStorage.removeItem("name");
       window.location.href = "/login";
     } else if (
-      error?.response?.status === 500 ||
-      error?.code === "ERR_NETWORK"
+      (error?.response?.status === 500 ||
+      error?.code === "ERR_NETWORK" )
+      && import.meta.env.PROD 
     ) {
       window.location.href = "/fallo-de-servicio";
     }
