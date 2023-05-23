@@ -2,57 +2,63 @@ import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import React from "react";
 
-function TextInput({ label, placeholder, id, reactHookProps = {} , error}) {
-
+function TextInput({
+  label,
+  placeholder,
+  id,
+  reactHookProps = {},
+  error,
+  inputElementCypressData = "cypress-input",
+}) {
   return (
     <div // TODO editar MUI css?
       css={css`
-        display:grid;
+        display: grid;
         grid-template-columns: 1fr 1.3fr;
         grid-template-rows: auto auto;
 
-        margin-bottom:0.8rem;
+        margin-bottom: 0.8rem;
 
         grid-template-areas:
-        "none error"
-        "label input";
-    
+          "none error"
+          "label input";
 
         column-gap: 1rem;
-        align-items:center;
-
+        align-items: center;
 
         input {
-          width:350px;
-          font-size:1.05rem;
+          width: 350px;
+          font-size: 1.05rem;
           padding: 0.6rem 1rem;
-          border-radius:3px;
+          border-radius: 3px;
           border: 1px solid #333;
-          grid-area:input;
+          grid-area: input;
         }
         label {
-          justify-self:end;
-          font-size:1.05rem;
-          grid-area:label;
-
+          justify-self: end;
+          font-size: 1.05rem;
+          grid-area: label;
         }
-        
+
         p {
-          display:flex;
-          align-items:flex-end;
-          height:1rem;
-          font-size:0.9rem;
-          color:#cc0000;
-          grid-area:error;
-
+          display: flex;
+          align-items: flex-end;
+          height: 1rem;
+          font-size: 0.9rem;
+          color: #cc0000;
+          grid-area: error;
         }
-
       `}
     >
-
       <Typography>{error}</Typography>
       <label htmlFor={id}>{label}</label>
-      <input placeholder={placeholder} type="text" id={id} {...reactHookProps} />
+      <input
+        data-cy={inputElementCypressData}
+        placeholder={placeholder}
+        type="text"
+        id={id}
+        {...reactHookProps}
+      />
     </div>
   );
 }

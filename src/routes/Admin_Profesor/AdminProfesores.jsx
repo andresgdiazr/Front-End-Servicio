@@ -58,7 +58,7 @@ function AdminProfesores() {
 				newSubtitle={["Listado de profesores"]}
 			></GenericTitles>
 
-			<Button variant="contained" component={Link} to="crear">
+			<Button data-cy="link-create-profesor" variant="contained" component={Link} to="crear">
 				Crear Profesor
 			</Button>
 

@@ -12,7 +12,7 @@ function ControlDashboard() {
 			<Typography variant="subtitle1"> ¿Qué desea hacer? </Typography>
 			<List>
 				<ListItem>
-					<Button component={Link} to="admin/profesores">
+					<Button data-cy="admin-link-profesores" component={Link} to="admin/profesores">
 						Administrar profesores
 					</Button>
 				</ListItem>

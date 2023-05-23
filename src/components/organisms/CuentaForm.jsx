@@ -25,6 +25,7 @@ function CuentaForm({
         label="Nombre"
         placeholder="Jhon"
         id="cuenta-nombre"
+        inputElementCypressData="cuenta-input-nombre"
         reactHookProps={register("nombre", {
           validate: (value) =>
             !value.trim() ? "este campo es requerido" : true,
@@ -35,6 +36,8 @@ function CuentaForm({
         label="Apellido"
         placeholder="Doe"
         id="cuenta-apellido"
+        inputElementCypressData="cuenta-input-apellido"
+
         reactHookProps={register("apellido", {
           validate: (value) =>
             !value.trim() ? "este campo es requerido" : true,
@@ -45,6 +48,8 @@ function CuentaForm({
         label="Correo Electronico"
         placeholder="ejemplo@gmail.com"
         id="cuenta-email"
+        inputElementCypressData="cuenta-input-email"
+
         reactHookProps={register("email", {
           validate: (value) =>
             !value.trim() ? "este campo es requerido" : true,
@@ -64,6 +69,8 @@ function CuentaForm({
         label="Cedula"
         placeholder="11222333"
         id="cuenta-cedula"
+        inputElementCypressData="cuenta-input-cedula"
+
         reactHookProps={register("cedula", {
           validate: (value) =>
             !value.trim() ? "este campo es requerido" : true,
@@ -80,7 +87,7 @@ function CuentaForm({
         }
       />
 
-      <Button variant="contained" type="submit">
+      <Button data-cy="cuenta-submit" variant="contained" type="submit">
         Guardar y Enviar
       </Button>
     </CustomForm>
