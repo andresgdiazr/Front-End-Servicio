@@ -3,8 +3,6 @@ import { createUser,hash } from './utils.js';
 
 export async function seedDB() {
 
-  console.log(await hash("admin-ps"))
-
   await knex("roles").insert([
     { descripcion: "Administrador" },
     { descripcion: "Profesor" },

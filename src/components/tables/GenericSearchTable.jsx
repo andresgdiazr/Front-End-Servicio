@@ -85,7 +85,7 @@ function TablaBusqueda({
 					{rows.map((row) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()}>
+							<tr {...row.getRowProps()} data-row-id={row.original?.id}>
 								{row.cells.map((cell) => renderCell(cell))}
 							</tr>
 						);

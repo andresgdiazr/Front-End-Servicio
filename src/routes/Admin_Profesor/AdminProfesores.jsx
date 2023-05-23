@@ -163,6 +163,7 @@ function createAcciones({
 				/>
 
 				<EditIcon
+					data-cy="edit-profesor-link"
 					onClick={() => {
 						navigate(`${cell.row.original.id}/modificar`, {
 							state: {
