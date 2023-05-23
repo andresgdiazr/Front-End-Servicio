@@ -83,14 +83,15 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error?.response?.status === 401) {
+    if (error?.response?.status === 401 && !location.href.includes("/login") ) {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("user-type");
       sessionStorage.removeItem("name");
       window.location.href = "/login";
     } else if (
-      error?.response?.status === 500 ||
-      error?.code === "ERR_NETWORK"
+      (error?.response?.status === 500 ||
+      error?.code === "ERR_NETWORK" )
+      && import.meta.env.PROD 
     ) {
       window.location.href = "/fallo-de-servicio";
     }
@@ -151,7 +152,7 @@ const router = createBrowserRouter([
               // Profesores
               { path: "profesores", element: <AdminProfesores /> },
               {
-                path: "profesores/:profesorId/modificar",
+                path: "profesores/:id/modificar",
                 element: <CuentaModificar type="profesores" />,
               },
               {
