@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarMateria } from "api/editarMateria";
 import ErrorInput from "components/atoms/ErrorInput";
-import { setLoading } from "store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
 import { updateMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
 import CustomForm from "components/CustomForm";
@@ -54,6 +54,7 @@ function EditarMateria() {
 		if (response.status == 200) {
 			dispatch(updateMateria({ id, nombre, materia_padre_id: materiaPadre }));
 			dispatch(setLoading(false));
+			dispatch(setSnackbar(["Materia editada con exito", "success"]))
 			navigate(-1);
 		} else {
 			dispatch(setLoading(false));
@@ -78,6 +79,8 @@ function EditarMateria() {
 					variant="filled"
 					label="nombre"
 					value={nombre}
+					data-cy="materia-nombre-input"
+
 					onChange={(ev) => {
 						if (ev.target.value.trim() > 0) {
 							setError(false);
@@ -89,6 +92,7 @@ function EditarMateria() {
 					<InputLabel id="materia-padre"> Materia Padre </InputLabel>
 					<Select
 						labelId="materia-padre"
+						data-cy="materia-padre-select"
 						value={materiaPadre === null ? "Ninguna" : materiaPadre}
 						label="Nombre"
 						onChange={(ev) => setMateriaPadre(ev.target.value)}
@@ -103,7 +107,7 @@ function EditarMateria() {
 							))}
 					</Select>
 				</FormControl>
-				<Button variant="contained" type="submit">
+				<Button data-cy="submit-edit-materia" variant="contained" type="submit">
 					Guardar Cambios
 				</Button>
 			</CustomForm>
