@@ -19,6 +19,7 @@ function MateriasAñoTable() {
   const dispatch = useDispatch();
 
   const onClickDelete = (id) => {
+    
     disableMateria(id).then((response) => {
       if (response.status == 200) {
         dispatch(deleteMateria({ id }));
@@ -75,6 +76,7 @@ function MateriasAñoTable() {
         >
           <Delete onClick={() => onClickDelete(cell.row.original.id)} />
           <Link
+            data-cy="link-edit-materia"
             to={`/dashboard-control/admin/materias/${año}/${cell.row.original.id}/editar`}
           >
             <Edit />
@@ -120,7 +122,7 @@ function MateriasAñoTable() {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr {...row.getRowProps()} data-row-id={row.original.id} >
               {row.cells.map((cell) => {
                 return (
                   <td css={css``} {...cell.getCellProps()}>

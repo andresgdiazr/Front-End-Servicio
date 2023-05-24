@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createMateria } from "api/createMateria";
 import ErrorInput from "components/atoms/ErrorInput";
-import { setLoading } from "store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
 import { addMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
 import CustomForm from "components/CustomForm";
@@ -46,6 +46,7 @@ function CrearMateria() {
 
 		if (res.status == 200) {
 			dispatch(addMateria({ newMateria: res.data }));
+			dispatch(setSnackbar(["Materia creada con exito", "success"]))
 			navigate(-1);
 		} else {
 			// TODO handle this failure (or check that it is impossible to fail)
@@ -66,6 +67,7 @@ function CrearMateria() {
 					message={"Se requiere el nombre de la materia"}
 				/>
 				<TextField
+					data-cy="materia-nombre-input"
 					variant="filled"
 					label="nombre"
 					value={nombre}
@@ -94,7 +96,7 @@ function CrearMateria() {
 						))}
 					</Select>
 				</FormControl>
-				<Button variant="contained" type="submit">
+				<Button  data-cy="create-materia" variant="contained" type="submit">
 					Guardar Cambios
 				</Button>
 			</CustomForm>

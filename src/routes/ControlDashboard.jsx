@@ -24,7 +24,7 @@ function ControlDashboard() {
 				</ListItem>
 
 				<ListItem>
-					<Button component={Link} to="admin/materias">
+					<Button data-cy="admin-link-materias" component={Link} to="admin/materias">
 						Administrar materias
 					</Button>
 				</ListItem>

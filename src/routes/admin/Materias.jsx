@@ -11,6 +11,7 @@ function Materias() {
 			<List>
 				<ListItem>
 					<Button
+						data-cy="link-materias-primero"
 						variant="text"
 						component={Link}
 						to={`/dashboard-control/admin/materias/primero`}
