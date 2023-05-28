@@ -17,6 +17,7 @@ function MateriasPorAño() {
 			<Button
 				variant="contained"
 				component={Link}
+				data-cy="link-create-materia"
 				to={`/dashboard-control/admin/materias/${año}/crear`}
 			>
 				Crear Nueva Materia

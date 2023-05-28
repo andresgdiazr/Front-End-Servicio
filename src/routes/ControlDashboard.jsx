@@ -5,13 +5,14 @@ import { Typography, List, ListItem, Button } from "@mui/material";
 
 function ControlDashboard() {
 	const name = useSelector((state) => state.main.name);
+
 	return (
 		<>
 			<Typography variant="h2"> Bienvenido administrador {name} </Typography>
 			<Typography variant="subtitle1"> ¿Qué desea hacer? </Typography>
 			<List>
 				<ListItem>
-					<Button component={Link} to="admin/profesores">
+					<Button data-cy="admin-link-profesores" component={Link} to="admin/profesores">
 						Administrar profesores
 					</Button>
 				</ListItem>
@@ -23,7 +24,7 @@ function ControlDashboard() {
 				</ListItem>
 
 				<ListItem>
-					<Button component={Link} to="admin/materias">
+					<Button data-cy="admin-link-materias" component={Link} to="admin/materias">
 						Administrar materias
 					</Button>
 				</ListItem>

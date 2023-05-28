@@ -1,10 +1,10 @@
-import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { editarClase } from "api/editarClase";
 import ClaseForm from "components/organisms/ClaseForm";
 import { setLoading, setSnackbar } from "store/features/main";
 import { editClase } from "store/features/profesorClases";
+import ProfesorTitleAdmin from "components/ProfesorTitleAdmin";
 
 function EditarClase() {
 	const { state } = useLocation();
@@ -43,11 +43,10 @@ function EditarClase() {
 
 	return (
 		<>
-			<Typography variant="h2">Administracion de clases</Typography>
-			<Typography variant="subtitle1">Edicion de Clase</Typography>
-			<Typography>
-				Profesor: {state?.profesor?.nombre} {state?.profesor?.apellido}
-			</Typography>
+			<ProfesorTitleAdmin
+				prevSubtitles={["Administración de clases"]}
+				newSubtitle={"Edición de clase"}
+			/>
 
 			<ClaseForm
 				onSubmit={onSubmit}

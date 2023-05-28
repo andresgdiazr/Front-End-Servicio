@@ -1,21 +1,24 @@
 import { css, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { crearClase } from "api/creartClase";
 import ClaseForm from "components/organisms/ClaseForm";
 import { setLoading } from "store/features/main";
 import { addClase } from "store/features/profesorClases";
+import ProfesorTitleAdmin from "components/ProfesorTitleAdmin";
+import { useProfesorData } from "store/features/navigationData";
 
 function CrearClase() {
-	const { state } = useLocation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const profesor = useProfesorData();
+	console.log(profesor);
 
 	const onSubmit = async (data) => {
 		dispatch(setLoading(true));
 		const response = await crearClase({
-			profesorId: state.profesor.id,
+			profesorId: profesor.id,
 			materiaId: parseInt(data.materia),
 			seccionId: parseInt(data.seccion),
 		});
@@ -24,7 +27,7 @@ function CrearClase() {
 		if (response.status == 200) {
 			dispatch(
 				addClase({
-					profesorId: state.profesor.id,
+					profesorId: profesor.id,
 					clase: {
 						...response.data,
 						seccion: data.seccionObj,
@@ -46,11 +49,10 @@ function CrearClase() {
 
 	return (
 		<>
-			<Typography variant="h2">Administracion de clases</Typography>
-			<Typography variant="subtitle1">Creación de clase</Typography>
-			<Typography variant="subtitle1">
-				Profesor: {state?.profesor?.nombre} {state?.profesor?.apellido}
-			</Typography>
+			<ProfesorTitleAdmin
+				prevSubtitles={["Administración de clases"]}
+				newSubtitle={"Creación de clase"}
+			/>
 
 			<ClaseForm onSubmit={onSubmit} />
 		</>

@@ -11,8 +11,6 @@ function GoBackButton({ to }) {
 			onClick={() =>
 				to == "prev" ? navigate(-1, { replace: true }) : navigate(to)
 			}
-			// TODO: hay un error al volver hacia atras, es un warning de react-router-dom, deberia ser un Link de react-router-dom y no un button con js custom
-			//component={Link}
 			sx={{
 				textTransform: "none",
 				color: "black",

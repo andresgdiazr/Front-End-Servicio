@@ -19,12 +19,6 @@ function AuthComponent() {
   const loadingBackdrop = useSelector((state) => state.main.loading);
   const snackbar = useSelector((state) => state.main.snackbar);
 
-  if (sessionStorage.getItem("token")) {
-    axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${sessionStorage.getItem("token")}`;
-  }
-
   const token = sessionStorage.getItem("token");
   const userType = sessionStorage.getItem("user-type");
   const name = sessionStorage.getItem("name") || "";
@@ -85,6 +79,7 @@ function AuthComponent() {
         }}
       >
         <Alert
+          data-cy="snackbar-alert"
           severity={snackbar.type}
           variant="filled"
           onClose={() => dispatch(setSnackbar(null))}

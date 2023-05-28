@@ -14,6 +14,7 @@ function TablaBusqueda({
 	input = "",
 	datos,
 	formato,
+	emptyMessage = "No se encontraron resultados",
 	acciones: Acciones = () => null,
 }) {
 	
@@ -78,20 +79,19 @@ function TablaBusqueda({
 					}
 				`}
 				{...getTableProps()}
-				{...getTableProps()}
 			>
 				<THead headerGroups={headerGroups} />
 				<tbody {...getTableBodyProps()}>
 					{rows.map((row) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()}>
+							<tr {...row.getRowProps()} data-row-id={row.original?.id}>
 								{row.cells.map((cell) => renderCell(cell))}
 							</tr>
 						);
 					})}
 					<EmptyTableRow
-						message="Actualmente el sistema no cuenta con ningun profesor"
+						message={emptyMessage}
 						rows={rows}
 						headerGroups={headerGroups}
 					/>

@@ -23,12 +23,14 @@ import Email from "@mui/icons-material/Email";
 
 import { setLoading, setSnackbar } from "store/features/main";
 import { useDatos } from "../../hooks/useDatos";
+import GenericTitles from "components/GenericTitles";
+import { setProfesorData } from "store/features/navigationData";
 
 function AdminProfesores() {
 
 	const { state: profesores, setState: setProfesores} = useDatos('/admin/profesores');
 
-	
+
 
 	const [text, setText] = useState("");
 
@@ -51,12 +53,12 @@ function AdminProfesores() {
 				passwordEmailProfesorId={passwordEmailProfesorId}
 			/>
 
-			<div>
-				<Typography variant="h2">Administrador de Profesores</Typography>
-				<Typography variant="subtitle1">Listado de profesores</Typography>
-			</div>
+			<GenericTitles
+				title="Administración de profesores"
+				newSubtitle={["Listado de profesores"]}
+			></GenericTitles>
 
-			<Button variant="contained" component={Link} to="crear">
+			<Button data-cy="link-create-profesor" variant="contained" component={Link} to="crear">
 				Crear Profesor
 			</Button>
 
@@ -145,12 +147,15 @@ function createAcciones({
 }) {
 	return ({ cell }) => {
 		const navigate = useNavigate();
+		const dispatch = useDispatch();
 
 		const profesorId = cell.row.original.id;
 		return (
 			<>
 				<SchoolIcon
 					onClick={() => {
+						const profesor = profesores.find((p) => p.id === profesorId);
+						dispatch(setProfesorData(profesor));
 						navigate(`${profesorId}/clases`, {
 							state: { profesores },
 						});
@@ -158,6 +163,7 @@ function createAcciones({
 				/>
 
 				<EditIcon
+					data-cy="edit-profesor-link"
 					onClick={() => {
 						navigate(`${cell.row.original.id}/modificar`, {
 							state: {
