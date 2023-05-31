@@ -13,6 +13,7 @@ import SelectInput from "components/atoms/SelectInput";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "store/features/main";
+import { NewTextInput } from "components/atoms/NewTextInput";
 
 function CrearEstudiante() {
 	const { id: seccionId } = useParams();
@@ -81,11 +82,11 @@ function CrearEstudiante() {
 				<Typography>Ingrese la información del nuevo estudiante</Typography>
 			</div>
 
-			<CustomForm onSubmit={handleSubmit(onSubmit)}>
-				<TextInput
+			<CustomForm onSubmit={handleSubmit(onSubmit)} sx={{display:'grid', gap:1}}>
+
+				<NewTextInput 
 					label="Nombres del estudiante"
 					placeholder="Pedro"
-					id="student-name"
 					reactHookProps={register("nombre", {
 						validate: (value) =>
 							!value.trim() ? "este campo es requerido" : true,
@@ -93,10 +94,9 @@ function CrearEstudiante() {
 					error={errors?.nombre?.message}
 				/>
 
-				<TextInput
+				<NewTextInput
 					label="Apellidos del estudiante"
 					placeholder="Perez"
-					id="student-apellido"
 					reactHookProps={register("apellido", {
 						validate: (value) =>
 							!value.trim() ? "este campo es requerido" : true,
@@ -104,7 +104,7 @@ function CrearEstudiante() {
 					error={errors?.apellido?.message}
 				/>
 
-				<TextInput
+				<NewTextInput
 					label="Cedula del estudiante"
 					placeholder="1234567"
 					id="student-cedula"
@@ -144,7 +144,7 @@ function CrearEstudiante() {
 					)}
 				/>
 
-				<Button size="large" variant="contained" color="success" type="submit">
+				<Button size="large" variant="contained" type="submit">
 					Añadir estudiante
 				</Button>
 			</CustomForm>

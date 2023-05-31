@@ -52,10 +52,17 @@ import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
 import { Años } from "./routes/admin/Años";
 import { AñosModificar } from "./routes/admin/AñosModificar";
+import SystemFailure from "./routes/SystemFailure";
+import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
+import LapsosDeEvaluacionesPorClaseSeccion from "./routes/admin/LapsosDeEvaluacionesPorClaseSeccion";
+import EvaluacionesPorClaseSeccion from "./routes/admin/EvaluacionesPorClaseSeccion";
+
+
 
 axios.defaults.baseURL =
   import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
 
+  
 // intercept response with axios
 
 axios.interceptors.request.use(
@@ -223,37 +230,36 @@ const router = createBrowserRouter([
                 element: <EvaluacionesPorClaseSeccion />,
               },
 
-							{
-								path: "materias/:year/:id/lapsos",
-								element: <LapsosMateria />,
-							},
-							{
-								path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
-								element: <MateriaEvaluaciones />,
-							},
-							{
-								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
-								element: <CrearEvaluacion />,
-							},
-							{
-								path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
-								element: <EditarEvaluacion />,
-							},
-							//Años
-							{
-								path: "años",
-								element: <Años />,
-							},
-							{
-								path: "años/modificar",
-								element: <AñosModificar />
-							}
-						],
-					},
-				],
-			},
-		],
-	},
+              { path: "materias", element: <Materias /> },
+              { path: "materias/:year", element: <MateriasPorAño /> },
+              {
+                path: "materias/:year/:id/editar",
+                element: <EditarMaterias />,
+              },
+              { path: "materias/:year/crear", element: <CrearMateria /> },
+
+              {
+                path: "materias/:year/:id/lapsos",
+                element: <LapsosMateria />,
+              },
+              {
+                path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
+                element: <MateriaEvaluaciones />,
+              },
+              {
+                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
+                element: <CrearEvaluacion />,
+              },
+              {
+                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
+                element: <EditarEvaluacion />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

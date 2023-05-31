@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { TextField, Button, FormControl } from "@mui/material";
+import { TextField, Button, FormControl, Typography, OutlinedInput } from "@mui/material";
 import CustomForm from "../CustomForm";
 import { useLocation } from "react-router-dom";
 
@@ -22,12 +22,11 @@ function SeccionForm({
 	return (
 		<CustomForm onSubmit={handleSubmit}>
 			<FormControl>
-				<InputLabel id="select-label">Año</InputLabel>
+				<Typography variant="body2">Año</Typography>
 				<Select
-					labelId="select-label"
-					id="select"
 					value={año}
-					label="Año"
+					displayEmpty
+					inputProps={{ 'aria-label': 'Without label' }}
 					onChange={(e) => {
 						setAño(e.target.value);
 					}}
@@ -40,7 +39,8 @@ function SeccionForm({
 				</Select>
 			</FormControl>
 
-			<TextField
+			<Typography variant="body2">Sección</Typography>
+			<OutlinedInput
 				id="outlined-basic"
 				label="Sección"
 				variant="outlined"
