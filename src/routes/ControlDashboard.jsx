@@ -40,6 +40,12 @@ function ControlDashboard() {
 						Administrar administradores
 					</Button>
 				</ListItem>
+
+				<ListItem>
+					<Button component={Link} to="admin/años">
+						Administrar años escolares
+					</Button>
+				</ListItem>
 			</List>
 		</>
 	);

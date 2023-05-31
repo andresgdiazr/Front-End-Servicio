@@ -8,12 +8,14 @@ import {
 	TextField,
 	InputLabel,
 	Typography,
+	OutlinedInput,
 } from "@mui/material";
 import { getSecciones } from "api/secciones";
 import { updateEstudiante } from "api/updateEstudiante";
 import CustomForm from "components/CustomForm";
 import { useDispatch } from "react-redux";
 import { setLoading, setSnackbar } from "store/features/main";
+import { Controller } from "react-hook-form";
 
 function ModificarEstudiante() {
 	const { state } = useLocation();
@@ -65,14 +67,18 @@ function ModificarEstudiante() {
 				Modificando información de la cuenta
 			</Typography>
 
-			<CustomForm id="login" method="post" onSubmit={handleSubmit}>
-				<FormControl className="item">
-					<InputLabel id="label-año"> Año </InputLabel>
+			<CustomForm 
+			id="login" method="post" onSubmit={handleSubmit}
+			sx={{display:'grid',gap:1}}
+			>
+				
+
+				<FormControl className="item" fullwidth>
+					<Typography variant="body2">Año</Typography>
 					<Select
-						labelId="label-año"
-						id="año"
-						label="Año"
+						displayEmpty
 						value={año}
+						inputProps={{'aria-label': 'Without label'}}
 						onChange={(e) => {
 							if (secciones.length > 0) {
 								const seccionesByYear = secciones.filter(
@@ -93,11 +99,10 @@ function ModificarEstudiante() {
 				</FormControl>
 
 				<FormControl className="item">
-					<InputLabel id="label-seccion">Sección</InputLabel>
+				<Typography variant="body2">Sección</Typography>
 					<Select
-						labelId="label-seccion"
-						id="seccion"
-						label="Sección"
+						displayEmpty
+						inputProps={{ 'aria-label': 'Without label' }}
 						value={seccion}
 						onChange={(e) => setSeccion(e.target.value)}
 					>
@@ -122,19 +127,15 @@ function ModificarEstudiante() {
 				</FormControl>
 
 				<FormControl className="item">
-					<TextField
-						id="nombre"
-						label="Nombre"
-						variant="outlined"
+					<Typography variant="body2">Nombre</Typography>
+					<OutlinedInput
 						value={nombre}
 						onChange={(e) => setNombre(e.target.value)}
 					/>
 				</FormControl>
 				<FormControl className="item">
-					<TextField
-						id="apellido"
-						label="Apellido"
-						variant="outlined"
+					<Typography variant="body2">Apellido</Typography>
+					<OutlinedInput	
 						onChange={(e) => setApellido(e.target.value)}
 						value={apellido}
 					/>

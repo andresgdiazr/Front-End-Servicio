@@ -39,7 +39,7 @@ export const useDatos = (url) => {
 		};
 
         fetchData();
-    },[])
+    },[]);
 
     return{
         state,
