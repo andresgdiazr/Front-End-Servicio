@@ -220,32 +220,32 @@ const router = createBrowserRouter([
                 element: <LapsosDeEvaluacionesPorClaseSeccion />,
               },
               {
-                path: "secciones/:seccionId/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
+                path: "secciones/:seccionId/materias/:materiaId/lapsos-evaluaciones/:lapso/evaluaciones",
                 element: <EvaluacionesPorClaseSeccion />,
               },
 
               { path: "materias", element: <Materias /> },
               { path: "materias/:year", element: <MateriasPorAño /> },
               {
-                path: "materias/:year/:id/editar",
+                path: "materias/:year/:materiaId/editar",
                 element: <EditarMaterias />,
               },
               { path: "materias/:year/crear", element: <CrearMateria /> },
 
               {
-                path: "materias/:year/:id/lapsos",
+                path: "materias/:year/:materiaId/lapsos",
                 element: <LapsosMateria />,
               },
               {
-                path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
+                path: "materias/:year/:materiaId/lapsos/:lapso/evaluaciones",
                 element: <MateriaEvaluaciones />,
               },
               {
-                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
+                path: "materias/:year/:materiaId/lapsos/:lapso/evaluaciones/crear",
                 element: <CrearEvaluacion />,
               },
               {
-                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
+                path: "materias/:year/:materiaId/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
                 element: <EditarEvaluacion />,
               },
             ],

@@ -14,7 +14,7 @@ const formato = [
 function EvaluacionesPorClaseSeccion() {
   const [evaluaciones, setEvaluaciones] = useState([]);
 
-  const { lapsoNumber: lapso } = useParams();
+  const { lapso } = useParams();
   const { state } = useLocation();
 
   const dispatch = useDispatch();
