@@ -3,6 +3,7 @@ import {
 	FormControl,
 	InputLabel,
 	MenuItem,
+	OutlinedInput,
 	Select,
 	TextField,
 	Typography,
@@ -70,16 +71,15 @@ function EditarMateria() {
 				</Typography>
 			</div>
 			
-			<CustomForm onSubmit={onUpload}>
+			<CustomForm sx={{display:'grid',gap:1}} onSubmit={onUpload}>
 				<ErrorInput
 					show={error}
 					message={"Se requiere el nombre de la materia"}
 				/>
-				<TextField
-					variant="filled"
-					label="nombre"
+				<Typography variant="body2">Nombre</Typography>
+				<OutlinedInput
+					
 					value={nombre}
-					data-cy="materia-nombre-input"
 
 					onChange={(ev) => {
 						if (ev.target.value.trim() > 0) {
@@ -88,13 +88,13 @@ function EditarMateria() {
 						setNombre(ev.target.value);
 					}}
 				/>
-				<FormControl variant="filled">
-					<InputLabel id="materia-padre"> Materia Padre </InputLabel>
+				<FormControl >
+					<Typography variant="body2">Materia Padre</Typography>
 					<Select
-						labelId="materia-padre"
+						displayEmpty
 						data-cy="materia-padre-select"
 						value={materiaPadre === null ? "Ninguna" : materiaPadre}
-						label="Nombre"
+					
 						onChange={(ev) => setMateriaPadre(ev.target.value)}
 					>
 						<MenuItem value={"Ninguna"}>Ninguna</MenuItem>

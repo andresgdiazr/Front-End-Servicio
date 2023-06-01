@@ -46,14 +46,14 @@ function ControlDashboard() {
           </Button>
         </ListItem>
 
-        <ListItem>
-          <Button component={Link} to="/">
-            Administrar administradores
-          </Button>
-        </ListItem>
-      </List>
-    </>
-  );
+				<ListItem>
+					<Button component={Link} to="/">
+						Administrar administradores
+					</Button>
+				</ListItem>
+			</List>
+		</>
+	);
 }
 
 export default ControlDashboard;

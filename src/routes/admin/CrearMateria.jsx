@@ -1,11 +1,12 @@
 import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
+	Button,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	OutlinedInput,
+	Select,
+	TextField,
+	Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -62,47 +63,46 @@ function CrearMateria() {
         newSubtitle="Creación de materias"
       ></GenericTitles>
 
-      <CustomForm onSubmit={onSubmit}>
-        <ErrorInput
-          show={error}
-          message={"Se requiere el nombre de la materia"}
-        />
-        <TextField
-          data-cy="materia-nombre-input"
-          variant="filled"
-          label="nombre"
-          value={nombre}
-          onChange={(ev) => {
-            if (ev.target.value.trim().length > 0) {
-              setError(false);
-            }
-            setNombre(ev.target.value);
-          }}
-        />
-        <FormControl variant="filled">
-          <InputLabel id="materia-padre"> Materia Padre </InputLabel>
-          <Select
-            labelId="materia-padre"
-            value={materiaPadre === null ? "Ninguna" : materiaPadre}
-            label="Nombre"
-            onChange={(ev) => {
-              setMateriaPadre(ev.target.value);
-            }}
-          >
-            <MenuItem value={"Ninguna"}>Ninguna</MenuItem>
-            {materias.map((mat) => (
-              <MenuItem key={mat.id} value={mat.id}>
-                {mat.nombre}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button data-cy="create-materia" variant="contained" type="submit">
-          Guardar Cambios
-        </Button>
-      </CustomForm>
-    </>
-  );
+			<CustomForm sx={{display:'grid',gap:1}} onSubmit={onSubmit}>
+				<ErrorInput
+					show={error}
+					message={"Se requiere el nombre de la materia"}
+				/>
+				<Typography variant="body2">Nombre</Typography>
+				<OutlinedInput
+					
+					value={nombre}
+					onChange={(ev) => {
+						if (ev.target.value.trim().length > 0) {
+							setError(false);
+						}
+						setNombre(ev.target.value);
+					}}
+				/>
+				<FormControl>
+					<Typography variant="body2">Materia Padre</Typography>
+					<Select
+						value={materiaPadre === null ? "Ninguna" : materiaPadre}
+						displayEmpty
+						onChange={(ev) => {
+							setMateriaPadre(ev.target.value);
+						}}
+					>
+						<MenuItem value={"Ninguna"}>Ninguna</MenuItem>
+						{materias.map((mat) => (
+							<MenuItem key={mat.id} value={mat.id}>
+								{mat.nombre}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+
+				<Button  data-cy="create-materia" variant="contained" type="submit">
+					Guardar Cambios
+				</Button>
+			</CustomForm>
+		</>
+	);
 }
 
 export default CrearMateria;
