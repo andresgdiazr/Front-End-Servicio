@@ -14,19 +14,29 @@ const mainSlice = createSlice({
     seccion: undefined,
     materia: undefined,
     lapso: undefined,
+    fetched: {
+      profesor: false,
+      seccion: false,
+      materia: false,
+      lapso: false,
+    }
   },
   reducers: {
     setProfesorData: (state, { payload }) => {
       state.profesor = payload;
+      state.fetched.profesor = true;
     },
     setSeccionData: (state, { payload }) => {
       state.seccion = payload;
+      state.fetched.seccion = true;
     },
     setMateriaData: (state, { payload }) => {
       state.materia = payload;
+      state.fetched.materia = true;
     },
     setLapsoData: (state, { payload }) => {
       state.lapso = payload;
+      state.fetched.lapso = true;
     },
   },
 });
@@ -37,12 +47,17 @@ export const { setProfesorData, setSeccionData, setMateriaData, setLapsoData } =
 
 function useProfesorData() {
   const profesorSelector = useSelector((state) => state.navigationData.profesor);
-  const dispatch = useDispatch();
+  let fetched = useSelector((state) => state.navigationData.fetched.profesor);
   const params = useParams();
 
+  if (fetched && params.profesorId && params.profesorId != profesorSelector) {
+    fetched = false;
+  }
+  
+  const dispatch = useDispatch();
   // Get the list of profesores and then find the one with the user ir in params
   useEffect(() => {
-    if (profesorSelector === undefined) {
+    if (!fetched) {
       dispatch(setLoading(true));
       getProfesorById(params.profesorId)
         .then((profesores) => profesores.find(
@@ -60,20 +75,24 @@ function useProfesorData() {
         })
         .then(() => dispatch(setLoading(false)));
     }
-  }, [profesorSelector]);
+  }, [fetched]);
 
   return profesorSelector;
 }
 
 function useSeccionData() {
-  const dispatch = useDispatch();
-  useDispatch(setLoading(true));
-
   const seccionSelector = useSelector((state) => state.navigationData.seccion);
+  let fetched = useSelector((state) => state.navigationData.fetched.seccion);
   const params = useParams();
+  
+  if (fetched && params.seccionId && params.seccionId != seccionSelector) {
+    fetched = false;
+  }
+
+  const dispatch = useDispatch();
   // Get the list of secciones and then find the one with the seccionId in params
   useEffect(() => {
-    if (seccionSelector === undefined) {
+    if (!fetched) {
       dispatch(setLoading(true));
       getSecciones()
         .then((secciones) => secciones.find(
@@ -91,23 +110,24 @@ function useSeccionData() {
         })
         .then(() => dispatch(setLoading(false)));
     }
-  }, [seccionSelector]);
+  }, [fetched]);
 
   return seccionSelector;
 }
 
 function useMateriaData() {
+  const materiaSelector = useSelector((state) => state.navigationData.materia);
+  let fetched = useSelector((state) => state.navigationData.fetched.materia);
   const params = useParams();
-  if (!params.materiaId) {
-    return;
+
+  if (fetched && params.materiaId && params.materiaId != materiaSelector) {
+    fetched = false;
   }
 
-  const materiaSelector = useSelector((state) => state.navigationData.materia);
   const dispatch = useDispatch();
-
   // Get the list of materias and then find the one with the seccionId in params
   useEffect(() => {
-    if (!materiaSelector) {
+    if (!fetched) {
       dispatch(setLoading(true));
       getMaterias()
         .then((materias) => materias.find(
@@ -125,32 +145,33 @@ function useMateriaData() {
         })
         .then(() => dispatch(setLoading(false)));
     }
-  }, [materiaSelector]);
+  }, [fetched]);
 
   return materiaSelector;
 }
 
 function useLapsoData() {
+  const lapsoSelector = useSelector((state) => state.navigationData.lapso);
+  let fetched = useSelector((state) => state.navigationData.fetched.lapso);
   const params = useParams();
-  if (!params.lapsoId) {
-    return;
+  
+  if (fetched && params.lapso && params.lapso != lapsoSelector) {
+    fetched = false;
   }
 
-  const lapsoSelector = useSelector((state) => state.navigationData.lapso);
   const dispatch = useDispatch();
-//TODO redirigir lapsos
   // Get the list of lapsos and then find the one with the seccionId in params
   useEffect(() => {
-    if (!lapsoSelector) {
+    if (!fetched) {
       dispatch(setLoading(true));
       getLapso()
         .then((lapsos) => lapsos.find(
-          (p) => p.id === parseInt(params.lapsoId)
+          (p) => p.id === parseInt(params.lapso)
         ))
         .then((lapso) => dispatch(setLapsoData(lapso)))
         .then(() => dispatch(setLoading(false)));
     }
-  }, [lapsoSelector]);
+  }, [fetched]);
 
   return lapsoSelector;
 }
