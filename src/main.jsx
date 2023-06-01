@@ -64,7 +64,6 @@ axios.interceptors.request.use(
   function (config) {
     const token = sessionStorage.getItem("token");
 
-
     if (
       token &&
       !location.href.includes("/login") &&
@@ -184,46 +183,46 @@ const router = createBrowserRouter([
                 path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas",
                 element: <Notas />,
               },
-              // TODO falta ruta de notas de clase
               // Secciones
               { path: "secciones", element: <SeccionDashboard /> },
               { path: "secciones/crear", element: <SeccionCrear /> },
-              { path: "secciones/:id", element: <SeccionDetalles /> },
+              { path: "secciones/:seccionId", element: <SeccionDetalles /> },
               {
                 path: "secciones/:seccionId/notas",
                 element: <NotasDeSeccion />,
               },
 
               {
-                path: "secciones/:id/modificar",
+                path: "secciones/:seccionId/modificar",
                 element: <SeccionModificar />,
               },
               // Estudiante de seccion
               {
-                path: "secciones/:id/estudiantes",
+                path: "secciones/:seccionId/estudiantes",
                 element: <SeccionEstudiantes />,
               },
               {
-                path: "secciones/:id/estudiantes/:id/modificar",
+                path: "secciones/:seccionId/estudiantes/:id/modificar",
                 element: <ModificarEstudiante />,
               },
               {
-                path: "secciones/:id/añadir_estudiantes",
+                path: "secciones/:seccionId/añadir_estudiantes",
                 element: <CrearEstudiante />,
               },
               // Materias de seccion
               {
-                path: "secciones/:id/materias",
+                path: "secciones/:seccionId/materias",
                 element: <SeccionMaterias />,
               },
               {
-                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones",
+                path: "secciones/:seccionId/materias/:materiaId/lapsos-evaluaciones",
                 element: <LapsosDeEvaluacionesPorClaseSeccion />,
               },
               {
-                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
+                path: "secciones/:seccionId/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
                 element: <EvaluacionesPorClaseSeccion />,
               },
+              
 
               { path: "materias", element: <Materias /> },
               { path: "materias/:year", element: <MateriasPorAño /> },

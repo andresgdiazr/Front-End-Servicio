@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { getEvaluaciones } from "api/getEvaluaciones";
+import GenericTitles from "components/GenericTitles";
 import TablaBusqueda from "components/tables/GenericSearchTable";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -21,21 +22,36 @@ function EvaluacionesPorClaseSeccion() {
 
   useEffect(() => {
     setLoading(true);
-    getEvaluaciones({ materiaId: state?.materia?.id,lapso })
+    getEvaluaciones({ materiaId: state?.materia?.id, lapso })
       .then((evs) => setEvaluaciones(evs))
       .finally(() => dispatch(setLoading(false)));
   });
 
+  function createTitle() {
+    const mat = state?.materia;
+    if (!mat.nombre && !mat.año) return;
+
+    const seccionT = `Sección ${state?.clase?.seccion?.codigo} año ${mat.año}`;
+    const materiaT = `${mat.nombre}`;
+    const lapsoT = `Lapso ${lapso}`;
+
+    return [seccionT, materiaT, lapsoT];
+  }
+
   return (
     <>
-      <Typography variant="h2"> Adminstración de secciones</Typography>
-      <Typography variant="subtitle1">Listado de evaluaciones</Typography>
-      <Typography variant="subtitle1">
-        clase : {state?.materia?.nombre} , año : {state?.materia.año}, seccion :{" "}
-        {state?.clase?.seccion?.codigo} , lapso : {lapso}
-      </Typography>
+      <GenericTitles
+        title="Adminstración de secciones"
+        prevSubtitles={createTitle()}
+        newSubtitle="Listado de los lapsos de evaluaciones"
+      />
+      <Typography variant="subtitle1"></Typography>
 
-      <TablaBusqueda datos={evaluaciones} formato={formato} emptyMessage="No hay ninguna evaluaciones asignada a esta clase" />
+      <TablaBusqueda
+        datos={evaluaciones}
+        formato={formato}
+        emptyMessage="No hay ninguna evaluaciones asignada a esta clase"
+      />
     </>
   );
 }

@@ -55,7 +55,7 @@ function EditarEvaluacion() {
 
   return (
     <>
-      <Typography variant="h2"> Editar Evaluacion </Typography>
+      <Typography variant="h3"> Editar Evaluacion </Typography>
       <CustomForm onSubmit={onSubmit}>
         <TextField
           error={error}
