@@ -1,60 +1,57 @@
-import { Typography } from "@mui/material";
 import React from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLoading, setSnackbar } from "store/features/main";
 import { updateSeccion } from "api/updateSeccion";
 import SeccionForm from "components/organisms/SeccionForm";
+import { setSeccionData, useSeccionData } from "store/features/navigationData";
+import SeccionesTitles from "components/SeccionesTitles";
 
 function SeccionModificar() {
-	const { id: seccionId } = useParams();
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-	const onSubmit = async (data) => {
-		dispatch(setLoading(true));
-		const response = await updateSeccion(seccionId, data);
-		dispatch(setLoading(false));
-		if (response.status == 200) {
-			dispatch(
-				setSnackbar(["Sección modificada satisfactoriamente", "success"])
-			);
-			navigate(-1, { replace: true });
-		} else {
-			if (
-				response.data.errors.some(
-					(error) => error.field === "codigo" && error.rule === "unique"
-				)
-			) {
-				dispatch(setSnackbar(["Sección ya existente", "error"]));
-			} else {
-				dispatch(setSnackbar(["Error al modificar sección", "error"]));
-			}
-			/* TODO falta alguna otra validacion? Por ejemplo, que año y seccion sean validos, los campos (6to año seccion Z) */
-		}
-	};
+  const onSubmit = async (data) => {
+    dispatch(setLoading(true));
+    const response = await updateSeccion(seccionId, data);
+    dispatch(setLoading(false));
+    if (response.status == 200) {
+      dispatch(
+        setSnackbar(["Sección modificada satisfactoriamente", "success"])
+      );
+      dispatch(setSeccionData(data));
+      navigate(-1, { replace: true });
+    } else {
+      if (
+        response.data.errors.some(
+          (error) => error.field === "codigo" && error.rule === "unique"
+        )
+      ) {
+        dispatch(setSnackbar(["Sección ya existente", "error"]));
+      } else {
+        dispatch(setSnackbar(["Error al modificar sección", "error"]));
+      }
+    }
+  };
 
-	const {
-		state: { año, seccion },
-	} = useLocation();
+  const seccion = useSeccionData();
+  const seccionId = seccion?.id;
+	let defaultValues = {año: "", codigo: ""};
 
-	let defaultValues = {};
-	if ((año, seccion)) {
-		defaultValues = { año, seccion };
-	}
+	// TODO It is changing defaultValues two times
+  if (seccion && seccion.año != defaultValues.año) {
+    defaultValues = { año: seccion.año, codigo: seccion.codigo };
+  }
 
-	return (
-		<>
-			<>
-				<div>
-					<Typography variant="h2">Administración de secciones</Typography>
-					<Typography variant="subtitle1">Modificar sección</Typography>
-				</div>
+  return (
+    <>
+      <>
+        <SeccionesTitles newSubtitle="Modificar sección" />
 
-				<SeccionForm onSubmit={onSubmit} defaultValues={defaultValues} />
-			</>
-		</>
-	);
+        <SeccionForm onSubmit={onSubmit} defaultValues={defaultValues  ? defaultValues : undefined} />
+      </>
+    </>
+  );
 }
 
 export default SeccionModificar;

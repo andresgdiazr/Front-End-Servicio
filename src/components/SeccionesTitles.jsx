@@ -2,11 +2,12 @@ import React from "react";
 import GenericTitles from "components/GenericTitles";
 import { useSeccionData, useMateriaData, useLapsoData } from "store/features/navigationData";
 import añoIntToString from "utils/añoIntToString";
-//TODO lapso no se busca en navigationData
+import { useLocation } from "react-router-dom";
 function SeccionesTitles({ title = "", prevSubtitles = [], newSubtitle }) {
   const seccion = useSeccionData();
-  const materia = useMateriaData();
-  const lapso = useLapsoData();
+  const { state } = useLocation();
+  const materia = state?.materia;
+  const lapso = state?.lapso;
 
   return (
     <GenericTitles

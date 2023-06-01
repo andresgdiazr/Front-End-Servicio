@@ -1,6 +1,5 @@
-import { Typography } from "@mui/material";
 import { getEvaluaciones } from "api/getEvaluaciones";
-import GenericTitles from "components/GenericTitles";
+import SeccionesTitles from "components/SeccionesTitles";
 import TablaBusqueda from "components/tables/GenericSearchTable";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -27,25 +26,9 @@ function EvaluacionesPorClaseSeccion() {
       .finally(() => dispatch(setLoading(false)));
   });
 
-  function createTitle() {
-    const mat = state?.materia;
-    if (!mat.nombre && !mat.año) return;
-
-    const seccionT = `Sección ${state?.clase?.seccion?.codigo} año ${mat.año}`;
-    const materiaT = `${mat.nombre}`;
-    const lapsoT = `Lapso ${lapso}`;
-
-    return [seccionT, materiaT, lapsoT];
-  }
-
   return (
     <>
-      <GenericTitles
-        title="Adminstración de secciones"
-        prevSubtitles={createTitle()}
-        newSubtitle="Listado de los lapsos de evaluaciones"
-      />
-      <Typography variant="subtitle1"></Typography>
+      <SeccionesTitles newSubtitle="Listado de los lapsos de evaluaciones"/>
 
       <TablaBusqueda
         datos={evaluaciones}
