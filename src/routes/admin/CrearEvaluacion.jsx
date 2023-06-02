@@ -6,12 +6,13 @@ import { crearEvaluacion } from "api/crearEvaluacion";
 import { addEvaluacion } from "store/features/evaluaciones";
 import { setLoading } from "store/features/main";
 import CustomForm from "components/CustomForm";
+import MateriasTitles from "components/MateriasTitles";
 
 function CrearEvaluacion() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { id, lapso } = useParams();
+	const { materiaId, lapso } = useParams();
 
 	const [titulo, setTitulo] = useState("");
 
@@ -21,14 +22,14 @@ function CrearEvaluacion() {
 		dispatch(setLoading(true));
 		crearEvaluacion({
 			lapso,
-			materiaId: id,
+			materiaId: materiaId,
 			titulo,
 		}).then((res) => {
 			if (res.status == 201) {
 				dispatch(setLoading(false));
 				dispatch(
 					addEvaluacion({
-						materiaId: id,
+						materiaId: materiaId,
 						evaluacion: res.data,
 					})
 				);
@@ -39,6 +40,7 @@ function CrearEvaluacion() {
 
 	return (
 		<>
+			<MateriasTitles newSubtitle="Crear evaluación"/>
 			<CustomForm onSubmit={onSubmit}>
 				<TextField
 					value={titulo}
@@ -46,7 +48,7 @@ function CrearEvaluacion() {
 					label="Titulo de Evaluacion"
 				/>
 				<Button variant="contained" type="submit">
-					Crear
+					Crear evaluación
 				</Button>
 			</CustomForm>
 		</>

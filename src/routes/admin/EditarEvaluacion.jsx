@@ -6,15 +6,16 @@ import { editarEvaluacion } from "api/editarEvaluacion";
 import { editEvaluacion, useEvaluaciones } from "store/features/evaluaciones";
 import { setLoading, setSnackbar } from "store/features/main";
 import CustomForm from "components/CustomForm";
+import MateriasTitles from "components/MateriasTitles";
 
 function EditarEvaluacion() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { evaluacionId, id, lapso } = useParams();
+  const { evaluacionId, materiaId, lapso } = useParams();
   const [error, setError] = useState(false);
 
-  const evaluacion = useEvaluaciones({ materiaId: id, lapso }).find(
-    (ev) => ev.id == parseInt(evaluacionId)
+  const evaluacion = useEvaluaciones({ materiaId: materiaId, lapso }).find(
+    (ev) => ev.materiaId == parseInt(evaluacionId)
   );
 
   const [titulo, setTitulo] = useState("");
@@ -35,15 +36,15 @@ function EditarEvaluacion() {
     dispatch(setLoading(true));
     const res = await editarEvaluacion({ id: evaluacionId, titulo });
     if (res.status == 200) {
-      navigate(-1);
       dispatch(
         editEvaluacion({
-          materiaId: id,
+          materiaId: materiaId,
           evaluacionId,
           evaluacion: res.data,
         })
       );
       dispatch(setSnackbar(["Evaluacion editada con exito", "success"]));
+      navigate(-1);
     }
     dispatch(setLoading(false));
   };
@@ -55,19 +56,19 @@ function EditarEvaluacion() {
 
   return (
     <>
-      <Typography variant="h3"> Editar Evaluacion </Typography>
+      <MateriasTitles newSubtitle="Editar evaluación"/>
       <CustomForm onSubmit={onSubmit}>
         <TextField
           error={error}
           helperText={
-            error && "El titulo de la evaluacion no puede estar vacio"
+            error && "El titulo de la evaluación no puede estar vacio"
           }
           value={titulo}
           onChange={onChangeTitulo}
           label="Titulo de Evaluacion"
         />
         <Button variant="contained" type="submit">
-          Editar
+          Editar evaluación
         </Button>
       </CustomForm>
     </>

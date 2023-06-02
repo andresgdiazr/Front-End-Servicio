@@ -1,38 +1,25 @@
-import { Typography } from "@mui/material";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { useMaterias } from "store/features/materias";
-import añoToData from "utils/añoToData";
+import { Link,  } from "react-router-dom";
 import TablaBusqueda from "components/tables/GenericSearchTable";
-import { Book, Visibility } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
+import MateriasTitles from "components/MateriasTitles";
 
 function LapsosMateria() {
-  const { year: año, id } = useParams();
-
-  const materias = useMaterias(añoToData(año).value);
-
-  const currentMateria = materias.filter((mat) => mat.id == id)[0] || {};
-
   const Acciones = ({ cell }) => {
     return (
       <>
         <Link
-          to={`/dashboard-control/admin/materias/${año}/${id}/lapsos/${cell.row.original.lapsoNumber}/evaluaciones`}
+          to={`${cell.row.original.lapsoNumber}/evaluaciones`}
         >
           <Visibility />
         </Link>
-        <Book />
       </>
     );
   };
 
   return (
     <>
-      <Typography variant="h2"> Admistracion de materias </Typography>
-      <Typography variant="subtitle1">
-        Materias de {añoToData(año).display}
-      </Typography>
-      <Typography variant="subtitle1"> {currentMateria.nombre} </Typography>
+      <MateriasTitles newSubtitle="Lista de lapsos"/>
 
       <TablaBusqueda datos={datos} formato={cols} acciones={Acciones} />
     </>

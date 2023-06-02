@@ -17,12 +17,13 @@ import { setLoading, setSnackbar } from "store/features/main";
 import { updateMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
 import CustomForm from "components/CustomForm";
+import GenericTitles from "components/GenericTitles";
 
 function EditarMateria() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { year: año, id } = useParams();
+	const { year: año, materiaId: id } = useParams();
 
 	const materias = useMaterias(añoToData(año).value);
 
@@ -64,12 +65,10 @@ function EditarMateria() {
 
 	return (
 		<>
-			<div>
-				<Typography variant="h2">Administracion de materias</Typography>
-				<Typography variant="subtitle1">
-					Modificando la informacion de materia
-				</Typography>
-			</div>
+		  <GenericTitles
+        title="Administracion de materias"
+        newSubtitle="Modificando la información de la materia"
+      />
 			
 			<CustomForm sx={{display:'grid',gap:1}} onSubmit={onUpload}>
 				<ErrorInput
