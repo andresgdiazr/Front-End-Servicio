@@ -18,6 +18,7 @@ import {
 import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
 import { setSeccionData } from "store/features/navigationData";
+import GenericTitles from "components/GenericTitles";
 
 function SeccionDashboard() {
   const [años, setAños] = useState([]);
@@ -92,7 +93,7 @@ function SeccionDashboard() {
 
   return (
     <>
-      {/* TODO titulo de secciones peus */}
+      <GenericTitles title="Administración de secciones" newSubtitle="Secciones por años:"/>
       <List>
         {años.map((año) => (
           <AñoItem key={año[0].año} secciones={año}>
