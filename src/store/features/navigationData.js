@@ -13,12 +13,10 @@ const mainSlice = createSlice({
     profesor: undefined,
     seccion: undefined,
     materia: undefined,
-    lapso: undefined,
     fetched: {
       profesor: false,
       seccion: false,
       materia: false,
-      lapso: false,
     }
   },
   reducers: {
@@ -34,14 +32,9 @@ const mainSlice = createSlice({
       state.materia = payload;
       state.fetched.materia = true;
     },
-    setLapsoData: (state, { payload }) => {
-      state.lapso = payload;
-      state.fetched.lapso = true;
-    },
   },
 });
 
-// TODO a lo mejor se puede hacer esto mejor con una funcion que reciba el tipo de dato que va a hacer fetch
 export const { setProfesorData, setSeccionData, setMateriaData, setLapsoData } =
   mainSlice.actions;
 
@@ -50,6 +43,9 @@ function useProfesorData() {
   let fetched = useSelector((state) => state.navigationData.fetched.profesor);
   const params = useParams();
 
+  if (params.profesorId == undefined) {
+    return;
+  }
   if (fetched && params.profesorId && params.profesorId != profesorSelector) {
     fetched = false;
   }
@@ -85,6 +81,9 @@ function useSeccionData() {
   let fetched = useSelector((state) => state.navigationData.fetched.seccion);
   const params = useParams();
   
+  if (params.seccionId == undefined) {
+    return;
+  }
   if (fetched && params.seccionId && params.seccionId != seccionSelector) {
     fetched = false;
   }
@@ -120,7 +119,10 @@ function useMateriaData() {
   let fetched = useSelector((state) => state.navigationData.fetched.materia);
   const params = useParams();
 
-  if (fetched && params.materiaId && params.materiaId != materiaSelector) {
+  if (params.materiaId == undefined) {
+    return;
+  }
+  if (fetched && params.materiaId != materiaSelector) {
     fetched = false;
   }
 
@@ -150,32 +152,6 @@ function useMateriaData() {
   return materiaSelector;
 }
 
-function useLapsoData() {
-  const lapsoSelector = useSelector((state) => state.navigationData.lapso);
-  let fetched = useSelector((state) => state.navigationData.fetched.lapso);
-  const params = useParams();
-  
-  if (fetched && params.lapso && params.lapso != lapsoSelector) {
-    fetched = false;
-  }
-
-  const dispatch = useDispatch();
-  // Get the list of lapsos and then find the one with the seccionId in params
-  useEffect(() => {
-    if (!fetched) {
-      dispatch(setLoading(true));
-      getLapso()
-        .then((lapsos) => lapsos.find(
-          (p) => p.id === parseInt(params.lapso)
-        ))
-        .then((lapso) => dispatch(setLapsoData(lapso)))
-        .then(() => dispatch(setLoading(false)));
-    }
-  }, [fetched]);
-
-  return lapsoSelector;
-}
-
-export { useProfesorData, useSeccionData, useMateriaData, useLapsoData };
+export { useProfesorData, useSeccionData, useMateriaData };
 
 export default mainSlice.reducer;
