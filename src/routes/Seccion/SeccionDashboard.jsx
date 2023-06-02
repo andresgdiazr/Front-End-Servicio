@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
 import { setSeccionData } from "store/features/navigationData";
 import GenericTitles from "components/GenericTitles";
+import theme from "mainTheme";
 
 function SeccionDashboard() {
   const [años, setAños] = useState([]);
@@ -67,7 +68,19 @@ function SeccionDashboard() {
     const [expanded, setExpanded] = useState(false);
     return (
       <>
-        <ListItem disablePadding onClick={() => setExpanded(!expanded)}>
+        <ListItem
+          sx={{
+            minWidth: "32px",
+            "&:hover": {
+              color: theme.palette.primary.dark,
+              "& svg": {
+                color: theme.palette.primary.dark,
+              },
+            },
+          }}
+          disablePadding
+          onClick={() => setExpanded(!expanded)}
+        >
           <ListItemIcon style={{ minWidth: "32px" }}>
             {expanded ? (
               <ExpandLess fontSize="large" />
@@ -93,7 +106,10 @@ function SeccionDashboard() {
 
   return (
     <>
-      <GenericTitles title="Administración de secciones" newSubtitle="Secciones por años:"/>
+      <GenericTitles
+        title="Administración de secciones"
+        newSubtitle="Secciones por años:"
+      />
       <List>
         {años.map((año) => (
           <AñoItem key={año[0].año} secciones={año}>

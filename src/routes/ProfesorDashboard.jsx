@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "store/features/main";
+import GenericTitles from "components/GenericTitles";
 
 const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();
@@ -107,8 +108,9 @@ function ProfesorDashboard() {
 
   return (
     <>
-      <Typography variant="h2">Bienvenido {name}</Typography>
-      <Typography variant="subtitle1">Sus materias:</Typography>
+      <GenericTitles
+        title={`Bienvenido ${name}`}
+        newSubtitle="Sus materias:"/>
 
       {materias.length > 0 ? (
         <List component="ol">
