@@ -7,17 +7,18 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import TablaBusqueda from "components/tables/GenericSearchTable";
 import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
+import SeccionesTitles from "components/SeccionesTitles";
 
 function SeccionMaterias() {
 	const [clases, setClases] = useState([]);
-	const { id } = useParams();
+	const { seccionId } = useParams();
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const fetchProfesores = async () => {
 			dispatch(setLoading(true))
-			const clases = await getClases({seccionId:id});
+			const clases = await getClases({seccionId: seccionId});
 			dispatch(setLoading(false))
 			setClases(clases);
 		};
@@ -46,8 +47,8 @@ function SeccionMaterias() {
 
 	return (
 		<>
-			<Typography> Adminstración de secciones</Typography>
-			<Typography>Listado de las clases de la seccion </Typography>
+			<SeccionesTitles newSubtitle="Listado de las clases de la seccion"/>
+
 			<TablaBusqueda datos={clases} formato={MATERIAS} acciones={Acciones} emptyMessage="No hay clases asignadas para esta seccion" />
 		</>
 	);

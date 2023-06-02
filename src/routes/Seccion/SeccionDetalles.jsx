@@ -1,28 +1,17 @@
 import React from "react";
-import { Typography, Button } from "@mui/material";
-import { useLocation, useParams, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import SeccionesTitles from "components/SeccionesTitles";
+
 function SeccionDetalles() {
-
-	const {
-		state: { año, seccion },
-	} = useLocation();
-
-	const { id } = useParams();
-
 	return (
 		<>
-			<div>
-				<Typography variant="h2">Administración de secciones</Typography>
-				<Typography variant="subtitle1">{`Año ${año}. Sección: ${seccion}`}</Typography>
-			</div>
-			{/* 			TODO esta lista es inline, deberia ser en varias lineas.
-			Ademas discutir el estilo de los botones */}
+			<SeccionesTitles></SeccionesTitles>
 
 			<Button
 				variant="text"
 				component={Link}
-				to={`/dashboard-control/admin/secciones/${id}/estudiantes`}
+				to={`estudiantes`}
 
 			>
 				Ver listado de estudiantes
@@ -31,7 +20,7 @@ function SeccionDetalles() {
 			<Button
 				variant="text"
 				component={Link}
-				to={`/dashboard-control/admin/secciones/${id}/materias`}
+				to={`materias`}
 			>
 				Ver lista de clases
 			</Button>
@@ -40,8 +29,7 @@ function SeccionDetalles() {
 			<Button
 				variant="text"
 				component={Link}
-				to={`/dashboard-control/admin/secciones/${id}/notas`}
-				state={{año,seccion}}
+				to={`notas`}
 			>
 				Notas De Seccion
 			</Button>
@@ -49,7 +37,7 @@ function SeccionDetalles() {
 			<Button
 				variant="text"
 				component={Link}
-				to={`/dashboard-control/admin/secciones/${id}/añadir_estudiantes`}
+				to={`añadir_estudiantes`}
 			>
 				Añadir estudiantes
 			</Button>
@@ -57,11 +45,7 @@ function SeccionDetalles() {
 			<Button
 				variant="text"
 				component={Link}
-				state={{
-						año: año, /* TODO al volver de modificar esto no se actualiza hasta volver a entrar aqui desde dashboard */
-						seccion: seccion,
-				}}
-				to={`/dashboard-control/admin/secciones/${id}/modificar`}
+				to={`modificar`}
 			>
 				Modificar año y sección
 			</Button>

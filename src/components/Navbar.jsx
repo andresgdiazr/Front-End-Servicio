@@ -8,8 +8,6 @@ import {
 	styled,
 } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
-
 import { useNavigate } from "react-router-dom";
 
 const MenuButton = styled(Typography)(({ theme }) => ({
@@ -47,9 +45,6 @@ const Navbar = ({ names = defaultNames }) => {
 					}}
 				>
 					<Box sx={{ flexGrow: { xs: "1", xl: "initial" } }}>
-						<IconButton color="inherit" aria-label="menu">
-							<MenuIcon />
-						</IconButton>
 						{names.map((name, idx) => {
 							return (
 								<MenuButton

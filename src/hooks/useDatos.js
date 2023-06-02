@@ -10,7 +10,6 @@ export const useDatos = (url) => {
     const dispatch = useDispatch();
 
     const getData = () => {
-        console.log(url)
         return axios
         .get(`${url}`)
         .then((res) => res.data)

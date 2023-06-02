@@ -1,12 +1,12 @@
-import { Typography, List, ListItem, Button } from "@mui/material";
+import { List, ListItem, Button } from "@mui/material";
+import GenericTitles from "components/GenericTitles";
 import React from "react";
 import { Link } from "react-router-dom";
 
 function Materias() {
 	return (
 		<>
-			<Typography variant="h2">Administracion de materias</Typography>
-			<Typography variant="subtitle1">Materias por año</Typography>
+			<GenericTitles title="Administración de materias" newSubtitle="Lista de materias por año"/>
 
 			<List>
 				<ListItem>
@@ -14,7 +14,7 @@ function Materias() {
 						data-cy="link-materias-primero"
 						variant="text"
 						component={Link}
-						to={`/dashboard-control/admin/materias/primero`}
+						to={`primero`}
 					>
 						Primer año
 					</Button>
@@ -23,7 +23,7 @@ function Materias() {
 					<Button
 						variant="text"
 						component={Link}
-						to={`/dashboard-control/admin/materias/segundo`}
+						to={`segundo`}
 					>
 						Segundo año
 					</Button>
@@ -32,7 +32,7 @@ function Materias() {
 					<Button
 						variant="text"
 						component={Link}
-						to={`/dashboard-control/admin/materias/tercero`}
+						to={`tercero`}
 					>
 						Tercer año
 					</Button>
@@ -41,7 +41,7 @@ function Materias() {
 					<Button
 						variant="text"
 						component={Link}
-						to={`/dashboard-control/admin/materias/cuarto`}
+						to={`cuarto`}
 					>
 						Cuarto año
 					</Button>
@@ -50,7 +50,7 @@ function Materias() {
 					<Button
 						variant="text"
 						component={Link}
-						to={`/dashboard-control/admin/materias/quinto`}
+						to={`quinto`}
 					>
 						Quinto año
 					</Button>

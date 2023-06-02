@@ -4,9 +4,10 @@ import {
   DialogActions,
   TextField,
   Typography,
+  Paper
 } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { changePassword } from "api/changePassword";
 import CustomForm from "components/CustomForm";
 
@@ -34,7 +35,18 @@ function SetPassword() {
   };
 
   return (
-    <>
+    <Paper
+      elevation={5}
+      sx={{
+        width: "480px",
+        maxWidth: "900px",
+        m: "5rem auto",
+        padding: "2rem",
+      }}
+    >
+      <Button component={Link} variant="text" to="/login">Ir a inicio de sesión</Button>
+
+      <Typography variant="h1" sx={{my: "2rem"}}>Sistema de administración de notas del Colegio Santísimo Salvador</Typography>
       <Dialog open={failureDialog} onClose={() => navigate("/login")}>
         <Typography>
           El link que ha utilizado es incorrecto o expiro contacte con el
@@ -50,8 +62,8 @@ function SetPassword() {
           <Button onClick={() => navigate("/login")}>Continuar</Button>
         </DialogActions>
       </Dialog>
-      <Typography variant="h2">Ingrese La Contraseña para su cuenta</Typography>
-      <CustomForm onSubmit={onSubmit}>
+      <Typography variant="h2">Ingrese la nueva contraseña para su cuenta</Typography>
+      <CustomForm sx={{ alignItems: "center" }} onSubmit={onSubmit}>
         <TextField
           value={password}
           onChange={(ev) => setPassword(ev.target.value)}
@@ -62,7 +74,7 @@ function SetPassword() {
           Confirmar
         </Button>
       </CustomForm>
-    </>
+    </Paper>
   );
 }
 

@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { TextField, Button, FormControl, Typography, OutlinedInput } from "@mui/material";
+import { Button, FormControl, Typography, OutlinedInput } from "@mui/material";
 import CustomForm from "../CustomForm";
-import { useLocation } from "react-router-dom";
 
 function SeccionForm({
-	defaultValues = { año: "", seccion: "" },
+	defaultValues  = { año: "", codigo: "" },
 	onSubmit = () => null,
-	especial = false,
 }) {
-
 	const [año, setAño] = useState(defaultValues.año);
-	const [codigo, setSeccion] = useState(defaultValues.seccion);
+	const [codigo, setSeccion] = useState(defaultValues.codigo);
+
+	const [prevDefaults, setPrevDefaults] = useState(defaultValues);
+	if (defaultValues.año != prevDefaults.año) {
+		setPrevDefaults(defaultValues);
+		setAño(defaultValues.año);
+		setSeccion(defaultValues.codigo);
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -51,7 +54,7 @@ function SeccionForm({
 			/>
 
 			<Button variant="contained" type="submit">
-				Enviar {/* TODO Nombre de este boton no es dinamico */}
+				Enviar
 			</Button>
 		</CustomForm>
 	);

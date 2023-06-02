@@ -17,50 +17,51 @@ import { setLoading, setSnackbar } from "store/features/main";
 import { addMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
 import CustomForm from "components/CustomForm";
+import GenericTitles from "components/GenericTitles";
 
 function CrearMateria() {
-	const { year: año } = useParams();
+  const { year: año } = useParams();
 
-	const materias = useMaterias(añoToData(año).value);
-	const navigate = useNavigate();
+  const materias = useMaterias(añoToData(año).value);
+  const navigate = useNavigate();
 
-	const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
-	const [materiaPadre, setMateriaPadre] = useState(null);
-	const [nombre, setNombre] = useState("");
+  const [materiaPadre, setMateriaPadre] = useState(null);
+  const [nombre, setNombre] = useState("");
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const onSubmit = async (ev) => {
-		ev.preventDefault();
+  const onSubmit = async (ev) => {
+    ev.preventDefault();
 
-		if (nombre.trim().length < 1) {
-			setError(true);
-			return;
-		}
-		dispatch(setLoading(true));
-		const res = await createMateria({
-			nombre,
-			materiaPadreId: materiaPadre,
-			año: añoToData(año).value,
-		});
+    if (nombre.trim().length < 1) {
+      setError(true);
+      return;
+    }
+    dispatch(setLoading(true));
+    const res = await createMateria({
+      nombre,
+      materiaPadreId: materiaPadre,
+      año: añoToData(año).value,
+    });
 
-		if (res.status == 200) {
-			dispatch(addMateria({ newMateria: res.data }));
-			dispatch(setSnackbar(["Materia creada con exito", "success"]))
-			navigate(-1);
-		} else {
-			// TODO handle this failure (or check that it is impossible to fail)
-		}
-		dispatch(setLoading(false));
-	};
+    if (res.status == 200) {
+      dispatch(addMateria({ newMateria: res.data }));
+      dispatch(setSnackbar(["Materia creada con exito", "success"]));
+      navigate(-1);
+    } else {
+      // TODO handle this failure (or check that it is impossible to fail)
+    }
+    dispatch(setLoading(false));
+  };
 
-	return (
-		<>
-			<div>
-				<Typography variant="h2">Administracion de materias</Typography>
-				<Typography variant="subtitle1">Creación de materias</Typography>
-			</div>
+  return (
+    <>
+      <GenericTitles
+        title="Administracion de materias"
+        newSubtitle="Creación de materias"
+      ></GenericTitles>
 
 			<CustomForm sx={{display:'grid',gap:1}} onSubmit={onSubmit}>
 				<ErrorInput
