@@ -7,7 +7,7 @@ function GenericTitles({ title, prevSubtitles = [], newSubtitle }) {
       <Typography
         key={i}
         variant="h3"
-        sx={{ marginBottom: "-0.8rem", fontSize: "14px", color: "#6F6F6F" }}
+        sx={{ marginBottom: "-0.8rem", fontSize: "0.875rem", color: "#6F6F6F" }}
       >
         {subtitle}
       </Typography>

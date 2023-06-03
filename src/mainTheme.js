@@ -9,24 +9,8 @@ const theme = createTheme({
     secondary: {
       main: purple[900]
     },
-    // Here it is possible to define the colors of the alerts
-    /*
-    success: {
-    main: "#04aa6d",
-    },
-    error: {
-    main: "#f44336",
-    },
-    warning: {
-    main: "#ff9800",
-    },
-    info: {
-    main: "#2196f3",
-    },
-    */
   },
   typography: {
-    fontSize: 16,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -34,36 +18,32 @@ const theme = createTheme({
     fontFamily: '"Roboto", "Helvetica", sans-serif',
 
     h1: {
-      fontSize: 24,
+      fontSize: "1.5rem",
       fontWeight: 400,
     },
     h2: {
-      fontSize: 20,
+      fontSize: "1.25rem",
       fontWeight: 400,
     },
     h3: {
-      fontSize: 18,
+      fontSize: "1.125rem",
       fontWeight: 400,
     },
     h4: {
-      fontSize: 16,
+      fontSize: "2rem",
       fontWeight: 400,
     },
     h5: {
-      fontSize: 14,
+      fontSize: "0.875rem",
       fontWeight: 400,
     },
     h6: {
-      fontSize: 12,
+      fontSize: "0.75rem",
       fontWeight: 400,
     },
     subtitle1: {
       fontSize: "1.1rem",
       fontWeight: 400,
-    },
-    subtitle2: {
-      fontSize: "1.1rem",
-      fontWeight: 500,
     },
   },
   components: {
@@ -120,7 +100,7 @@ const theme = createTheme({
         },
       },
     },
-  }
-})
+  },
+});
 
 export default theme;

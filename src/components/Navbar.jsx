@@ -12,6 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 const MenuButton = styled(Typography)(({ theme }) => ({
 	padding: theme.spacing(2),
+	[theme.breakpoints.down("md")]: {
+		padding: theme.spacing(1.5),
+	},
+	[theme.breakpoints.down("md")]: {
+		padding: theme.spacing(1),
+	},
 	fontSize: "1.2rem",
 	fontWeight: "bold",
 	cursor: "pointer",
@@ -37,11 +43,19 @@ const Navbar = ({ names = defaultNames }) => {
 
 	return (
 		<>
-			<AppBar position="static" color="primary">
+			<AppBar
+				position="fixed" 
+				color="primary"
+				sx={{
+					overflowY:"hidden",
+					overflowX:"scroll",
+				}}>
+				
 				<Toolbar
 					display="flex"
 					sx={{
 						justifyContent: { xs: "flex-start", xl: "center" },
+						flexDirection: { xl: "row" },
 					}}
 				>
 					<Box sx={{ flexGrow: { xs: "1", xl: "initial" } }}>
@@ -66,6 +80,7 @@ const Navbar = ({ names = defaultNames }) => {
 					</Box>
 				</Toolbar>
 			</AppBar>
+			<Toolbar/>
 		</>
 	);
 };
