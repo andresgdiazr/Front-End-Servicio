@@ -13,7 +13,6 @@ function CrearClase() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const profesor = useProfesorData();
-	console.log(profesor);
 
 	const onSubmit = async (data) => {
 		dispatch(setLoading(true));

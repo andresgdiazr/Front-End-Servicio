@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { changePassword } from "api/changePassword";
 import CustomForm from "components/CustomForm";
+import CenteredPaper from "components/layouts/CenteredPaper";
 
 function SetPassword() {
   const navigate = useNavigate();
@@ -35,15 +36,7 @@ function SetPassword() {
   };
 
   return (
-    <Paper
-      elevation={5}
-      sx={{
-        width: "480px",
-        maxWidth: "900px",
-        m: "5rem auto",
-        padding: "2rem",
-      }}
-    >
+    <CenteredPaper>
       <Button component={Link} variant="text" to="/login">Ir a inicio de sesión</Button>
 
       <Typography variant="h1" sx={{my: "2rem"}}>Sistema de administración de notas del Colegio Santísimo Salvador</Typography>
@@ -63,7 +56,7 @@ function SetPassword() {
         </DialogActions>
       </Dialog>
       <Typography variant="h2">Ingrese la nueva contraseña para su cuenta</Typography>
-      <CustomForm sx={{ alignItems: "center" }} onSubmit={onSubmit}>
+      <CustomForm onSubmit={onSubmit}>
         <TextField
           value={password}
           onChange={(ev) => setPassword(ev.target.value)}
@@ -74,7 +67,7 @@ function SetPassword() {
           Confirmar
         </Button>
       </CustomForm>
-    </Paper>
+    </CenteredPaper>
   );
 }
 

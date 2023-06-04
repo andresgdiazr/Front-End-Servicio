@@ -51,14 +51,11 @@ function TablaBusqueda({
 				<td {...cell.getCellProps()}>
 					<div
 						css={css`
-              width=100%;
-              display:flex;
-              justify-content:space-evenly;
-              align-items:center;
-              svg {
-                cursor:pointer;
-              }
-            `}
+							svg {
+								margin: 0 0.5rem;
+								cursor: pointer;
+							}
+						`}
 					>
 						<Acciones cell={cell} />
 					</div>

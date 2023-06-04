@@ -80,7 +80,6 @@ function Login() {
         sx={{
           alignItems: "stretch",
           margin: "1.5rem 0",
-          width: "400px",
           color: "red",
           "& Button": {
             alignSelf: "stretch",

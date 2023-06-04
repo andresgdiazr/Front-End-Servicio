@@ -1,11 +1,14 @@
 import axios from "axios";
 
 export const createCuenta = (type, payload) => {
+  if (type === "profesores" || type === "administradores") {
+    const path = type === 'profesores' ? 'admin/profesores' : 'admin/control-accounts';
 
-  const { nombre, apellido, email, cedula } = payload
-
-  return axios
-    .post(`/admin/${type}`, { nombre, apellido, email, cedula })
-    .then((res) => res)
-    .catch((err) => err.response)
+    return axios
+      .post(`/${path}`, payload)
+      .then((res) => res)
+      .catch((err) => err.response)
+  } else {
+    throw new Error("Tried to do something not valid.")
+  }
 };

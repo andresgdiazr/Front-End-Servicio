@@ -10,8 +10,8 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  useTheme
 } from "@mui/material";
-import theme from "mainTheme";
 
 import {
   ExpandMore as ExpandMore,
@@ -50,6 +50,7 @@ const SeccionItem = ({ clase, materia }) => {
 const MateriaItem = ({ materia }) => {
   const [expanded, setExpanded] = useState(false);
   const { año, nombre, clases } = materia;
+  const theme = useTheme();
 
   return (
     <>

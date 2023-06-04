@@ -11,7 +11,7 @@ function SelectInput({
 	inputRef,
 }) {
 	return (
-		<div // TODO editar MUI css?
+		<div
 		>
 			<Typography>{error}</Typography>
 			<Typography variant="body2">{label}</Typography>

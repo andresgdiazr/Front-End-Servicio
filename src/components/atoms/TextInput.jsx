@@ -11,7 +11,7 @@ function TextInput({
   inputElementCypressData = "cypress-input",
 }) {
   return (
-    <div // TODO editar MUI css?
+    <div
       css={css`
         display: grid;
         grid-template-columns: 1fr 1.3fr;

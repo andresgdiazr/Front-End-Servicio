@@ -10,6 +10,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useTheme
 } from "@mui/material";
 import {
   ExpandMore as ExpandMore,
@@ -19,7 +20,6 @@ import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
 import { setSeccionData } from "store/features/navigationData";
 import GenericTitles from "components/GenericTitles";
-import theme from "mainTheme";
 
 function SeccionDashboard() {
   const [años, setAños] = useState([]);
@@ -66,6 +66,7 @@ function SeccionDashboard() {
 
   const AñoItem = ({ secciones }) => {
     const [expanded, setExpanded] = useState(false);
+    const theme = useTheme();
     return (
       <>
         <ListItem
