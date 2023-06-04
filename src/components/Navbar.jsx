@@ -26,7 +26,6 @@ const MenuButton = styled(Typography)(({ theme }) => ({
 	},
 }));
 
-// TODO debe haber una manera de que esto sea dinámico, o si no se debe eliminar
 const defaultNames = [["Inicio", "/"]];
 
 const Navbar = ({ names = defaultNames }) => {

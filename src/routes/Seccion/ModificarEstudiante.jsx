@@ -78,7 +78,6 @@ function ModificarEstudiante() {
                 const seccionesByYear = secciones.filter(
                   (sec) => sec.año == e.target.value
                 );
-                //TODO esto podria fallar si los años son incorrectos
                 setSeccion(seccionesByYear[0].id);
               }
               setAño(e.target.value);

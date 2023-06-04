@@ -38,7 +38,6 @@ function SeccionModificar() {
   const seccionId = seccion?.id;
 	let defaultValues = {año: "", codigo: ""};
 
-	// TODO It is changing defaultValues two times
   if (seccion && seccion.año != defaultValues.año) {
     defaultValues = { año: seccion.año, codigo: seccion.codigo };
   }

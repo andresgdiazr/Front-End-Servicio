@@ -35,7 +35,7 @@ function SeccionEstudiantes() {
 							nombre: cell.row.original.nombre,
 							apellido: cell.row.original.apellido,
 							id: cell.row.original.id,
-							año: cell.row.original.año, // TODO y lo de abajo
+							año: cell.row.original.año,
 							seccionId: cell.row.original.seccion_id,
 						},
 					});

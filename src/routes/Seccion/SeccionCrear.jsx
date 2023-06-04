@@ -27,7 +27,6 @@ function SeccionCrear() {
       } else {
         dispatch(setSnackbar(["Error al crear sección", "error"]));
       }
-      /* TODO falta alguna otra validacion? Por ejemplo, que año y seccion sean validos, los campos (6to año seccion Z) */
     }
   };
 
