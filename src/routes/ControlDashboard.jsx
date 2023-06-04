@@ -41,7 +41,7 @@ function ControlDashboard() {
         </ListItem>
 
 				<ListItem>
-					<Button component={Link} to="/">
+					<Button component={Link} to="admin/administradores">
 						Administrar administradores
 					</Button>
 				</ListItem>

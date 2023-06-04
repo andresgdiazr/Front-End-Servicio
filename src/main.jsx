@@ -56,6 +56,7 @@ import SystemFailure from "./routes/SystemFailure";
 import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
 import LapsosDeEvaluacionesPorClaseSeccion from "./routes/admin/LapsosDeEvaluacionesPorClaseSeccion";
 import EvaluacionesPorClaseSeccion from "./routes/admin/EvaluacionesPorClaseSeccion";
+import AdminAdministradores from "./routes/admin/AdminAdministradores";
 
 axios.defaults.baseURL =
   import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
@@ -149,6 +150,17 @@ const router = createBrowserRouter([
             path: "admin",
             element: <NoRootLayout />,
             children: [
+              // Administradores
+              { path: "administradores", element: <AdminAdministradores /> },
+              {
+                path: "administradores/crear",
+                element: <CuentaCrear type="administradores" />,
+              },
+              {
+                path: "administradores/:id/modificar",
+                element: <CuentaModificar type="administradores" />,
+              },
+
               // Profesores
               { path: "profesores", element: <AdminProfesores /> },
               {

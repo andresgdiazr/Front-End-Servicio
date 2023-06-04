@@ -19,7 +19,7 @@ function CuentaCrear({ type }) {
 		const response = await createCuenta(type, data);
 		dispatch(setLoading(false));
 		if (response.status == 200) {
-			dispatch(setSnackbar(["Profesor creado satisfactoriamente", "success"]));
+			dispatch(setSnackbar(["Cuenta creada satisfactoriamente", "success"]));
 			navigate(-1, { replace: true });
 		} else {
 			if (
