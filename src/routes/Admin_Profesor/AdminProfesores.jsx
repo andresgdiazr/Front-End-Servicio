@@ -100,11 +100,11 @@ function PasswordEmailDialog({
 			aria-describedby="alert-dialog-description"
 		>
 			<DialogTitle id="alert-dialog-title">
-				Enviar correo para establezar contraseña?
+				¿Enviar correo para establecer contraseña?
 			</DialogTitle>
 			<DialogContent>
 				<DialogContentText id="alert-dialog-description">
-					Esta apunto de enviarle un correo al profesor para que establezca su
+					Está apunto de enviarle un correo al profesor para que establezca su
 					contraseña.
 				</DialogContentText>
 			</DialogContent>
@@ -121,10 +121,11 @@ function PasswordEmailDialog({
 						dispatch(setLoading(true));
 						try {
 							const response = await issueChangePasswordTokenEmail(
-								passwordEmailProfesorId
+								passwordEmailProfesorId,
+								"profesores"
 							);
 							if (response.status === 200) {
-								dispatch(setSnackbar(["Correo enviado con exito", "success"]));
+								dispatch(setSnackbar(["Correo enviado con éxito", "success"]));
 							}
 						} finally {
 							setPasswordEmailDialog(false);
@@ -196,7 +197,7 @@ const INFO_PROFESOR = [
 		accessor: "apellido",
 	},
 	{
-		Header: "Cedula",
+		Header: "Cédula",
 		accessor: "cedula",
 	},
 
