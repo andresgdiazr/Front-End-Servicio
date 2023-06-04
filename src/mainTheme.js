@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { purple, lightBlue } from '@mui/material/colors';
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: lightBlue[900]
@@ -79,6 +79,11 @@ const theme = createTheme({
         },
       },
     },
+  },
+});
+
+theme = createTheme(theme, {
+  components: {
     MyCustomForm: {
       styleOverrides: {
         root: {
@@ -87,14 +92,17 @@ const theme = createTheme({
           marginTop: "1rem",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          '& > h6': {
-            marginBottom: "1rem",
-          },
           '& Button': {
             marginTop: "1rem",
           },
           '& > div': {
             minWidth: "400px",
+            [theme.breakpoints.down("sm")]: {
+              minWidth: "340px",
+            },
+            [theme.breakpoints.down("xs")]: {
+              minWidth: "240px",
+            },
             marginBottom: "1rem",
           }
         },
