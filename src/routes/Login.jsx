@@ -17,8 +17,6 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setLoading(true));
@@ -82,23 +80,32 @@ function Login() {
         sx={{
           alignItems: "stretch",
           margin: "1.5rem 0",
-          width: "400px",
           color: "red",
           "& Button": {
             alignSelf: "stretch",
           },
         }}
       >
-        <Typography sx={{ marginBottom: "0.5rem",visibility: invalidCredentials ? 'initial': 'hidden'   }} color="tomato">
+        <Typography
+          data-cy="login-invalid-credentials-message"
+          sx={{
+            marginBottom: "0.5rem",
+            visibility: invalidCredentials ? "initial" : "hidden",
+          }}
+          color="tomato"
+        >
           Credenciales Invalidas
         </Typography>
         <TextField
+          data-cy="login-input-email"
+          id="email-input"
           value={email}
           label="Email"
           variant="outlined"
           onChange={onChangeEmail}
         />
         <TextField
+          data-cy="login-input-password"
           value={password}
           label="Contraseña"
           variant="outlined"
@@ -106,7 +113,7 @@ function Login() {
           type="password"
         />
 
-        <Button type="submit" variant="contained">
+        <Button data-cy="login-submit" type="submit" variant="contained">
           Ingresar
         </Button>
       </CustomForm>

@@ -4,21 +4,19 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import EvaluacionesTable from "components/tables/EvaluacionesTable";
 import TablaBusqueda from "components/tables/GenericSearchTable";
 import { deleteEvaluacion, useEvaluaciones } from "store/features/evaluaciones";
 import { Delete, Edit } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { setLoading } from "store/features/main";
 import { disableEvaluacion } from "api/disableEvaluacion";
-import { set } from "react-hook-form";
+import MateriasTitles from "components/MateriasTitles";
 
 function MateriaEvaluaciones() {
-  const { lapso, id } = useParams();
+  const { lapso, materiaId: id } = useParams();
 
   const evaluaciones = useEvaluaciones({ materiaId: id, lapso });
 
@@ -61,6 +59,7 @@ function MateriaEvaluaciones() {
 
   return (
     <>
+      <MateriasTitles newSubtitle="Lista de evaluaciones"/>
       <Dialog
         open={confirmDeleteDialog}
         onClose={() => setConfirmDeleteDialog(false)}

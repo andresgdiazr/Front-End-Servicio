@@ -39,7 +39,6 @@ function createAcciones(materiaData) {
 				>
 					<Visibility />
 				</Link>
-				<Book />
 			</>
 		);
 	};

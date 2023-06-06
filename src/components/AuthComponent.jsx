@@ -79,6 +79,7 @@ function AuthComponent() {
         }}
       >
         <Alert
+          data-cy="snackbar-alert"
           severity={snackbar.type}
           variant="filled"
           onClose={() => dispatch(setSnackbar(null))}

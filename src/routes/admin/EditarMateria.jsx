@@ -3,6 +3,7 @@ import {
 	FormControl,
 	InputLabel,
 	MenuItem,
+	OutlinedInput,
 	Select,
 	TextField,
 	Typography,
@@ -12,16 +13,17 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { editarMateria } from "api/editarMateria";
 import ErrorInput from "components/atoms/ErrorInput";
-import { setLoading } from "store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
 import { updateMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
 import CustomForm from "components/CustomForm";
+import GenericTitles from "components/GenericTitles";
 
 function EditarMateria() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { year: año, id } = useParams();
+	const { year: año, materiaId: id } = useParams();
 
 	const materias = useMaterias(añoToData(año).value);
 
@@ -54,6 +56,7 @@ function EditarMateria() {
 		if (response.status == 200) {
 			dispatch(updateMateria({ id, nombre, materia_padre_id: materiaPadre }));
 			dispatch(setLoading(false));
+			dispatch(setSnackbar(["Materia editada con exito", "success"]))
 			navigate(-1);
 		} else {
 			dispatch(setLoading(false));
@@ -62,22 +65,21 @@ function EditarMateria() {
 
 	return (
 		<>
-			<div>
-				<Typography variant="h2">Administracion de materias</Typography>
-				<Typography variant="subtitle1">
-					Modificando la informacion de materia
-				</Typography>
-			</div>
+		  <GenericTitles
+        title="Administracion de materias"
+        newSubtitle="Modificando la información de la materia"
+      />
 			
-			<CustomForm onSubmit={onUpload}>
+			<CustomForm sx={{display:'grid',gap:1}} onSubmit={onUpload}>
 				<ErrorInput
 					show={error}
 					message={"Se requiere el nombre de la materia"}
 				/>
-				<TextField
-					variant="filled"
-					label="nombre"
+				<Typography variant="body2">Nombre</Typography>
+				<OutlinedInput
+					
 					value={nombre}
+
 					onChange={(ev) => {
 						if (ev.target.value.trim() > 0) {
 							setError(false);
@@ -85,12 +87,13 @@ function EditarMateria() {
 						setNombre(ev.target.value);
 					}}
 				/>
-				<FormControl variant="filled">
-					<InputLabel id="materia-padre"> Materia Padre </InputLabel>
+				<FormControl >
+					<Typography variant="body2">Materia Padre</Typography>
 					<Select
-						labelId="materia-padre"
+						displayEmpty
+						data-cy="materia-padre-select"
 						value={materiaPadre === null ? "Ninguna" : materiaPadre}
-						label="Nombre"
+					
 						onChange={(ev) => setMateriaPadre(ev.target.value)}
 					>
 						<MenuItem value={"Ninguna"}>Ninguna</MenuItem>
@@ -103,7 +106,7 @@ function EditarMateria() {
 							))}
 					</Select>
 				</FormControl>
-				<Button variant="contained" type="submit">
+				<Button data-cy="submit-edit-materia" variant="contained" type="submit">
 					Guardar Cambios
 				</Button>
 			</CustomForm>

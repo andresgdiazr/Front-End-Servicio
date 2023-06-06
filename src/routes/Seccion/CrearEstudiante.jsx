@@ -1,22 +1,19 @@
-import { Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getSecciones } from "api/secciones";
-import { useEffect } from "react";
 import CustomForm from "components/CustomForm";
 
-import TextInput from "components/atoms/TextInput";
 import SelectInput from "components/atoms/SelectInput";
 
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "store/features/main";
+import { NewTextInput } from "components/atoms/NewTextInput";
+import SeccionesTitles from "components/SeccionesTitles";
+import { useSeccionData } from "store/features/navigationData";
 
 function CrearEstudiante() {
-	const { id: seccionId } = useParams();
-
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -33,28 +30,18 @@ function CrearEstudiante() {
 		},
 	});
 
-	const [secciones, setSecciones] = useState("");
-
-	useEffect(() => {
-		const fetchSecciones = async () => {
-			const SeccionesRes = await getSecciones();
-			setSecciones(SeccionesRes);
-		};
-
-		fetchSecciones();
-	}, []);
+	const seccion = useSeccionData();
 	const onSubmit = (data) => {
-		const año = secciones.filter((s) => s.id == seccionId)[0].año;
 
 		axios
 			.post(`/admin/estudiantes`, {
 				nombre: data.nombre,
 				apellido: data.apellido,
 				sexo: data.sexo,
-				año,
+				año: seccion.año,
 				egresado: false,
 				cedula: data.cedula,
-				seccion_id: parseInt(seccionId),
+				seccion_id: seccion.id,
 			})
 			.then((res) => {
 				dispatch(setSnackbar(["Estudiante creado correctamente", "success"]));
@@ -76,16 +63,12 @@ function CrearEstudiante() {
 
 	return (
 		<>
-			<div>
-				<Typography>Administración de secciones</Typography>
-				<Typography>Ingrese la información del nuevo estudiante</Typography>
-			</div>
+			<SeccionesTitles newSubtitle="Ingrese la información del nuevo estudiante"/>
 
-			<CustomForm onSubmit={handleSubmit(onSubmit)}>
-				<TextInput
+			<CustomForm onSubmit={handleSubmit(onSubmit)} sx={{display:'grid', gap:1}}>
+				<NewTextInput 
 					label="Nombres del estudiante"
 					placeholder="Pedro"
-					id="student-name"
 					reactHookProps={register("nombre", {
 						validate: (value) =>
 							!value.trim() ? "este campo es requerido" : true,
@@ -93,10 +76,9 @@ function CrearEstudiante() {
 					error={errors?.nombre?.message}
 				/>
 
-				<TextInput
+				<NewTextInput
 					label="Apellidos del estudiante"
 					placeholder="Perez"
-					id="student-apellido"
 					reactHookProps={register("apellido", {
 						validate: (value) =>
 							!value.trim() ? "este campo es requerido" : true,
@@ -104,7 +86,7 @@ function CrearEstudiante() {
 					error={errors?.apellido?.message}
 				/>
 
-				<TextInput
+				<NewTextInput
 					label="Cedula del estudiante"
 					placeholder="1234567"
 					id="student-cedula"
@@ -144,7 +126,7 @@ function CrearEstudiante() {
 					)}
 				/>
 
-				<Button size="large" variant="contained" color="success" type="submit">
+				<Button size="large" variant="contained" type="submit">
 					Añadir estudiante
 				</Button>
 			</CustomForm>

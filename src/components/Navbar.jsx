@@ -8,12 +8,16 @@ import {
 	styled,
 } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
-
 import { useNavigate } from "react-router-dom";
 
 const MenuButton = styled(Typography)(({ theme }) => ({
 	padding: theme.spacing(2),
+	[theme.breakpoints.down("md")]: {
+		padding: theme.spacing(1.5),
+	},
+	[theme.breakpoints.down("md")]: {
+		padding: theme.spacing(1),
+	},
 	fontSize: "1.2rem",
 	fontWeight: "bold",
 	cursor: "pointer",
@@ -22,7 +26,6 @@ const MenuButton = styled(Typography)(({ theme }) => ({
 	},
 }));
 
-// TODO debe haber una manera de que esto sea dinámico, o si no se debe eliminar
 const defaultNames = [["Inicio", "/"]];
 
 const Navbar = ({ names = defaultNames }) => {
@@ -39,17 +42,22 @@ const Navbar = ({ names = defaultNames }) => {
 
 	return (
 		<>
-			<AppBar position="static" color="primary">
+			<AppBar
+				position="fixed" 
+				color="primary"
+				sx={{
+					overflowY:"hidden",
+					overflowX:"scroll",
+				}}>
+				
 				<Toolbar
 					display="flex"
 					sx={{
 						justifyContent: { xs: "flex-start", xl: "center" },
+						flexDirection: { xl: "row" },
 					}}
 				>
 					<Box sx={{ flexGrow: { xs: "1", xl: "initial" } }}>
-						<IconButton color="inherit" aria-label="menu">
-							<MenuIcon />
-						</IconButton>
 						{names.map((name, idx) => {
 							return (
 								<MenuButton
@@ -71,6 +79,7 @@ const Navbar = ({ names = defaultNames }) => {
 					</Box>
 				</Toolbar>
 			</AppBar>
+			<Toolbar/>
 		</>
 	);
 };

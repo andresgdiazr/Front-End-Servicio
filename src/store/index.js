@@ -15,5 +15,7 @@ export default configureStore({
     secciones: secciones,
     profesorClases: profesorClases,
     navigationData: navigationData,
-  }
+  },
+  //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  devTools: process.env.NODE_ENV !== 'production',
 })

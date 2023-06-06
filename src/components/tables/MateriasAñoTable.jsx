@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { Description } from "@mui/icons-material";
 import Delete from "@mui/icons-material/Delete";
 import Edit from "@mui/icons-material/Edit";
-import { Typography } from "@mui/material";
+import { Link as MuiLink, Typography } from "@mui/material";
 
 import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import { useTable, useSortBy } from "react-table";
 import { disableMateria } from "api/disableMateria";
 import { deleteMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
-
+import { setMateriaData } from "store/features/navigationData";
 function MateriasAñoTable() {
   const { year: año } = useParams();
 
@@ -19,6 +19,7 @@ function MateriasAñoTable() {
   const dispatch = useDispatch();
 
   const onClickDelete = (id) => {
+    
     disableMateria(id).then((response) => {
       if (response.status == 200) {
         dispatch(deleteMateria({ id }));
@@ -62,11 +63,13 @@ function MateriasAñoTable() {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
+  const navigate = useNavigate();
+
   function renderCell(cell) {
     if (cell.column.id === "acciones") {
       return (
         <div
-          css={css` // TODO modificar css por MUI?
+          css={css`
             svg {
               margin: 0 0.5rem;
               cursor: pointer;
@@ -75,15 +78,19 @@ function MateriasAñoTable() {
         >
           <Delete onClick={() => onClickDelete(cell.row.original.id)} />
           <Link
-            to={`/dashboard-control/admin/materias/${año}/${cell.row.original.id}/editar`}
+            data-cy="link-edit-materia"
+            to={`${cell.row.original.id}/editar`}
           >
             <Edit />
           </Link>
-          <Link
-            to={`/dashboard-control/admin/materias/${año}/${cell.row.original.id}/lapsos`}
+          <MuiLink
+            onClick={() => {
+              dispatch(setMateriaData(cell.row.original));
+              navigate(`${cell.row.original.id}/lapsos`);
+            }}
           >
             <Description />
-          </Link>
+          </MuiLink>
         </div>
       );
     } else if (cell.column.id == "materia_padre_id") {
@@ -120,7 +127,7 @@ function MateriasAñoTable() {
         {rows.map((row) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr {...row.getRowProps()} data-row-id={row.original.id} >
               {row.cells.map((cell) => {
                 return (
                   <td css={css``} {...cell.getCellProps()}>

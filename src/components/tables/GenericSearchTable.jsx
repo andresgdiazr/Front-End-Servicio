@@ -51,14 +51,11 @@ function TablaBusqueda({
 				<td {...cell.getCellProps()}>
 					<div
 						css={css`
-              width=100%;
-              display:flex;
-              justify-content:space-evenly;
-              align-items:center;
-              svg {
-                cursor:pointer;
-              }
-            `}
+							svg {
+								margin: 0 0.5rem;
+								cursor: pointer;
+							}
+						`}
 					>
 						<Acciones cell={cell} />
 					</div>
@@ -85,7 +82,7 @@ function TablaBusqueda({
 					{rows.map((row) => {
 						prepareRow(row);
 						return (
-							<tr {...row.getRowProps()}>
+							<tr {...row.getRowProps()} data-row-id={row.original?.id}>
 								{row.cells.map((cell) => renderCell(cell))}
 							</tr>
 						);

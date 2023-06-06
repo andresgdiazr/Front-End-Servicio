@@ -1,36 +1,28 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MateriasAñoTable from "components/tables/MateriasAñoTable";
-import añoToData from "utils/añoToData";
+import MateriasTitles from "components/MateriasTitles";
 
 function MateriasPorAño() {
-	const { year: año } = useParams();
 
-	return (
-		<>
-			<div>
-				<Typography variant="h2">Administración de materias</Typography>
-				<Typography variant="subtitle1">Materias por año</Typography>
-			</div>
 
-			<Button
-				variant="contained"
-				component={Link}
-				to={`/dashboard-control/admin/materias/${año}/crear`}
-			>
-				Crear Nueva Materia
-			</Button>
+  return (
+    <>
+      <MateriasTitles newSubtitle="Lista de materias"/>
 
-			<Container>
-				<Typography variant="subtitle2">
-					Lista de materias de {añoToData(año).display}
-				</Typography>
+      <Button
+        variant="contained"
+        component={Link}
+        data-cy="link-create-materia"
+        to={`crear`}
+      >
+        Crear Nueva Materia
+      </Button>
 
-				<MateriasAñoTable />
-			</Container>
-		</>
-	);
+      <MateriasAñoTable />
+    </>
+  );
 }
 
 export default MateriasPorAño;

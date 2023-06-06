@@ -3,6 +3,7 @@ import {
 	FormControl,
 	InputLabel,
 	MenuItem,
+	OutlinedInput,
 	Select,
 	TextField,
 	Typography,
@@ -12,62 +13,64 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createMateria } from "api/createMateria";
 import ErrorInput from "components/atoms/ErrorInput";
-import { setLoading } from "store/features/main";
+import { setLoading, setSnackbar } from "store/features/main";
 import { addMateria, useMaterias } from "store/features/materias";
 import añoToData from "utils/añoToData";
 import CustomForm from "components/CustomForm";
+import GenericTitles from "components/GenericTitles";
 
 function CrearMateria() {
-	const { year: año } = useParams();
+  const { year: año } = useParams();
 
-	const materias = useMaterias(añoToData(año).value);
-	const navigate = useNavigate();
+  const materias = useMaterias(añoToData(año).value);
+  const navigate = useNavigate();
 
-	const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
-	const [materiaPadre, setMateriaPadre] = useState(null);
-	const [nombre, setNombre] = useState("");
+  const [materiaPadre, setMateriaPadre] = useState(null);
+  const [nombre, setNombre] = useState("");
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const onSubmit = async (ev) => {
-		ev.preventDefault();
+  const onSubmit = async (ev) => {
+    ev.preventDefault();
 
-		if (nombre.trim().length < 1) {
-			setError(true);
-			return;
-		}
-		dispatch(setLoading(true));
-		const res = await createMateria({
-			nombre,
-			materiaPadreId: materiaPadre,
-			año: añoToData(año).value,
-		});
+    if (nombre.trim().length < 1) {
+      setError(true);
+      return;
+    }
+    dispatch(setLoading(true));
+    const res = await createMateria({
+      nombre,
+      materiaPadreId: materiaPadre,
+      año: añoToData(año).value,
+    });
 
-		if (res.status == 200) {
-			dispatch(addMateria({ newMateria: res.data }));
-			navigate(-1);
-		} else {
-			// TODO handle this failure (or check that it is impossible to fail)
-		}
-		dispatch(setLoading(false));
-	};
+    if (res.status == 200) {
+      dispatch(addMateria({ newMateria: res.data }));
+      dispatch(setSnackbar(["Materia creada con exito", "success"]));
+      navigate(-1);
+    } else {
+      // TODO handle this failure (or check that it is impossible to fail)
+    }
+    dispatch(setLoading(false));
+  };
 
-	return (
-		<>
-			<div>
-				<Typography variant="h2">Administracion de materias</Typography>
-				<Typography variant="subtitle1">Creación de materias</Typography>
-			</div>
+  return (
+    <>
+      <GenericTitles
+        title="Administracion de materias"
+        newSubtitle="Creación de materias"
+      ></GenericTitles>
 
-			<CustomForm onSubmit={onSubmit}>
+			<CustomForm sx={{display:'grid',gap:1}} onSubmit={onSubmit}>
 				<ErrorInput
 					show={error}
 					message={"Se requiere el nombre de la materia"}
 				/>
-				<TextField
-					variant="filled"
-					label="nombre"
+				<Typography variant="body2">Nombre</Typography>
+				<OutlinedInput
+					
 					value={nombre}
 					onChange={(ev) => {
 						if (ev.target.value.trim().length > 0) {
@@ -76,12 +79,11 @@ function CrearMateria() {
 						setNombre(ev.target.value);
 					}}
 				/>
-				<FormControl variant="filled">
-					<InputLabel id="materia-padre"> Materia Padre </InputLabel>
+				<FormControl>
+					<Typography variant="body2">Materia Padre</Typography>
 					<Select
-						labelId="materia-padre"
 						value={materiaPadre === null ? "Ninguna" : materiaPadre}
-						label="Nombre"
+						displayEmpty
 						onChange={(ev) => {
 							setMateriaPadre(ev.target.value);
 						}}
@@ -94,7 +96,8 @@ function CrearMateria() {
 						))}
 					</Select>
 				</FormControl>
-				<Button variant="contained" type="submit">
+
+				<Button  data-cy="create-materia" variant="contained" type="submit">
 					Guardar Cambios
 				</Button>
 			</CustomForm>

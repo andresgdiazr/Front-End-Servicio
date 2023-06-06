@@ -10,8 +10,8 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  useTheme
 } from "@mui/material";
-import theme from "mainTheme";
 
 import {
   ExpandMore as ExpandMore,
@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "store/features/main";
+import GenericTitles from "components/GenericTitles";
 
 const SeccionItem = ({ clase, materia }) => {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const SeccionItem = ({ clase, materia }) => {
 const MateriaItem = ({ materia }) => {
   const [expanded, setExpanded] = useState(false);
   const { año, nombre, clases } = materia;
+  const theme = useTheme();
 
   return (
     <>
@@ -107,8 +109,9 @@ function ProfesorDashboard() {
 
   return (
     <>
-      <Typography variant="h2">Bienvenido {name}</Typography>
-      <Typography variant="subtitle1">Sus materias:</Typography>
+      <GenericTitles
+        title={`Bienvenido ${name}`}
+        newSubtitle="Sus materias:"/>
 
       {materias.length > 0 ? (
         <List component="ol">

@@ -11,6 +11,9 @@ export default defineConfig({
       plugins: ["@emotion/babel-plugin"],
     },
   })],
+  server: {
+    port: 5170,
+  },
   resolve:{
     alias:{
       "api": `${path.resolve(__dirname, './src/api')}`,

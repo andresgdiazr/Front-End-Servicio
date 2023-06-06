@@ -50,10 +50,13 @@ import ModificarEstudiante from "./routes/Seccion/ModificarEstudiante";
 
 import CrearClase from "./routes/admin/CrearClase";
 import EditarClase from "./routes/admin/EditarClase";
+import { Años } from "./routes/admin/Años";
+import { AñosModificar } from "./routes/admin/AñosModificar";
+import SystemFailure from "./routes/SystemFailure";
+import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
 import LapsosDeEvaluacionesPorClaseSeccion from "./routes/admin/LapsosDeEvaluacionesPorClaseSeccion";
 import EvaluacionesPorClaseSeccion from "./routes/admin/EvaluacionesPorClaseSeccion";
-import NotasDeSeccion from "./routes/admin/NotasDeSeccion";
-import SystemFailure from "./routes/SystemFailure";
+import AdminAdministradores from "./routes/admin/AdminAdministradores";
 
 axios.defaults.baseURL =
   import.meta.env["VITE_API_URL"] || "https://josesisprueba.life";
@@ -63,7 +66,6 @@ axios.defaults.baseURL =
 axios.interceptors.request.use(
   function (config) {
     const token = sessionStorage.getItem("token");
-
 
     if (
       token &&
@@ -83,14 +85,14 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error?.response?.status === 401) {
+    if (error?.response?.status === 401 && !location.href.includes("/login")) {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("user-type");
       sessionStorage.removeItem("name");
       window.location.href = "/login";
     } else if (
-      error?.response?.status === 500 ||
-      error?.code === "ERR_NETWORK"
+      (error?.response?.status === 500 || error?.code === "ERR_NETWORK") &&
+      import.meta.env.PROD
     ) {
       window.location.href = "/fallo-de-servicio";
     }
@@ -148,10 +150,21 @@ const router = createBrowserRouter([
             path: "admin",
             element: <NoRootLayout />,
             children: [
+              // Administradores
+              { path: "administradores", element: <AdminAdministradores /> },
+              {
+                path: "administradores/crear",
+                element: <CuentaCrear type="administradores" />,
+              },
+              {
+                path: "administradores/:id/modificar",
+                element: <CuentaModificar type="administradores" />,
+              },
+
               // Profesores
               { path: "profesores", element: <AdminProfesores /> },
               {
-                path: "profesores/:profesorId/modificar",
+                path: "profesores/:id/modificar",
                 element: <CuentaModificar type="profesores" />,
               },
               {
@@ -183,69 +196,68 @@ const router = createBrowserRouter([
                 path: "profesores/:profesorId/clases/:id/lapsos/:lapso/evaluaciones/:evaluacionId/notas",
                 element: <Notas />,
               },
-              // TODO falta ruta de notas de clase
               // Secciones
               { path: "secciones", element: <SeccionDashboard /> },
               { path: "secciones/crear", element: <SeccionCrear /> },
-              { path: "secciones/:id", element: <SeccionDetalles /> },
+              { path: "secciones/:seccionId", element: <SeccionDetalles /> },
               {
                 path: "secciones/:seccionId/notas",
                 element: <NotasDeSeccion />,
               },
 
               {
-                path: "secciones/:id/modificar",
+                path: "secciones/:seccionId/modificar",
                 element: <SeccionModificar />,
               },
               // Estudiante de seccion
               {
-                path: "secciones/:id/estudiantes",
+                path: "secciones/:seccionId/estudiantes",
                 element: <SeccionEstudiantes />,
               },
               {
-                path: "secciones/:id/estudiantes/:id/modificar",
+                path: "secciones/:seccionId/estudiantes/:id/modificar",
                 element: <ModificarEstudiante />,
               },
               {
-                path: "secciones/:id/añadir_estudiantes",
+                path: "secciones/:seccionId/añadir_estudiantes",
                 element: <CrearEstudiante />,
               },
               // Materias de seccion
               {
-                path: "secciones/:id/materias",
+                path: "secciones/:seccionId/materias",
                 element: <SeccionMaterias />,
               },
               {
-                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones",
+                path: "secciones/:seccionId/materias/:materiaId/lapsos-evaluaciones",
                 element: <LapsosDeEvaluacionesPorClaseSeccion />,
               },
               {
-                path: "secciones/:id/materias/:materiaId/lapsos-evaluaciones/:lapsoNumber/evaluaciones",
+                path: "secciones/:seccionId/materias/:materiaId/lapsos-evaluaciones/:lapso/evaluaciones",
                 element: <EvaluacionesPorClaseSeccion />,
               },
 
               { path: "materias", element: <Materias /> },
               { path: "materias/:year", element: <MateriasPorAño /> },
               {
-                path: "materias/:year/:id/editar",
+                path: "materias/:year/:materiaId/editar",
                 element: <EditarMaterias />,
               },
               { path: "materias/:year/crear", element: <CrearMateria /> },
 
               {
-                path: "materias/:year/:id/lapsos",
+                path: "materias/:year/:materiaId/lapsos",
                 element: <LapsosMateria />,
               },
               {
-                path: "materias/:year/:id/lapsos/:lapso/evaluaciones",
+                path: "materias/:year/:materiaId/lapsos/:lapso/evaluaciones",
                 element: <MateriaEvaluaciones />,
               },
               {
-                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/crear",
+                path: "materias/:year/:materiaId/lapsos/:lapso/evaluaciones/crear",
                 element: <CrearEvaluacion />,
               },
               {
-                path: "materias/:year/:id/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
+                path: "materias/:year/:materiaId/lapsos/:lapso/evaluaciones/:evaluacionId/editar",
                 element: <EditarEvaluacion />,
               },
             ],
